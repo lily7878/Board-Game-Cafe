@@ -15,6 +15,7 @@ build/
 application-local.properties
 application-local.yml
 application-local.yaml
+application.properties
 
 # IDE
 .vscode/
