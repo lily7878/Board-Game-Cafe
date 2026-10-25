@@ -69,4 +69,20 @@ public class CafeTableControllerTest {
                 .andExpect(jsonPath("$.tableNumber").value(1))
                 .andExpect(jsonPath("$.capacity").value(4));
     }
+
+    @Test
+    @WithMockUser 
+    public void createTable_ShouldReturn400_WhenCapacityIsNegative() throws Exception {
+        String json = """
+                    {
+                    "tableNumber": 1,
+                    "capacity": -4
+                    }
+                    """;
+        mockMvc.perform(post("/api/admin/tables")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isBadRequest());
+    }
 }

@@ -28,7 +28,7 @@ public class CafeTable {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected CafeTable() {
+    public CafeTable() {
         // Default constructor for JPA
     }
 
