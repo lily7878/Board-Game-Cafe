@@ -13,9 +13,12 @@ public record GameResponse(
                 Integer minPlayers,
                 Integer maxPlayers,
                 Integer durationMinutes,
+                Integer maxDurationMinutes,
                 Integer minimumAge,
                 GameDifficulty difficulty,
                 Boolean active,
                 Instant createdAt,
-                Set<Long> categoryIds) {
+                Set<Long> categoryIds,
+                long totalCopies,
+                long availableCopies) {
 }

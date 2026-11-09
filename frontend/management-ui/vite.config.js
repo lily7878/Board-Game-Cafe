@@ -12,6 +12,11 @@ export default defineConfig({
         target: 'http://localhost:8082',
         changeOrigin: true,
       },
+      // STOMP over WebSocket for live updates (signals only; data is refetched through REST)
+      '/ws': {
+        target: 'ws://localhost:8082',
+        ws: true,
+      },
       '/actuator': {
         target: 'http://localhost:8082',
         changeOrigin: true,

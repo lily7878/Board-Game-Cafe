@@ -11,6 +11,7 @@ public record GameCatalogResponse(
         Integer minPlayers,
         Integer maxPlayers,
         Integer durationMinutes,
+        Integer maxDurationMinutes,
         Integer minimumAge,
         GameDifficulty difficulty,
         Set<Long> categoryIds,

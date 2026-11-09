@@ -37,7 +37,10 @@ public final class GameCatalogSpecifications {
                 filters.add(builder.greaterThanOrEqualTo(game.get("maxPlayers"), criteria.players()));
             }
             if (criteria.maxDurationMinutes() != null) {
-                filters.add(builder.lessThanOrEqualTo(game.get("durationMinutes"), criteria.maxDurationMinutes()));
+                // A game fits the time limit when even its longest typical duration does.
+                filters.add(builder.lessThanOrEqualTo(
+                        builder.coalesce(game.<Integer>get("maxDurationMinutes"), game.<Integer>get("durationMinutes")),
+                        criteria.maxDurationMinutes()));
             }
             if (criteria.age() != null) {
                 filters.add(builder.lessThanOrEqualTo(game.get("minimumAge"), criteria.age()));

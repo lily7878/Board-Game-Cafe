@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import ro.boardgamecafe.core.domain.staff.StaffUser;
 @Service
 @Transactional(readOnly = true)
 public class GameRequestService {
+    private final LiveEvents events;
     private final GameRequestRepository requestRepository;
     private final GameRepository gameRepository;
     private final GameCopyRepository copyRepository;
@@ -36,7 +39,8 @@ public class GameRequestService {
     public GameRequestService(GameRequestRepository requestRepository, GameRepository gameRepository,
             GameCopyRepository copyRepository, TableSessionRepository sessionRepository,
             SessionAccessService accessService, StaffUserRepository staffRepository,
-            CafeSettingsService settingsService, SessionLocker sessionLocker) {
+            CafeSettingsService settingsService, SessionLocker sessionLocker, LiveEvents events) {
+        this.events = events;
         this.sessionLocker = sessionLocker;
         this.requestRepository = requestRepository;
         this.gameRepository = gameRepository;
@@ -55,7 +59,7 @@ public class GameRequestService {
             throw new GameRequestConflictException("New game requests require an active session.");
         Game game = gameRepository.findByIdAndActiveTrue(gameId)
                 .orElseThrow(() -> new EntityNotFoundException("Active game not found with id: " + gameId));
-        return response(requestRepository.save(new GameRequest(participant, game)));
+        return publish("game.requested", requestRepository.save(new GameRequest(participant, game)), false);
     }
 
     @Transactional
@@ -70,7 +74,7 @@ public class GameRequestService {
         request.reserve(copy);
         request.recordProcessor(staff(staffEmail));
         requestRepository.flush();
-        return response(request);
+        return publish("game.reserved", request, true);
     }
 
     @Transactional
@@ -90,7 +94,7 @@ public class GameRequestService {
             throw new GameRequestConflictException("The reserved copy is no longer usable.");
         request.deliver();
         request.recordProcessor(staff(staffEmail));
-        return response(request);
+        return publish("game.delivered", request, false);
     }
 
     @Transactional
@@ -103,19 +107,19 @@ public class GameRequestService {
         copy.changeConditionStatus(condition);
         request.returnCopy();
         request.recordProcessor(staff(staffEmail));
-        return response(request);
+        return publish("game.returned", request, true);
     }
 
     @Transactional
     public GameRequestResponse reject(Long id, String reason, String staffEmail) {
         GameRequest request = lockRequest(id); request.reject(reason);
-        request.recordProcessor(staff(staffEmail)); return response(request);
+        request.recordProcessor(staff(staffEmail)); return publish("game.rejected", request, false);
     }
 
     @Transactional
     public GameRequestResponse cancelByStaff(Long id, String reason, String staffEmail) {
         GameRequest request = lockRequest(id); request.cancel(reason);
-        request.recordProcessor(staff(staffEmail)); return response(request);
+        request.recordProcessor(staff(staffEmail)); return publish("game.cancelled", request, true);
     }
 
     @Transactional
@@ -125,7 +129,7 @@ public class GameRequestService {
         if (!request.getParticipant().getId().equals(participant.getId()))
             throw new EntityNotFoundException("Game request not found with id: " + id);
         request.cancel(null);
-        return response(request);
+        return publish("game.cancelled", request, true);
     }
 
     public List<GameRequestResponse> forSession(Long sessionId) {
@@ -139,7 +143,24 @@ public class GameRequestService {
                 .stream().map(GameRequestService::response).toList();
     }
 
+    /** Notifies the table and staff; availabilityChanged also tells every client to refresh the catalog. */
+    private GameRequestResponse publish(String type, GameRequest request, boolean availabilityChanged) {
+        events.session(type, request.getSession(), request.getId(), request.getStatus());
+        if (availabilityChanged) events.catalog("games.availability-changed", request.getGame().getId());
+        return response(request);
+    }
+
     public GameRequestResponse findById(Long id) { return response(findRequest(id)); }
+
+    /** Staff board (2i): by default everything still open; finished ones can be listed per business day. */
+    public List<GameRequestResponse> board(java.util.Set<GameRequestStatus> statuses, Long businessDayId) {
+        java.util.Set<GameRequestStatus> filter = statuses == null || statuses.isEmpty()
+                ? java.util.EnumSet.of(GameRequestStatus.REQUESTED, GameRequestStatus.RESERVED,
+                        GameRequestStatus.DELIVERED)
+                : statuses;
+        return requestRepository.findForBoard(filter, businessDayId).stream()
+                .map(GameRequestService::response).toList();
+    }
 
     private GameRequest findRequest(Long id) {
         return requestRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Game request not found with id: " + id));
@@ -161,6 +182,8 @@ public class GameRequestService {
                 request.getGame().getId(), copy == null ? null : copy.getId(), request.getStatus(),
                 request.getRequestedAt(), request.getReservedAt(), request.getDeliveredAt(),
                 request.getReturnedAt(), request.getCancelledAt(), request.getResolutionReason(),
-                request.getProcessedBy() == null ? null : request.getProcessedBy().getId());
+                request.getProcessedBy() == null ? null : request.getProcessedBy().getId(),
+                request.getGame().getTitle(), request.getSession().getTable().getTableNumber(),
+                request.getParticipant().getDisplayName(), copy == null ? null : copy.getInventoryCode());
     }
 }

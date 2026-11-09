@@ -41,6 +41,11 @@ public class MenuController {
         return service.updateCategory(id, request);
     }
 
+    @PutMapping("/api/admin/menu-categories/order")
+    public List<MenuResponses.Category> reorderCategories(@Valid @RequestBody MenuCategoryRequests.Reorder request) {
+        return service.reorderCategories(request.categoryIds());
+    }
+
     @PatchMapping("/api/admin/menu-categories/{id}/status")
     public MenuResponses.Category categoryStatus(@PathVariable Long id,
             @Valid @RequestBody MenuCategoryRequests.ChangeActive request) {

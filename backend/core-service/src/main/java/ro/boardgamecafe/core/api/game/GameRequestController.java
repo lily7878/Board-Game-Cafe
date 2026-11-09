@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.api.game;
 
+import ro.boardgamecafe.core.domain.game.GameRequestStatus;
+
 import java.util.List;
 import java.security.Principal;
 import jakarta.validation.Valid;
@@ -29,6 +31,12 @@ public class GameRequestController {
     @PostMapping("/api/participant/game-requests/{id}/cancel")
     public GameRequestResponse cancelMine(@RequestHeader(value = "X-Participant-Token", required = false) String token, @PathVariable Long id) {
         return service.cancelByParticipant(token, id);
+    }
+
+    @GetMapping("/api/admin/game-requests")
+    public List<GameRequestResponse> board(@RequestParam(required = false) java.util.Set<GameRequestStatus> status,
+            @RequestParam(required = false) Long businessDayId) {
+        return service.board(status, businessDayId);
     }
 
     @GetMapping("/api/admin/sessions/{sessionId}/game-requests")

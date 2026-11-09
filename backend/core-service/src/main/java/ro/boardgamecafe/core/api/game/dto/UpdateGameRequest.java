@@ -12,6 +12,7 @@ public record UpdateGameRequest(
                 @Min(1) Integer minPlayers,
                 @Min(1) Integer maxPlayers,
                 @Positive Integer durationMinutes,
+                @Positive Integer maxDurationMinutes,
                 @Min(0) Integer minimumAge,
                 GameDifficulty difficulty,
                 Set<Long> categoryIds) {

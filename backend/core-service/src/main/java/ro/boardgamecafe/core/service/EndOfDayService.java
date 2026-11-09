@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import ro.boardgamecafe.core.repository.TableSessionRepository;
  */
 @Service
 public class EndOfDayService {
+    private final LiveEvents events;
     /** Outcome of a finalize call; created is false when the day had already been finalized. */
     public record Result(ReportResponses.DailyReport report, boolean created) {}
 
@@ -39,7 +42,8 @@ public class EndOfDayService {
     public EndOfDayService(BusinessDayService businessDayService, BusinessDayRepository dayRepository,
             DailyReportRepository reportRepository, TableSessionRepository sessionRepository,
             MenuItemRepository menuItemRepository, GameRepository gameRepository, StaffUserRepository staffRepository,
-            DayFiguresCalculator calculator) {
+            DayFiguresCalculator calculator, LiveEvents events) {
+        this.events = events;
         this.businessDayService = businessDayService;
         this.dayRepository = dayRepository;
         this.reportRepository = reportRepository;
@@ -72,7 +76,9 @@ public class EndOfDayService {
         dayRepository.flush();
         DailyReport report = reportRepository.save(new DailyReport(day, figures,
                 menuItemRepository::getReferenceById, gameRepository::getReferenceById));
-        dayRepository.save(day.next());
+        BusinessDay next = dayRepository.save(day.next());
+        events.staff("business-day.finalized", day.getId(), day.getStatus());
+        events.staff("business-day.opened", next.getId(), next.getStatus());
         dayRepository.flush();
         return new Result(ReportService.response(report), true);
     }

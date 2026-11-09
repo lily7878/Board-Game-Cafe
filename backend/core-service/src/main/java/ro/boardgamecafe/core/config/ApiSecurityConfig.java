@@ -25,8 +25,11 @@ public class ApiSecurityConfig {
                 .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                 .requestMatchers(HttpMethod.GET, "/actuator/health", "/api/participant/games/**",
                         "/api/participant/game-categories").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/setup/manager",
-                        "/api/participant/sessions/join", "/api/admin/auth/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/setup/manager", "/api/participant/sessions/join",
+                        "/api/participant/sessions/join-info", "/api/admin/auth/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/participant/cafe-info").permitAll()
+                // WebSocket handshake; identity is checked on the STOMP CONNECT frame (StompAuthInterceptor).
+                .requestMatchers("/ws", "/ws/**").permitAll()
                 .requestMatchers("/api/participant/sessions/current",
                         "/api/participant/sessions/current/**",
                         "/api/participant/game-requests", "/api/participant/game-requests/**",

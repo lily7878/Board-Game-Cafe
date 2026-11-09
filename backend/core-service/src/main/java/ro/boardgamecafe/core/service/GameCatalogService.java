@@ -119,7 +119,8 @@ public class GameCatalogService {
 
     private static GameCatalogResponse toResponse(Game game, Set<Long> categoryIds, long availableCopies) {
         return new GameCatalogResponse(game.getId(), game.getTitle(), game.getDescription(), game.getShortRules(),
-                game.getMinPlayers(), game.getMaxPlayers(), game.getDurationMinutes(), game.getMinimumAge(),
+                game.getMinPlayers(), game.getMaxPlayers(), game.getDurationMinutes(), game.getMaxDurationMinutes(),
+                game.getMinimumAge(),
                 game.getDifficulty(), Set.copyOf(categoryIds), availableCopies, availableCopies > 0);
     }
 

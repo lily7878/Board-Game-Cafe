@@ -99,6 +99,38 @@ Toate endpointurile de mai jos sunt numai pentru MANAGER; `GET /api/admin/busine
 
 Indicatori: venitul total = suma plăților `SUCCEEDED` (egal cu venit meniu + venit tarife); venit meniu = pozițiile `ACCEPTED` din comenzile `DELIVERED`; venit tarife = persoane × tariful copiat în sesiune; jocuri livrate = cererile care au ajuns cel puțin în `DELIVERED`. Cifrele se obțin prin interogări agregate (`DayStatisticsRepository`, `DailyReportRepository`).
 
+## Aliniere cu handoff-ul de design FE (V9)
+
+Machetele din `design_handoff_board_game_cafe` sunt finale pentru v1, așa că backend-ul le urmează:
+
+- **PIN cu 4 cifre** pentru sesiunile noi (`join` acceptă și 6 cifre pentru sesiunile deschise înainte). PIN-ul e doar al doilea factor: intrarea cere și tokenul QR aleator de 256 de biți, iar 5 PIN-uri greșite blochează intrarea la masă 15 minute.
+- **Meniu:** fiecare produs are `icon` (nume Lucide, implicit `coffee`) și maximum 5 `tags` scurte (de exemplu „Conține lactoză”); prețul trebuie să fie > 0. Categoriile au `sortOrder`, schimbat cu `PUT /api/admin/menu-categories/order` (`{"categoryIds":[...]}`, toate categoriile exact o dată); meniul clientului respectă această ordine. Răspunsurile de categorii conțin `productCount`.
+- **Jocuri:** durata poate fi un interval: `durationMinutes` (minim) și `maxDurationMinutes` (opțional). Filtrul `maxDurationMinutes` din catalog folosește durata maximă a jocului. Lista de administrare are `totalCopies` și `availableCopies`, iar categoriile au `gameCount`.
+- **Mese:** o masă cu sesiune deschisă nu poate fi dezactivată (409).
+- **Comenzi:** `GET /api/admin/orders` acceptă și `businessDayId` (istoricul pe zi, ecranul 7d).
+- **Cereri de joc:** `GET /api/admin/game-requests` (implicit `REQUESTED`, `RESERVED`, `DELIVERED`; filtre `status` și `businessDayId`) pentru tabla staff; răspunsurile au `gameTitle`, `tableNumber`, `participantName`, `copyInventoryCode`.
+- **Exemplare:** `GET /api/admin/game-copies?q=&condition=` (MANAGER) listează inventarul tuturor jocurilor; fiecare exemplar are locul curent: `activeRequestStatus` (`RESERVED`/`DELIVERED`) și `tableNumber`.
+
+Endpointuri noi pentru ecranele live (fără tokenuri QR sau PIN în răspunsuri):
+
+| Endpoint | Acces | Ecran |
+| --- | --- | --- |
+| `GET /api/admin/tables/overview` | STAFF, MANAGER | grila de mese: sesiune, conectați, comenzi în lucru, jocuri la masă, cereri în așteptare |
+| `GET /api/admin/sessions/{id}` | STAFF, MANAGER | drawer-ul mesei: zi, tarif fixat, persoane, limită jocuri, participanți |
+| `GET /api/participant/sessions/current` | participant | dashboard client: masa, colegii, comenzi active, jocuri la masă, limită |
+| `POST /api/participant/sessions/join-info` | public | ecranul de intrare: numărul mesei pentru un token QR activ (404 altfel) |
+| `GET /api/participant/cafe-info` | public | numele cafenelei și programul informativ |
+
+## Actualizări live (WebSocket)
+
+Endpoint STOMP: `/ws` (WebSocket simplu, fără SockJS; ambele aplicații Vite îl trimit prin proxy către `:8082`). Originile permise se configurează cu `app.websocket.allowed-origins` (implicit `http://localhost:5173,http://localhost:5174`).
+
+- La `CONNECT`, staff-ul trimite antetul `Authorization: Bearer <JWT>`, iar participantul `X-Participant-Token: <token>`; fără ele conexiunea este refuzată.
+- Abonări: `/topic/staff` (doar staff), `/topic/sessions/{id}` (staff sau participanții acelei sesiuni), `/topic/catalog` (orice utilizator autentificat). Clienții nu trimit mesaje prin WebSocket; modificările se fac prin REST.
+- Mesajele (`type`, `sessionId`, `tableId`, `entityId`, `status`, `at`) sunt trimise **numai după commit** și sunt doar semnale: UI-ul reîncarcă datele prin REST, inclusiv după reconectare. Nu conțin tokenuri, PIN-uri sau sume.
+- Tipuri: `session.opened`, `session.participant-joined/left`, `session.fee-updated`, `session.checkout-pending`, `session.reopened`, `session.closed`, `payment.failed`, `order.placed/updated/cancelled/processed/status-changed`, `game.requested/reserved/delivered/returned/rejected/cancelled`, `games.availability-changed`, `games.changed`, `menu.changed`, `settings.changed`, `tables.changed`, `business-day.finalized/opened`.
+- Un JWT de staff expirat nu închide automat o conexiune deja deschisă; UI-ul se deconectează la expirare (60 min), iar cererile REST sunt oricum refuzate.
+
 ## Verificarea pe PostgreSQL
 
 Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verificate: bootstrap o singură dată, rolurile 401/403, preview-ul QR/PIN, limita încercărilor PIN, cererea `REQUESTED → RESERVED → DELIVERED → RETURNED`, disponibilitatea din catalog și două rezervări simultane pentru aceeași copie (`200` și `409`). O a doua schemă temporară a verificat loginul JWT, durata de 3600 de secunde, respingerea HTTP Basic, accesul pe roluri, protecția catalogului clientului și invalidarea JWT după dezactivarea contului. Ambele scheme temporare au fost eliminate după probe.
@@ -110,6 +142,8 @@ Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verif
 `V7` a fost verificată pe o bază nouă: fluxul complet notă → checkout → obstacole → redeschidere → corecție staff → checkout → plată eșuată → plată reușită, `expectedTotal` învechit, reluarea unei chei, invalidarea QR/PIN și a tokenurilor după `CLOSED`. Teste de concurență: doi participanți plătesc simultan cu chei diferite (o singură plată `SUCCEEDED`), aceeași cheie trimisă de două ori simultan (201 + 200 cu același id, o singură plată) și comandă plasată în paralel cu checkout-ul (în ambele ordini, rezultat coerent). `BillCalculatorTest` și `TableSessionTest` acoperă calculul notei și tranzițiile sesiunii.
 
 `V8` a fost verificată pe o bază nouă pe trei zile simulate: refuzul End of Day cu o sesiune deschisă, cifrele raportului (70.50 = 40.50 meniu + 30.00 tarife), repetarea finalizării, deschiderea automată a zilei următoare, snapshot-ul păstrat după redenumirea și scumpirea unui produs, comparația zilelor, exportul PDF și drepturile (403 pentru STAFF). Concurență: două finalizări simultane (201 + 200, un singur raport, o singură zi deschisă) și deschiderea unei sesiuni în paralel cu End of Day, în ambele ordini (nicio sesiune atașată unei zile deja finalizate). Textele UTF-8 (de exemplu „Țara lui Ștefan”) sunt păstrate corect; `ReportPdfServiceTest` verifică diacriticele în PDF.
+
+`V9` și WebSocket-ul au fost verificate pe o bază nouă: validările de meniu (preț 0, icon invalid, 6 etichete), reordonarea categoriilor și ordinea din meniul clientului, intervalul de durată și filtrul din catalog, PIN-ul de 4 cifre, `join-info`/`cafe-info` fără autentificare, blocarea dezactivării unei mese ocupate și toate vederile agregate. Pe WebSocket: staff-ul primește toate evenimentele, participantul doar pe ale sesiunii lui și pe cele de catalog; o operație refuzată (400) nu emite eveniment; abonarea la sesiunea altcuiva, abonarea unui participant la `/topic/staff` și conexiunea fără credențiale sunt refuzate. Testele anterioare de plată și End of Day au fost rerulate fără regresii.
 
 Testul `CoreServiceApplicationTests` pornește aplicația completă și rulează numai dacă `DB_PASSWORD` este setat (împreună cu `BGC_STAFF_JWT_KEY` și `BGC_SESSION_CREDENTIAL_KEY`); URL-ul bazei poate fi schimbat cu `SPRING_DATASOURCE_URL`, de exemplu către o bază de test.
 

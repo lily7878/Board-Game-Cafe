@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,13 @@ import ro.boardgamecafe.core.repository.OpeningHoursRepository;
 @Service
 @Transactional(readOnly = true)
 public class CafeSettingsService {
+    private final LiveEvents events;
     private final CafeSettingsRepository settingsRepository;
     private final OpeningHoursRepository openingHoursRepository;
 
     public CafeSettingsService(CafeSettingsRepository settingsRepository,
-            OpeningHoursRepository openingHoursRepository) {
+            OpeningHoursRepository openingHoursRepository, LiveEvents events) {
+        this.events = events;
         this.settingsRepository = settingsRepository;
         this.openingHoursRepository = openingHoursRepository;
     }
@@ -41,6 +45,7 @@ public class CafeSettingsService {
         CafeSettings settings = current();
         settings.update(request.cafeName(), request.accessFeePrice(), request.maxDeliveredGamesPerTable());
         settingsRepository.flush();
+        events.catalog("settings.changed", settings.getId());
         return response(settings);
     }
 
@@ -62,6 +67,7 @@ public class CafeSettingsService {
         } else {
             hours.open(request.openTime(), request.closeTime());
         }
+        events.catalog("settings.changed", hours.getId());
         return response(hours);
     }
 

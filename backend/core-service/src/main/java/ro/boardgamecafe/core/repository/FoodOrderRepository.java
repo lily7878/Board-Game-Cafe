@@ -31,5 +31,15 @@ public interface FoodOrderRepository extends JpaRepository<FoodOrder, Long> {
     @EntityGraph(attributePaths = { "items", "participant", "session", "session.table" })
     List<FoodOrder> findByStatusInOrderByPlacedAtAsc(Collection<OrderStatus> statuses);
 
+    @EntityGraph(attributePaths = { "items", "participant", "session", "session.table" })
+    @Query("""
+            select foodOrder from FoodOrder foodOrder
+            where foodOrder.status in :statuses and foodOrder.session.businessDay.id = :dayId
+            order by foodOrder.placedAt asc""")
+    List<FoodOrder> findByStatusesAndBusinessDay(@Param("statuses") Collection<OrderStatus> statuses,
+            @Param("dayId") Long businessDayId);
+
+    long countByParticipantIdAndStatusIn(Long participantId, Collection<OrderStatus> statuses);
+
     long countBySessionIdAndStatusIn(Long sessionId, Collection<OrderStatus> statuses);
 }

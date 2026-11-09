@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ro.boardgamecafe.core.api.game.dto.ChangeGameCopyStatusRequest;
 import ro.boardgamecafe.core.api.game.dto.CreateGameCopyRequest;
@@ -41,6 +42,12 @@ public class GameCopyController {
     @GetMapping("/games/{gameId}/copies/summary")
     public GameCopySummaryResponse summary(@PathVariable Long gameId) {
         return service.summary(gameId);
+    }
+
+    @GetMapping("/game-copies")
+    public List<GameCopyResponse> search(@RequestParam(required = false) String q,
+            @RequestParam(required = false) ro.boardgamecafe.core.domain.game.CopyCondition condition) {
+        return service.search(q, condition);
     }
 
     @GetMapping("/game-copies/{id}")

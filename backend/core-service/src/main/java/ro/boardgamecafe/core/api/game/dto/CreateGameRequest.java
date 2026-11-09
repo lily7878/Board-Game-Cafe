@@ -12,6 +12,7 @@ public record CreateGameRequest(
                 @NotNull @Min(1) Integer minPlayers,
                 @NotNull @Min(1) Integer maxPlayers,
                 @NotNull @Positive Integer durationMinutes,
+                @Positive Integer maxDurationMinutes,
                 @NotNull @Min(0) Integer minimumAge,
                 @NotNull GameDifficulty difficulty,
                 Set<Long> categoryIds) {

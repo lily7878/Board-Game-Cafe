@@ -109,6 +109,11 @@ public class TableSession {
         return closedAt;
     }
 
+    /** Null only for sessions created before staff accounts existed (migration V4). */
+    public StaffUser getOpenedBy() {
+        return openedBy;
+    }
+
     public BusinessDay getBusinessDay() {
         return businessDay;
     }

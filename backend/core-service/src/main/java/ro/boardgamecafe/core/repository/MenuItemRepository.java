@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import ro.boardgamecafe.core.domain.menu.MenuItem;
 
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
-    @Query("select item from MenuItem item join fetch item.category order by item.category.name, item.name")
+    @Query("select item from MenuItem item join fetch item.category order by item.category.sortOrder, item.category.name, item.name")
     List<MenuItem> findAllWithCategory();
 
     @Query("select item from MenuItem item join fetch item.category where item.category.id = :categoryId order by item.name")
@@ -18,7 +18,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
     @Query("""
             select item from MenuItem item join fetch item.category category
             where item.active = true and item.available = true and category.active = true
-            order by category.name, item.name""")
+            order by category.sortOrder, category.name, item.name""")
     List<MenuItem> findOrderable();
 
     @Query("select item from MenuItem item join fetch item.category where item.id in :ids")

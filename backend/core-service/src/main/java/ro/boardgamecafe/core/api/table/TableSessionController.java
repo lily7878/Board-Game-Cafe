@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ro.boardgamecafe.core.api.table.dto.JoinTableSessionRequest;
 import ro.boardgamecafe.core.api.table.dto.JoinTableSessionResponse;
 import ro.boardgamecafe.core.api.table.dto.OpenTableSessionResponse;
-import ro.boardgamecafe.core.api.table.dto.SessionParticipantResponse;
 import ro.boardgamecafe.core.service.SessionAccessService;
 
 @RestController
@@ -28,11 +27,6 @@ public class TableSessionController {
     @ResponseStatus(HttpStatus.CREATED)
     public JoinTableSessionResponse join(@Valid @RequestBody JoinTableSessionRequest request) {
         return service.join(request);
-    }
-
-    @GetMapping("/api/participant/sessions/current")
-    public SessionParticipantResponse current(@RequestHeader(value = "X-Participant-Token", required = false) String token) {
-        return service.current(token);
     }
 
     @PostMapping("/api/participant/sessions/current/leave")

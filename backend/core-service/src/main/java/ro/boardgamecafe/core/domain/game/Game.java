@@ -44,6 +44,10 @@ public class Game {
     @Column(name = "duration_minutes", nullable = false)
     private Integer durationMinutes;
 
+    /** Upper end of the duration range; null when the game has a single typical duration. */
+    @Column(name = "max_duration_minutes")
+    private Integer maxDurationMinutes;
+
     @Column(name = "minimum_age", nullable = false)
     private Integer minimumAge;
 
@@ -137,6 +141,17 @@ public class Game {
 
     public Integer getDurationMinutes() {
         return durationMinutes;
+    }
+
+    public Integer getMaxDurationMinutes() {
+        return maxDurationMinutes;
+    }
+
+    /** Sets the optional upper end of the duration range; it cannot be shorter than the minimum. */
+    public void changeMaxDuration(Integer maxDurationMinutes) {
+        if (maxDurationMinutes != null && maxDurationMinutes < durationMinutes)
+            throw new IllegalArgumentException("Maximum duration cannot be shorter than the minimum duration.");
+        this.maxDurationMinutes = maxDurationMinutes;
     }
 
     public Integer getMinimumAge() {

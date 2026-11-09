@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -18,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ro.boardgamecafe.core.api.table.dto.JoinTableSessionRequest;
 import ro.boardgamecafe.core.api.table.dto.JoinTableSessionResponse;
 import ro.boardgamecafe.core.api.table.dto.OpenTableSessionResponse;
-import ro.boardgamecafe.core.api.table.dto.SessionParticipantResponse;
+import ro.boardgamecafe.core.api.table.dto.LiveViewResponses;
 import ro.boardgamecafe.core.domain.day.BusinessDay;
 import ro.boardgamecafe.core.domain.table.CafeTable;
 import ro.boardgamecafe.core.domain.table.SessionParticipant;
@@ -33,6 +35,7 @@ import ro.boardgamecafe.core.domain.staff.StaffUser;
 
 @Service
 public class SessionAccessService {
+    private final LiveEvents events;
     private final SecureRandom random = new SecureRandom();
     private final BCryptPasswordEncoder pinEncoder = new BCryptPasswordEncoder();
     private final CafeTableRepository tableRepository;
@@ -46,7 +49,8 @@ public class SessionAccessService {
     public SessionAccessService(CafeTableRepository tableRepository, TableSessionRepository sessionRepository,
             SessionParticipantRepository participantRepository, StaffUserRepository staffRepository,
             SessionCredentialsCipher credentialsCipher, BusinessDayService businessDayService,
-            CafeSettingsService settingsService) {
+            CafeSettingsService settingsService, LiveEvents events) {
+        this.events = events;
         this.tableRepository = tableRepository;
         this.sessionRepository = sessionRepository;
         this.participantRepository = participantRepository;
@@ -65,12 +69,15 @@ public class SessionAccessService {
         BusinessDay day = businessDayService.lockOpenDay();
         BigDecimal feeSnapshot = settingsService.current().getAccessFeePrice();
         String joinToken = newToken();
-        String pin = "%06d".formatted(random.nextInt(1_000_000));
+        // 4-digit PIN (design handoff). It is only a second factor: joining also needs the 256-bit QR token,
+        // and 5 wrong PINs lock the session's join for 15 minutes.
+        String pin = "%04d".formatted(random.nextInt(10_000));
         StaffUser openedBy = staffRepository.findByEmailIgnoreCase(staffEmail)
                 .orElseThrow(() -> new EntityNotFoundException("Staff user not found."));
         TableSession session = sessionRepository.save(new TableSession(table, openedBy, day, feeSnapshot,
                 digest(joinToken), pinEncoder.encode(pin), credentialsCipher.encrypt(joinToken),
                 credentialsCipher.encrypt(pin)));
+        events.session("session.opened", session, session.getId(), session.getStatus());
         return response(session, joinToken, pin);
     }
 
@@ -105,6 +112,7 @@ public class SessionAccessService {
         String accessToken = newToken();
         SessionParticipant participant = participantRepository.save(
                 new SessionParticipant(session, request.displayName(), digest(accessToken)));
+        events.session("session.participant-joined", session, participant.getId(), null);
         return new JoinTableSessionResponse(session.getId(), participant.getId(), participant.getDisplayName(), accessToken);
     }
 
@@ -127,15 +135,21 @@ public class SessionAccessService {
         return participantRepository.findByAccessTokenHash(digest(accessToken)).orElseThrow(() -> unauthorized());
     }
 
+    /** Public preview for the join screen: the table number of an ACTIVE session, otherwise 404. */
     @Transactional(readOnly = true)
-    public SessionParticipantResponse current(String accessToken) {
-        SessionParticipant participant = authenticate(accessToken);
-        return new SessionParticipantResponse(participant.getSession().getId(), participant.getId(),
-                participant.getDisplayName(), participant.getJoinedAt());
+    public LiveViewResponses.JoinInfo joinInfo(String joinToken) {
+        TableSession session = sessionRepository.findByJoinTokenDigest(digest(joinToken))
+                .filter(found -> found.getStatus() == SessionStatus.ACTIVE)
+                .orElseThrow(() -> new EntityNotFoundException("This table is no longer active."));
+        return new LiveViewResponses.JoinInfo(session.getTable().getTableNumber());
     }
 
     @Transactional
-    public void leave(String accessToken) { authenticate(accessToken).leave(); }
+    public void leave(String accessToken) {
+        SessionParticipant participant = authenticate(accessToken);
+        participant.leave();
+        events.session("session.participant-left", participant.getSession(), participant.getId(), null);
+    }
 
     private String newToken() {
         byte[] bytes = new byte[32]; random.nextBytes(bytes);

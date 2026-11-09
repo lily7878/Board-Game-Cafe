@@ -28,7 +28,10 @@ public class GameCategoryService {
     }
 
     public List<GameCategoryResponse> findAll() {
-        return repository.findAll().stream().map(GameCategoryService::response).toList();
+        java.util.Map<Long, Long> counts = new java.util.HashMap<>();
+        for (Object[] row : repository.countGamesByCategory()) counts.put((Long) row[0], (Long) row[1]);
+        return repository.findAll(org.springframework.data.domain.Sort.by("name")).stream()
+                .map(c -> response(c, counts.getOrDefault(c.getId(), 0L))).toList();
     }
 
     public GameCategoryResponse findById(Long id) {
@@ -71,7 +74,13 @@ public class GameCategoryService {
                 .orElseThrow(() -> new EntityNotFoundException("Game category not found with id: " + id));
     }
 
-    private static GameCategoryResponse response(GameCategory c) {
-        return new GameCategoryResponse(c.getId(), c.getName(), c.getDescription(), c.getActive());
+    private GameCategoryResponse response(GameCategory c) {
+        long count = repository.countGamesByCategory().stream()
+                .filter(row -> c.getId() != null && c.getId().equals(row[0])).mapToLong(row -> (Long) row[1]).sum();
+        return response(c, count);
+    }
+
+    private static GameCategoryResponse response(GameCategory c, long gameCount) {
+        return new GameCategoryResponse(c.getId(), c.getName(), c.getDescription(), c.getActive(), gameCount);
     }
 }

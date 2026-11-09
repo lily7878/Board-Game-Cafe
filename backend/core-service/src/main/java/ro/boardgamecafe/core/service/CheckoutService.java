@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ import ro.boardgamecafe.core.repository.TableSessionRepository;
 @Service
 @Transactional(readOnly = true)
 public class CheckoutService {
+    private final LiveEvents events;
     private final TableSessionRepository sessionRepository;
     private final SessionFeeRepository feeRepository;
     private final StaffUserRepository staffRepository;
@@ -30,7 +33,8 @@ public class CheckoutService {
 
     public CheckoutService(TableSessionRepository sessionRepository, SessionFeeRepository feeRepository,
             StaffUserRepository staffRepository, SessionAccessService accessService, BillService billService,
-            SessionLocker sessionLocker) {
+            SessionLocker sessionLocker, LiveEvents events) {
+        this.events = events;
         this.sessionRepository = sessionRepository;
         this.feeRepository = feeRepository;
         this.staffRepository = staffRepository;
@@ -59,6 +63,7 @@ public class CheckoutService {
                 fee -> fee.setByParticipant(participant, persons),
                 () -> feeRepository.save(SessionFee.declaredByParticipant(session, participant, persons)));
         feeRepository.flush();
+        events.session("session.fee-updated", session, session.getId(), session.getStatus());
         return billService.response(session);
     }
 
@@ -73,6 +78,7 @@ public class CheckoutService {
                 fee -> fee.setByStaff(staff, persons),
                 () -> feeRepository.save(SessionFee.declaredByStaff(session, staff, persons)));
         feeRepository.flush();
+        events.session("session.fee-updated", session, session.getId(), session.getStatus());
         return billService.response(session);
     }
 
@@ -85,6 +91,7 @@ public class CheckoutService {
             throw new ConflictException("Declare the number of people (at least 1) before checkout.");
         session.startCheckout();
         sessionRepository.flush();
+        events.session("session.checkout-pending", session, session.getId(), session.getStatus());
         return billService.response(session);
     }
 
@@ -94,6 +101,7 @@ public class CheckoutService {
         TableSession session = lockSession(sessionId);
         session.reopen();
         sessionRepository.flush();
+        events.session("session.reopened", session, session.getId(), session.getStatus());
         return billService.response(session);
     }
 

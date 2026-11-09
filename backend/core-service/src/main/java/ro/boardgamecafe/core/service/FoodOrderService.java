@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,6 +36,7 @@ import ro.boardgamecafe.core.repository.TableSessionRepository;
 @Service
 @Transactional(readOnly = true)
 public class FoodOrderService {
+    private final LiveEvents events;
     /** Orders the staff still has to act on. */
     public static final Set<OrderStatus> OPEN_STATUSES =
             EnumSet.of(OrderStatus.PLACED, OrderStatus.ACCEPTED, OrderStatus.PREPARING, OrderStatus.READY);
@@ -47,7 +50,8 @@ public class FoodOrderService {
 
     public FoodOrderService(FoodOrderRepository orderRepository, MenuItemRepository menuItemRepository,
             TableSessionRepository sessionRepository, StaffUserRepository staffRepository,
-            SessionAccessService accessService, SessionLocker sessionLocker) {
+            SessionAccessService accessService, SessionLocker sessionLocker, LiveEvents events) {
+        this.events = events;
         this.orderRepository = orderRepository;
         this.menuItemRepository = menuItemRepository;
         this.sessionRepository = sessionRepository;
@@ -64,7 +68,7 @@ public class FoodOrderService {
         requireActive(lockSession(participant.getSession().getId()), "New orders require an active session.");
         FoodOrder order = orderRepository.save(new FoodOrder(participant, resolveLines(request.items())));
         orderRepository.flush();
-        return response(order);
+        return publish("order.placed", order);
     }
 
     @Transactional
@@ -74,7 +78,7 @@ public class FoodOrderService {
         FoodOrder order = lockOwnOrder(participant, orderId);
         order.replaceLines(resolveLines(request.items()));
         orderRepository.flush();
-        return response(order);
+        return publish("order.updated", order);
     }
 
     /** Allowed also during checkout: cancelling a pending order helps clear the obligations before payment. */
@@ -83,7 +87,7 @@ public class FoodOrderService {
         SessionParticipant participant = accessService.authenticate(accessToken);
         FoodOrder order = lockOwnOrder(participant, orderId);
         order.cancelByCustomer();
-        return response(order);
+        return publish("order.cancelled", order);
     }
 
     public List<OrderResponse> mine(String accessToken) {
@@ -95,10 +99,11 @@ public class FoodOrderService {
     // ---- staff ----
 
     /** Orders in the given statuses, oldest first; without a filter, the ones still in progress. */
-    public List<OrderResponse> list(Set<OrderStatus> statuses) {
+    public List<OrderResponse> list(Set<OrderStatus> statuses, Long businessDayId) {
         Set<OrderStatus> filter = statuses == null || statuses.isEmpty() ? OPEN_STATUSES : statuses;
-        return orderRepository.findByStatusInOrderByPlacedAtAsc(filter).stream()
-                .map(FoodOrderService::response).toList();
+        List<FoodOrder> orders = businessDayId == null ? orderRepository.findByStatusInOrderByPlacedAtAsc(filter)
+                : orderRepository.findByStatusesAndBusinessDay(filter, businessDayId);
+        return orders.stream().map(FoodOrderService::response).toList();
     }
 
     public List<OrderResponse> forSession(Long sessionId) {
@@ -122,7 +127,7 @@ public class FoodOrderService {
                 .map(d -> new FoodOrder.ItemDecision(d.orderItemId(), d.accepted(), d.rejectionReason()))
                 .toList();
         order.process(decisions, staff(staffEmail));
-        return response(order);
+        return publish("order.processed", order);
     }
 
     @Transactional
@@ -130,10 +135,15 @@ public class FoodOrderService {
         FoodOrder order = lockOrder(id);
         requireNotClosed(order);
         order.advanceTo(target, staff(staffEmail));
-        return response(order);
+        return publish("order.status-changed", order);
     }
 
     // ---- helpers ----
+
+    private OrderResponse publish(String type, FoodOrder order) {
+        events.session(type, order.getSession(), order.getId(), order.getStatus());
+        return response(order);
+    }
 
     /** Merges repeated products, loads them and checks that each one can currently be ordered. */
     private List<FoodOrder.Line> resolveLines(List<OrderRequests.Line> requested) {

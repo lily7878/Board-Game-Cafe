@@ -1,5 +1,13 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
+import ro.boardgamecafe.core.repository.GameRequestRepository;
+
+import ro.boardgamecafe.core.domain.game.GameRequestStatus;
+
+import ro.boardgamecafe.core.domain.game.GameRequest;
+
 import java.util.List;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -19,43 +27,58 @@ import ro.boardgamecafe.core.repository.GameRepository;
 @Service
 @Transactional(readOnly = true)
 public class GameCopyService {
+    private final LiveEvents events;
     private final GameCopyRepository copyRepository;
+    private static final List<GameRequestStatus> ACTIVE = List.of(GameRequestStatus.RESERVED, GameRequestStatus.DELIVERED);
     private final GameRepository gameRepository;
+    private final GameRequestRepository requestRepository;
 
-    public GameCopyService(GameCopyRepository copyRepository, GameRepository gameRepository) {
+    public GameCopyService(GameCopyRepository copyRepository, GameRepository gameRepository,
+            GameRequestRepository requestRepository, LiveEvents events) {
+        this.events = events;
         this.copyRepository = copyRepository;
         this.gameRepository = gameRepository;
+        this.requestRepository = requestRepository;
+    }
+
+    /** All copies, optionally filtered by inventory code / title and by physical condition. */
+    public List<GameCopyResponse> search(String text, CopyCondition condition) {
+        String pattern = text == null || text.isBlank() ? null
+                : "%" + text.strip().toLowerCase(java.util.Locale.ROOT) + "%";
+        return withLocations(copyRepository.search(pattern, condition));
     }
 
     @Transactional
     public GameCopyResponse create(Long gameId, CreateGameCopyRequest request) {
+        events.catalog("games.availability-changed", null);
         Game game = findGame(gameId);
         String inventoryCode = request.inventoryCode().trim();
         if (copyRepository.existsByInventoryCode(inventoryCode)) {
             throw new DuplicateKeyException("A game copy with this inventory code already exists.");
         }
         GameCopy copy = new GameCopy(game, inventoryCode, request.conditionStatus(), request.notes());
-        return toResponse(copyRepository.saveAndFlush(copy));
+        return withLocations(List.of(copyRepository.saveAndFlush(copy))).get(0);
     }
 
     public List<GameCopyResponse> findByGame(Long gameId) {
         findGame(gameId);
-        return copyRepository.findByGameIdOrderByIdAsc(gameId).stream().map(GameCopyService::toResponse).toList();
+        return withLocations(copyRepository.findByGameIdOrderByIdAsc(gameId));
     }
 
     public GameCopyResponse findById(Long id) {
-        return toResponse(findCopy(id));
+        return withLocations(List.of(findCopy(id))).get(0);
     }
 
     @Transactional
     public GameCopyResponse changeStatus(Long id, ChangeGameCopyStatusRequest request) {
+        events.catalog("games.availability-changed", null);
         GameCopy copy = copyRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> new EntityNotFoundException("Game copy not found with id: " + id));
         copy.changeConditionStatus(request.conditionStatus());
         if (request.notes() != null) {
             copy.changeNotes(request.notes());
         }
-        return toResponse(copy);
+        return withLocations(List.of(copy)).get(0);
     }
 
     public GameCopySummaryResponse summary(Long gameId) {
@@ -79,8 +102,21 @@ public class GameCopyService {
                 .orElseThrow(() -> new EntityNotFoundException("Game copy not found with id: " + id));
     }
 
-    private static GameCopyResponse toResponse(GameCopy copy) {
-        return new GameCopyResponse(copy.getId(), copy.getGame().getId(), copy.getInventoryCode(),
-                copy.getConditionStatus(), copy.getNotes(), copy.getCreatedAt());
+    private List<GameCopyResponse> withLocations(List<GameCopy> copies) {
+        java.util.Map<Long, GameRequest> active = new java.util.HashMap<>();
+        if (!copies.isEmpty()) {
+            for (GameRequest request : requestRepository.findActiveForCopies(
+                    copies.stream().map(GameCopy::getId).toList(), ACTIVE))
+                active.put(request.getGameCopy().getId(), request);
+        }
+        return copies.stream().map(copy -> toResponse(copy, active.get(copy.getId()))).toList();
+    }
+
+    private static GameCopyResponse toResponse(GameCopy copy, GameRequest activeRequest) {
+        return new GameCopyResponse(copy.getId(), copy.getGame().getId(), copy.getGame().getTitle(),
+                copy.getInventoryCode(), copy.getConditionStatus(), copy.getNotes(), copy.getCreatedAt(),
+                activeRequest == null ? null : activeRequest.getId(),
+                activeRequest == null ? null : activeRequest.getStatus(),
+                activeRequest == null ? null : activeRequest.getSession().getTable().getTableNumber());
     }
 }

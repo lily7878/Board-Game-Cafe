@@ -1,5 +1,12 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
+import java.util.Map;
+import ro.boardgamecafe.core.domain.game.CopyCondition;
+import ro.boardgamecafe.core.domain.game.GameRequestStatus;
+import ro.boardgamecafe.core.repository.GameCopyRepository;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,20 +28,29 @@ import ro.boardgamecafe.core.repository.GameCategoryRepository;
 @Service
 @Transactional(readOnly = true)
 public class GameService {
+    private final LiveEvents events;
 
         private final GameRepository gameRepository;
+        private static final List<GameRequestStatus> OCCUPIED =
+                        List.of(GameRequestStatus.RESERVED, GameRequestStatus.DELIVERED);
+
         private final GameCategoryRepository gameCategoryRepository;
+        private final GameCopyRepository copyRepository;
 
         public GameService(
                         GameRepository gameRepository,
-                        GameCategoryRepository gameCategoryRepository) {
+                        GameCategoryRepository gameCategoryRepository,
+                        GameCopyRepository copyRepository, LiveEvents events) {
+        this.events = events;
 
                 this.gameRepository = gameRepository;
                 this.gameCategoryRepository = gameCategoryRepository;
+                this.copyRepository = copyRepository;
         }
 
         @Transactional
         public GameResponse createGame(CreateGameRequest request) {
+                events.catalog("games.changed", null);
 
                 Set<GameCategory> categories = resolveCategories(request.categoryIds());
 
@@ -49,6 +65,7 @@ public class GameService {
                                 request.difficulty(),
                                 categories);
 
+                game.changeMaxDuration(request.maxDurationMinutes());
                 Game savedGame = gameRepository.save(game);
 
                 return toResponse(savedGame);
@@ -56,9 +73,14 @@ public class GameService {
 
         public List<GameResponse> getAllGames() {
 
-                return gameRepository.findAll()
-                                .stream()
-                                .map(this::toResponse)
+                List<Game> games = gameRepository.findAll(org.springframework.data.domain.Sort.by("title", "id"));
+                Set<Long> ids = games.stream().map(Game::getId).collect(Collectors.toSet());
+                Map<Long, Long> total = counts(ids.isEmpty() ? List.of() : copyRepository.countAllByGameIds(ids));
+                Map<Long, Long> available = counts(ids.isEmpty() ? List.of()
+                                : copyRepository.countByGameIdsAndCondition(ids, CopyCondition.USABLE, OCCUPIED));
+                return games.stream()
+                                .map(game -> toResponse(game, total.getOrDefault(game.getId(), 0L),
+                                                available.getOrDefault(game.getId(), 0L)))
                                 .toList();
         }
 
@@ -71,6 +93,7 @@ public class GameService {
 
         @Transactional
         public GameResponse updateGame(Long id, UpdateGameRequest request) {
+                events.catalog("games.changed", null);
 
                 Game game = findGameById(id);
 
@@ -107,6 +130,10 @@ public class GameService {
                                                 ? request.difficulty()
                                                 : game.getDifficulty());
 
+                game.changeMaxDuration(request.maxDurationMinutes() != null
+                                ? request.maxDurationMinutes()
+                                : game.getMaxDurationMinutes());
+
                 if (request.categoryIds() != null) {
                         Set<GameCategory> categories = resolveCategories(request.categoryIds());
 
@@ -118,6 +145,7 @@ public class GameService {
 
         @Transactional
         public GameResponse setGameActive(Long id, boolean active) {
+                events.catalog("games.changed", null);
 
                 Game game = findGameById(id);
 
@@ -162,7 +190,20 @@ public class GameService {
                 return new HashSet<>(categories);
         }
 
+        private static Map<Long, Long> counts(List<Object[]> rows) {
+                Map<Long, Long> counts = new java.util.HashMap<>();
+                for (Object[] row : rows) counts.put((Long) row[0], (Long) row[1]);
+                return counts;
+        }
+
         private GameResponse toResponse(Game game) {
+                Set<Long> id = Set.of(game.getId());
+                return toResponse(game,
+                                counts(copyRepository.countAllByGameIds(id)).getOrDefault(game.getId(), 0L),
+                                copyRepository.countAvailableByGameId(game.getId(), CopyCondition.USABLE, OCCUPIED));
+        }
+
+        private GameResponse toResponse(Game game, long totalCopies, long availableCopies) {
 
                 Set<Long> categoryIds = game.getCategories()
                                 .stream()
@@ -177,10 +218,13 @@ public class GameService {
                                 game.getMinPlayers(),
                                 game.getMaxPlayers(),
                                 game.getDurationMinutes(),
+                                game.getMaxDurationMinutes(),
                                 game.getMinimumAge(),
                                 game.getDifficulty(),
                                 game.getActive(),
                                 game.getCreatedAt(),
-                                categoryIds);
+                                categoryIds,
+                                totalCopies,
+                                availableCopies);
         }
 }

@@ -49,8 +49,9 @@ public class FoodOrderController {
     // ---- staff ----
 
     @GetMapping("/api/admin/orders")
-    public List<OrderResponse> list(@RequestParam(required = false) Set<OrderStatus> status) {
-        return service.list(status);
+    public List<OrderResponse> list(@RequestParam(required = false) Set<OrderStatus> status,
+            @RequestParam(required = false) Long businessDayId) {
+        return service.list(status, businessDayId);
     }
 
     @GetMapping("/api/admin/orders/{id}")

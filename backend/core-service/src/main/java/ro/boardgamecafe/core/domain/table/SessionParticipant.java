@@ -33,5 +33,6 @@ public class SessionParticipant {
     public String getDisplayName() { return displayName; }
     public boolean isActive() { return active; }
     public Instant getJoinedAt() { return joinedAt; }
+    public Instant getLeftAt() { return leftAt; }
     public void leave() { active = false; leftAt = Instant.now(); }
 }

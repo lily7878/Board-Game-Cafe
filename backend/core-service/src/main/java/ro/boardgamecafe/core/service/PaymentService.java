@@ -1,5 +1,7 @@
 package ro.boardgamecafe.core.service;
 
+import ro.boardgamecafe.core.live.LiveEvents;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,7 @@ import ro.boardgamecafe.core.repository.TableSessionRepository;
 @Service
 @Transactional(readOnly = true)
 public class PaymentService {
+    private final LiveEvents events;
     /** Outcome of a pay request; created is false when an earlier result was replayed. */
     public record Result(PaymentResponse payment, boolean created) {}
 
@@ -37,7 +40,8 @@ public class PaymentService {
     private final SessionLocker sessionLocker;
 
     public PaymentService(PaymentRepository paymentRepository, TableSessionRepository sessionRepository,
-            SessionAccessService accessService, BillService billService, SessionLocker sessionLocker) {
+            SessionAccessService accessService, BillService billService, SessionLocker sessionLocker, LiveEvents events) {
+        this.events = events;
         this.paymentRepository = paymentRepository;
         this.sessionRepository = sessionRepository;
         this.accessService = accessService;
@@ -76,6 +80,10 @@ public class PaymentService {
         paymentRepository.save(payment);
         if (payment.getStatus() == PaymentStatus.SUCCEEDED) session.closeAfterPayment();
         paymentRepository.flush();
+        if (payment.getStatus() == PaymentStatus.SUCCEEDED)
+            events.session("session.closed", session, payment.getId(), session.getStatus());
+        else
+            events.session("payment.failed", session, payment.getId(), payment.getStatus());
         return new Result(response(payment), true);
     }
 

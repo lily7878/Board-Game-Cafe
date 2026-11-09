@@ -28,6 +28,14 @@ public interface GameCopyRepository extends JpaRepository<GameCopy, Long> {
 
     List<GameCopy> findByGameIdOrderByIdAsc(Long gameId);
 
+    /** Inventory list across all games, filtered by code or title (case-insensitive) and condition. */
+    @Query("""
+            select copy from GameCopy copy join fetch copy.game game
+            where (:text is null or lower(copy.inventoryCode) like :text or lower(game.title) like :text)
+              and (:condition is null or copy.conditionStatus = :condition)
+            order by game.title, copy.inventoryCode""")
+    List<GameCopy> search(@Param("text") String text, @Param("condition") CopyCondition condition);
+
     @Query("select count(copy) from GameCopy copy where copy.game.id = :gameId "
             + "and copy.conditionStatus = :condition and not exists "
             + "(select request.id from GameRequest request where request.gameCopy = copy "
@@ -43,4 +51,7 @@ public interface GameCopyRepository extends JpaRepository<GameCopy, Long> {
     List<Object[]> countByGameIdsAndCondition(@Param("gameIds") Set<Long> gameIds,
             @Param("condition") CopyCondition condition,
             @Param("occupiedStatuses") List<GameRequestStatus> occupiedStatuses);
+
+    @Query("select copy.game.id, count(copy) from GameCopy copy where copy.game.id in :gameIds group by copy.game.id")
+    List<Object[]> countAllByGameIds(@Param("gameIds") Set<Long> gameIds);
 }
