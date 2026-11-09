@@ -18,4 +18,6 @@ public interface BusinessDayRepository extends JpaRepository<BusinessDay, Long> 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select day from BusinessDay day where day.status = ro.boardgamecafe.core.domain.day.BusinessDayStatus.OPEN")
     Optional<BusinessDay> findOpenForUpdate();
+
+    java.util.List<BusinessDay> findAllByOrderByDayNumberDesc();
 }

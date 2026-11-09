@@ -1,5 +1,8 @@
 package ro.boardgamecafe.core.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.LockModeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,14 +11,25 @@ import ro.boardgamecafe.core.domain.day.BusinessDay;
 import ro.boardgamecafe.core.exception.GameRequestConflictException;
 import ro.boardgamecafe.core.repository.BusinessDayRepository;
 
-/** Access to the simulated business day. End of Day will be added here. */
+/** Access to the simulated business day and the locks shared by session opening and End of Day. */
 @Service
 @Transactional(readOnly = true)
 public class BusinessDayService {
     private final BusinessDayRepository repository;
+    private final EntityManager entityManager;
 
-    public BusinessDayService(BusinessDayRepository repository) {
+    public BusinessDayService(BusinessDayRepository repository, EntityManager entityManager) {
         this.repository = repository;
+        this.entityManager = entityManager;
+    }
+
+    /** Locks a given day row and reloads its committed state (used by End of Day). */
+    @Transactional(propagation = Propagation.MANDATORY)
+    public BusinessDay lockById(Long dayId) {
+        BusinessDay day = entityManager.find(BusinessDay.class, dayId);
+        if (day == null) throw new EntityNotFoundException("Business day not found with id: " + dayId);
+        entityManager.refresh(day, LockModeType.PESSIMISTIC_WRITE);
+        return day;
     }
 
     public BusinessDayResponse current() {

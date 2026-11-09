@@ -11,6 +11,7 @@ import ro.boardgamecafe.core.domain.table.TableSession;
 
 public interface TableSessionRepository extends JpaRepository<TableSession, Long> {
     boolean existsByTableIdAndStatusNot(Long tableId, SessionStatus status);
+    long countByStatusNot(SessionStatus status);
     Optional<TableSession> findByTableIdAndStatusNot(Long tableId, SessionStatus status);
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select session from TableSession session where session.joinTokenDigest = :digest")

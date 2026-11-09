@@ -28,7 +28,8 @@ de societate.
 Core Service include administrarea meselor, jocurilor si meniului, setarile cafenelei
 si programul informativ, ziua de business simulata, catalogul pentru clienti, sesiuni,
 cereri pentru jocuri, comenzi cu acceptare pe pozitii, nota comuna, checkout cu
-redeschidere si plata simulata idempotenta. Autentificarea STAFF/MANAGER si
+redeschidere si plata simulata idempotenta, End of Day cu rapoarte zilnice, comparatie
+intre zile si export PDF. Serviciul AI urmeaza dupa implementarea frontend-ului. Autentificarea STAFF/MANAGER si
 accesul participantilor sunt implementate pentru aceste API-uri.
 
 Configurarea secretelor si bootstrap-ul primului manager sunt descrise in

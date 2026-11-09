@@ -34,6 +34,25 @@ public class BusinessDay {
     protected BusinessDay() {
     }
 
+    /** The day that follows this one; created by End of Day in the same transaction as the finalization. */
+    public BusinessDay next() {
+        BusinessDay next = new BusinessDay();
+        next.dayNumber = dayNumber + 1;
+        next.label = "Ziua " + next.dayNumber;
+        next.status = BusinessDayStatus.OPEN;
+        next.openedAt = Instant.now();
+        return next;
+    }
+
+    public void finalizeDay(StaffUser manager) {
+        if (status != BusinessDayStatus.OPEN)
+            throw new ro.boardgamecafe.core.exception.ConflictException("This business day is already finalized.");
+        if (manager == null) throw new IllegalArgumentException("The manager who finalizes the day is required.");
+        this.status = BusinessDayStatus.FINALIZED;
+        this.finalizedAt = Instant.now();
+        this.finalizedBy = manager;
+    }
+
     public Long getId() { return id; }
     public int getDayNumber() { return dayNumber; }
     public String getLabel() { return label; }

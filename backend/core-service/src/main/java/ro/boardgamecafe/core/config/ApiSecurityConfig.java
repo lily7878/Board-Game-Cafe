@@ -42,6 +42,8 @@ public class ApiSecurityConfig {
                         "/api/admin/business-days/current").hasAnyRole("STAFF", "MANAGER")
                 .requestMatchers(HttpMethod.PUT, "/api/admin/settings", "/api/admin/opening-hours/*")
                         .hasRole("MANAGER")
+                .requestMatchers("/api/admin/business-days", "/api/admin/business-days/**", "/api/admin/reports",
+                        "/api/admin/reports/**", "/api/admin/analytics/**").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.POST, "/api/admin/tables/*/sessions").hasAnyRole("STAFF", "MANAGER")
                 .requestMatchers(HttpMethod.POST, "/api/admin/tables").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.PATCH, "/api/admin/tables/**").hasRole("MANAGER")

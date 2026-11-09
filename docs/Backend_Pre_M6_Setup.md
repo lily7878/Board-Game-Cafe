@@ -84,6 +84,21 @@ Migrația `V7` creează `session_fees` (numărul de persoane, 0..1 rând per ses
 
 Toate operațiile care schimbă starea sesiunii (persoane, checkout, redeschidere, plată, comenzi noi, cereri de joc) blochează rândul sesiunii și îi recitesc starea curentă (`SessionLocker`), astfel încât o cerere care a așteptat primește o eroare clară sau rezultatul salvat, nu un conflict intern de versiune.
 
+## End of Day și rapoarte (V8)
+
+Migrația `V8` creează `daily_reports` (unic per zi), `daily_product_stats` și `daily_game_stats`. Raportul este un snapshot definitiv: numele produselor și ale jocurilor sunt copiate, iar redenumirile sau schimbările de preț ulterioare nu îl modifică.
+
+Toate endpointurile de mai jos sunt numai pentru MANAGER; `GET /api/admin/business-days/current` rămâne disponibil și pentru STAFF.
+
+- `GET /api/admin/business-days/current/preview`: cifrele zilei deschise (numai sesiunile plătite), numărul de sesiuni încă deschise și `canFinalize`.
+- `POST /api/admin/business-days/{id}/finalize` (T6): sub blocarea rândului zilei (aceeași blocare folosită la deschiderea unei sesiuni) verifică faptul că **toate** sesiunile cafenelei sunt `CLOSED`, scrie raportul, marchează ziua `FINALIZED` și deschide ziua următoare, totul într-o singură tranzacție. Răspunde 201 la prima finalizare și 200 cu același raport la repetare; cu sesiuni deschise răspunde 409.
+- `GET /api/admin/business-days`: istoricul zilelor, cu venitul total pentru cele finalizate.
+- `GET /api/admin/reports` și `GET /api/admin/reports/{businessDayId}`: rapoartele finale (404 pentru o zi încă deschisă).
+- `GET /api/admin/reports/{businessDayId}/pdf`: PDF generat la cerere din snapshot (OpenPDF, font Liberation Sans încorporat pentru diacritice); nu se păstrează fișiere.
+- `GET /api/admin/analytics/days/compare?fromDay=1&toDay=5`: comparația zilelor simulate (maximum 60), cu top 5 produse și top 5 jocuri pe interval. Nu există statistici orare.
+
+Indicatori: venitul total = suma plăților `SUCCEEDED` (egal cu venit meniu + venit tarife); venit meniu = pozițiile `ACCEPTED` din comenzile `DELIVERED`; venit tarife = persoane × tariful copiat în sesiune; jocuri livrate = cererile care au ajuns cel puțin în `DELIVERED`. Cifrele se obțin prin interogări agregate (`DayStatisticsRepository`, `DailyReportRepository`).
+
 ## Verificarea pe PostgreSQL
 
 Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verificate: bootstrap o singură dată, rolurile 401/403, preview-ul QR/PIN, limita încercărilor PIN, cererea `REQUESTED → RESERVED → DELIVERED → RETURNED`, disponibilitatea din catalog și două rezervări simultane pentru aceeași copie (`200` și `409`). O a doua schemă temporară a verificat loginul JWT, durata de 3600 de secunde, respingerea HTTP Basic, accesul pe roluri, protecția catalogului clientului și invalidarea JWT după dezactivarea contului. Ambele scheme temporare au fost eliminate după probe.
@@ -93,6 +108,8 @@ Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verif
 `V6` a fost verificată pe o bază nouă: drepturile pe roluri, meniul participantului (fără produse indisponibile sau din categorii inactive), validările 400/404/409, editarea și anularea doar în `PLACED`, procesarea parțială și respingerea totală, pașii de preparare, snapshot-ul prețului și cinci runde de editare (participant) în paralel cu procesarea (staff) pe aceeași comandă, fără stări amestecate. `FoodOrderTest` acoperă regulile de stare fără bază de date.
 
 `V7` a fost verificată pe o bază nouă: fluxul complet notă → checkout → obstacole → redeschidere → corecție staff → checkout → plată eșuată → plată reușită, `expectedTotal` învechit, reluarea unei chei, invalidarea QR/PIN și a tokenurilor după `CLOSED`. Teste de concurență: doi participanți plătesc simultan cu chei diferite (o singură plată `SUCCEEDED`), aceeași cheie trimisă de două ori simultan (201 + 200 cu același id, o singură plată) și comandă plasată în paralel cu checkout-ul (în ambele ordini, rezultat coerent). `BillCalculatorTest` și `TableSessionTest` acoperă calculul notei și tranzițiile sesiunii.
+
+`V8` a fost verificată pe o bază nouă pe trei zile simulate: refuzul End of Day cu o sesiune deschisă, cifrele raportului (70.50 = 40.50 meniu + 30.00 tarife), repetarea finalizării, deschiderea automată a zilei următoare, snapshot-ul păstrat după redenumirea și scumpirea unui produs, comparația zilelor, exportul PDF și drepturile (403 pentru STAFF). Concurență: două finalizări simultane (201 + 200, un singur raport, o singură zi deschisă) și deschiderea unei sesiuni în paralel cu End of Day, în ambele ordini (nicio sesiune atașată unei zile deja finalizate). Textele UTF-8 (de exemplu „Țara lui Ștefan”) sunt păstrate corect; `ReportPdfServiceTest` verifică diacriticele în PDF.
 
 Testul `CoreServiceApplicationTests` pornește aplicația completă și rulează numai dacă `DB_PASSWORD` este setat (împreună cu `BGC_STAFF_JWT_KEY` și `BGC_SESSION_CREDENTIAL_KEY`); URL-ul bazei poate fi schimbat cu `SPRING_DATASOURCE_URL`, de exemplu către o bază de test.
 
