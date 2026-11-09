@@ -14,9 +14,16 @@ import org.springframework.dao.OptimisticLockingFailureException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({ConflictException.class, OptimisticLockingFailureException.class})
-    public ProblemDetail handleGameRequestConflict(RuntimeException ex) {
+    @ExceptionHandler(ConflictException.class)
+    public ProblemDetail handleConflict(ConflictException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    /** Version conflicts are expected under concurrency; the internal Hibernate message is not exposed. */
+    @ExceptionHandler(OptimisticLockingFailureException.class)
+    public ProblemDetail handleOptimisticLock(OptimisticLockingFailureException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+                "The data was changed by another request. Reload it and try again.");
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -55,6 +62,13 @@ public class GlobalExceptionHandler {
                     && "uq_staff_email_lower".equals(constraintEx.getConstraintName())) {
                 return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
                         "Email is already in use.");
+            }
+            if (cause instanceof ConstraintViolationException constraintEx
+                    && "23505".equals(constraintEx.getSQLState())
+                    && ("uq_succeeded_payment_per_session".equals(constraintEx.getConstraintName())
+                    || "payments_idempotency_key_key".equals(constraintEx.getConstraintName()))) {
+                return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+                        "This bill has already been paid or the payment is being processed.");
             }
             if (cause instanceof ConstraintViolationException constraintEx
                     && "23505".equals(constraintEx.getSQLState())

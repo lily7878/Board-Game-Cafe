@@ -6,4 +6,5 @@ import ro.boardgamecafe.core.domain.table.SessionParticipant;
 
 public interface SessionParticipantRepository extends JpaRepository<SessionParticipant, Long> {
     Optional<SessionParticipant> findByAccessTokenHash(String accessTokenHash);
+    java.util.List<SessionParticipant> findBySessionIdOrderByJoinedAtAsc(Long sessionId);
 }

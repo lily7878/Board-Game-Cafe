@@ -117,6 +117,16 @@ public class SessionAccessService {
         return participant;
     }
 
+    /**
+     * Identifies the token owner without checking that the session is still open. Used only to replay
+     * the stored result of an idempotent payment after the session was closed by that payment.
+     */
+    @Transactional(readOnly = true)
+    public SessionParticipant identify(String accessToken) {
+        if (accessToken == null || accessToken.isBlank()) throw unauthorized();
+        return participantRepository.findByAccessTokenHash(digest(accessToken)).orElseThrow(() -> unauthorized());
+    }
+
     @Transactional(readOnly = true)
     public SessionParticipantResponse current(String accessToken) {
         SessionParticipant participant = authenticate(accessToken);

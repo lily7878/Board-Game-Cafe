@@ -43,15 +43,17 @@ public class FoodOrderService {
     private final TableSessionRepository sessionRepository;
     private final StaffUserRepository staffRepository;
     private final SessionAccessService accessService;
+    private final SessionLocker sessionLocker;
 
     public FoodOrderService(FoodOrderRepository orderRepository, MenuItemRepository menuItemRepository,
             TableSessionRepository sessionRepository, StaffUserRepository staffRepository,
-            SessionAccessService accessService) {
+            SessionAccessService accessService, SessionLocker sessionLocker) {
         this.orderRepository = orderRepository;
         this.menuItemRepository = menuItemRepository;
         this.sessionRepository = sessionRepository;
         this.staffRepository = staffRepository;
         this.accessService = accessService;
+        this.sessionLocker = sessionLocker;
     }
 
     // ---- participant ----
@@ -162,8 +164,7 @@ public class FoodOrderService {
     }
 
     private TableSession lockSession(Long id) {
-        return sessionRepository.findByIdForUpdate(id)
-                .orElseThrow(() -> new EntityNotFoundException("Session not found with id: " + id));
+        return sessionLocker.lock(id);
     }
 
     private static void requireActive(TableSession session, String message) {

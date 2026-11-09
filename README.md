@@ -27,7 +27,8 @@ de societate.
 
 Core Service include administrarea meselor, jocurilor si meniului, setarile cafenelei
 si programul informativ, ziua de business simulata, catalogul pentru clienti, sesiuni,
-cereri pentru jocuri si comenzi cu acceptare pe pozitii. Autentificarea STAFF/MANAGER si
+cereri pentru jocuri, comenzi cu acceptare pe pozitii, nota comuna, checkout cu
+redeschidere si plata simulata idempotenta. Autentificarea STAFF/MANAGER si
 accesul participantilor sunt implementate pentru aceste API-uri.
 
 Configurarea secretelor si bootstrap-ul primului manager sunt descrise in

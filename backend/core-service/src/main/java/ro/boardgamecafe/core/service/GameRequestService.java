@@ -31,11 +31,13 @@ public class GameRequestService {
     private final SessionAccessService accessService;
     private final StaffUserRepository staffRepository;
     private final CafeSettingsService settingsService;
+    private final SessionLocker sessionLocker;
 
     public GameRequestService(GameRequestRepository requestRepository, GameRepository gameRepository,
             GameCopyRepository copyRepository, TableSessionRepository sessionRepository,
             SessionAccessService accessService, StaffUserRepository staffRepository,
-            CafeSettingsService settingsService) {
+            CafeSettingsService settingsService, SessionLocker sessionLocker) {
+        this.sessionLocker = sessionLocker;
         this.requestRepository = requestRepository;
         this.gameRepository = gameRepository;
         this.copyRepository = copyRepository;
@@ -147,8 +149,7 @@ public class GameRequestService {
                 .orElseThrow(() -> new EntityNotFoundException("Game request not found with id: " + id));
     }
     private TableSession lockSession(Long id) {
-        return sessionRepository.findByIdForUpdate(id)
-                .orElseThrow(() -> new EntityNotFoundException("Session not found with id: " + id));
+        return sessionLocker.lock(id);
     }
     private StaffUser staff(String email) {
         return staffRepository.findByEmailIgnoreCase(email)

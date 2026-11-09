@@ -28,7 +28,7 @@ public class ApiSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/setup/manager",
                         "/api/participant/sessions/join", "/api/admin/auth/login").permitAll()
                 .requestMatchers("/api/participant/sessions/current",
-                        "/api/participant/sessions/current/leave",
+                        "/api/participant/sessions/current/**",
                         "/api/participant/game-requests", "/api/participant/game-requests/**",
                         "/api/participant/menu", "/api/participant/orders", "/api/participant/orders/**").permitAll()
                 .requestMatchers("/api/admin/me", "/api/admin/me/password",

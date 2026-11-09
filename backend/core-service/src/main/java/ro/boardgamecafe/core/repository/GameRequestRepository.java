@@ -17,4 +17,5 @@ public interface GameRequestRepository extends JpaRepository<GameRequest, Long> 
     List<GameRequest> findBySessionIdOrderByRequestedAtAsc(Long sessionId);
     List<GameRequest> findByParticipantIdOrderByRequestedAtDesc(Long participantId);
     long countBySessionIdAndStatus(Long sessionId, GameRequestStatus status);
+    long countBySessionIdAndStatusIn(Long sessionId, java.util.Collection<GameRequestStatus> statuses);
 }

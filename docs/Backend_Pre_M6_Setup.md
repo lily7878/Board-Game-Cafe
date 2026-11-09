@@ -62,6 +62,28 @@ Migrația `V6` creează `menu_categories`, `menu_items`, `food_orders` și `orde
 - `PATCH /api/admin/orders/{id}/status` cu `{"status":"PREPARING"}` mută comanda exact un pas: `ACCEPTED → PREPARING → READY → DELIVERED`; orice alt salt întoarce 409.
 - `total` din răspuns este preliminar (pozițiile respinse și comenzile anulate valorează 0). Nota finală va lua în calcul doar pozițiile `ACCEPTED` din comenzile `DELIVERED`.
 
+## Nota comună, checkout și plata simulată (V7)
+
+Migrația `V7` creează `session_fees` (numărul de persoane, 0..1 rând per sesiune) și `payments`. Un index unic parțial permite o singură plată `SUCCEEDED` per sesiune, iar `idempotency_key` este unic.
+
+**Nota** (`GET /api/participant/sessions/current/bill`; pentru staff `GET /api/admin/sessions/{id}/bill`) este calculată numai pe server:
+- `menuTotal` = pozițiile `ACCEPTED` din comenzile `DELIVERED`; `feesTotal` = persoane × tariful copiat la deschiderea sesiunii; `total` = suma lor;
+- `participants` conține detaliul pe participant; `pendingOrdersValue` este informativ (comenzi încă nelivrate);
+- `obstacles` arată ce blochează plata: comenzi în lucru, cereri de joc nereturnate (`REQUESTED/RESERVED/DELIVERED`), persoane nedeclarate;
+- `canEditPersons` și `paymentAllowed` sunt calculate pentru UI.
+
+**Pași**
+1. `PUT /api/participant/sessions/current/fees` cu `{"persons": 3}`: orice participant, numai în `ACTIVE` și înainte de primul checkout.
+2. `POST /api/participant/sessions/current/checkout` (T3): cere cel puțin o persoană declarată; sesiunea devine `CHECKOUT_PENDING`, iar `feesLocked` rămâne permanent `true`. Nu se mai acceptă comenzi noi sau cereri de joc noi; comenzile `PLACED` pot fi încă anulate, iar staff-ul poate procesa comenzile și returna jocurile. Preview-ul QR/PIN este ascuns.
+3. `POST /api/admin/sessions/{id}/reopen` (T5, staff): înapoi la `ACTIVE`; persoanele rămân blocate pentru participanți. Staff-ul le poate corecta cu `PUT /api/admin/sessions/{id}/fees` numai în `ACTIVE`, apoi un participant reia checkout-ul.
+4. `POST /api/participant/sessions/current/pay` (T4) cu `{"idempotencyKey": "<UUID nou>", "expectedTotal": 37.00}`. Sub blocarea sesiunii se recalculează totalul, se verifică obstacolele, se salvează plata `SUCCEEDED` și sesiunea devine `CLOSED` în aceeași tranzacție. Secretele QR/PIN recuperabile se șterg, iar tokenurile participanților nu mai sunt acceptate.
+   - `expectedTotal` este opțional: dacă diferă de totalul curent, plata este refuzată cu 409 (protecție contra plății unui total vechi).
+   - Răspunsul este 201 pentru o încercare nouă și 200 când aceeași cheie este retrimisă: se întoarce rezultatul salvat, chiar și după `CLOSED`, numai participantului care a inițiat plata. UI-ul generează o cheie nouă pentru fiecare încercare și o refolosește doar la retrimiterea aceleiași încercări (de exemplu după timeout).
+   - `"simulateFailure": true` creează o plată `FAILED` pentru demonstrație; sesiunea rămâne în `CHECKOUT_PENDING`, iar plata se poate reîncerca cu o cheie nouă.
+5. `GET /api/admin/sessions/{id}/payments` (staff): toate încercările unei sesiuni, inclusiv după `CLOSED`, pentru verificarea unui rezultat incert.
+
+Toate operațiile care schimbă starea sesiunii (persoane, checkout, redeschidere, plată, comenzi noi, cereri de joc) blochează rândul sesiunii și îi recitesc starea curentă (`SessionLocker`), astfel încât o cerere care a așteptat primește o eroare clară sau rezultatul salvat, nu un conflict intern de versiune.
+
 ## Verificarea pe PostgreSQL
 
 Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verificate: bootstrap o singură dată, rolurile 401/403, preview-ul QR/PIN, limita încercărilor PIN, cererea `REQUESTED → RESERVED → DELIVERED → RETURNED`, disponibilitatea din catalog și două rezervări simultane pentru aceeași copie (`200` și `409`). O a doua schemă temporară a verificat loginul JWT, durata de 3600 de secunde, respingerea HTTP Basic, accesul pe roluri, protecția catalogului clientului și invalidarea JWT după dezactivarea contului. Ambele scheme temporare au fost eliminate după probe.
@@ -69,6 +91,8 @@ Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verif
 `V5` a fost verificată pe un cluster PostgreSQL 18 temporar: aplicare peste o bază aflată la `V4` cu sesiuni existente, validarea Hibernate (`contextLoads`), rolurile 200/401/403 pe setări, validările 400 pentru tarif și program, snapshot-ul tarifului la deschiderea sesiunii și păstrarea lui după schimbarea tarifului general.
 
 `V6` a fost verificată pe o bază nouă: drepturile pe roluri, meniul participantului (fără produse indisponibile sau din categorii inactive), validările 400/404/409, editarea și anularea doar în `PLACED`, procesarea parțială și respingerea totală, pașii de preparare, snapshot-ul prețului și cinci runde de editare (participant) în paralel cu procesarea (staff) pe aceeași comandă, fără stări amestecate. `FoodOrderTest` acoperă regulile de stare fără bază de date.
+
+`V7` a fost verificată pe o bază nouă: fluxul complet notă → checkout → obstacole → redeschidere → corecție staff → checkout → plată eșuată → plată reușită, `expectedTotal` învechit, reluarea unei chei, invalidarea QR/PIN și a tokenurilor după `CLOSED`. Teste de concurență: doi participanți plătesc simultan cu chei diferite (o singură plată `SUCCEEDED`), aceeași cheie trimisă de două ori simultan (201 + 200 cu același id, o singură plată) și comandă plasată în paralel cu checkout-ul (în ambele ordini, rezultat coerent). `BillCalculatorTest` și `TableSessionTest` acoperă calculul notei și tranzițiile sesiunii.
 
 Testul `CoreServiceApplicationTests` pornește aplicația completă și rulează numai dacă `DB_PASSWORD` este setat (împreună cu `BGC_STAFF_JWT_KEY` și `BGC_SESSION_CREDENTIAL_KEY`); URL-ul bazei poate fi schimbat cu `SPRING_DATASOURCE_URL`, de exemplu către o bază de test.
 

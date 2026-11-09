@@ -5,6 +5,7 @@ import java.time.Instant;
 import jakarta.persistence.*;
 import ro.boardgamecafe.core.domain.day.BusinessDay;
 import ro.boardgamecafe.core.domain.staff.StaffUser;
+import ro.boardgamecafe.core.exception.ConflictException;
 
 @Entity
 @Table(name = "table_sessions")
@@ -130,6 +131,31 @@ public class TableSession {
             joinLockedUntil = now.plusSeconds(15 * 60);
             failedJoinAttempts = 0;
         }
+    }
+
+    /** T3: first (or repeated) checkout. Locks the fees for participants permanently. */
+    public void startCheckout() {
+        if (status != SessionStatus.ACTIVE)
+            throw new ConflictException("Checkout can be started only for an active session.");
+        status = SessionStatus.CHECKOUT_PENDING;
+        feesLocked = true;
+    }
+
+    /** T5: staff reopens before a successful payment; fees stay locked for participants. */
+    public void reopen() {
+        if (status != SessionStatus.CHECKOUT_PENDING)
+            throw new ConflictException("Only a session in checkout can be reopened.");
+        status = SessionStatus.ACTIVE;
+    }
+
+    /** Closes the session after the successful payment and drops the recoverable QR/PIN secrets. */
+    public void closeAfterPayment() {
+        if (status != SessionStatus.CHECKOUT_PENDING)
+            throw new ConflictException("Only a session in checkout can be closed by payment.");
+        status = SessionStatus.CLOSED;
+        closedAt = Instant.now();
+        joinTokenEncrypted = null;
+        pinEncrypted = null;
     }
 
     public void clearJoinFailures() {
