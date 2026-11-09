@@ -31,8 +31,45 @@ Porniți backendul din același terminal. Apelați o singură dată `POST /api/s
 - `POST /api/admin/tables/{id}/sessions` întoarce tokenul QR și PIN-ul. `GET /api/admin/tables/{id}/sessions/current/access` le reafișează numai pentru o sesiune `ACTIVE`.
 - Clientul intră prin `POST /api/participant/sessions/join` și primește un `accessToken` individual. Catalogul, cererile de joc și `GET /api/participant/sessions/current` folosesc antetul `X-Participant-Token`. Tokenul poate fi păstrat în `sessionStorage` pentru refresh; nu se trimite ca ID de participant ales de client.
 
+## Setări, program și ziua de business (V5)
+
+Migrația `V5` creează automat, fără INSERT manual: rândul unic `cafe_settings` (nume „Board Game Café”, tarif 10.00 per persoană, limită 3 jocuri livrate per masă), programul informativ pentru zilele 1–7 (10:00–22:00) și `BusinessDay #1` cu status `OPEN`. Sesiunile existente sunt atașate Zilei 1 și primesc tariful implicit ca snapshot.
+
+- `GET /api/admin/settings` și `GET /api/admin/opening-hours` sunt disponibile pentru STAFF și MANAGER (Staff vede tariful curent înainte de deschiderea mesei). `PUT /api/admin/settings` și `PUT /api/admin/opening-hours/{1..7}` sunt numai pentru MANAGER.
+- O zi închisă se trimite ca `{"closed": true}`, fără ore; o zi deschisă cere `openTime < closeTime` (intervalele peste miezul nopții sunt în afara scope-ului).
+- `GET /api/admin/business-days/current` întoarce ziua simulată deschisă.
+- `POST /api/admin/tables/{id}/sessions` copiază tariful curent în `access_fee_unit_price` și leagă sesiunea de ziua `OPEN`, blocând rândul zilei; End of Day va folosi aceeași blocare. Răspunsul include `businessDayId` și `accessFeeUnitPrice`. Modificarea ulterioară a tarifului nu afectează sesiunile deja deschise.
+- Limita de jocuri livrate se citește acum din `cafe_settings`, nu din `application.properties`.
+
+## Meniu și comenzi (V6)
+
+Migrația `V6` creează `menu_categories`, `menu_items`, `food_orders` și `order_items`. Nu se șterge nimic fizic: categoriile și produsele se dezactivează.
+
+**Administrare meniu (numai MANAGER)**
+- `POST/GET /api/admin/menu-categories`, `GET/PATCH /api/admin/menu-categories/{id}`, `PATCH .../{id}/status` (`{"active": false}`). Numele categoriei este unic, fără diferență între litere mari și mici.
+- `POST/GET /api/admin/menu-items` (filtru opțional `?categoryId=`), `GET/PATCH /api/admin/menu-items/{id}`, `PATCH .../{id}/status` (dezactivare logică) și `PATCH .../{id}/availability` (`{"available": false}` pentru stoc epuizat temporar).
+- Un produs se poate comanda numai dacă este activ, disponibil și categoria lui este activă (`orderable` în răspuns).
+
+**Participant (antet `X-Participant-Token`)**
+- `GET /api/participant/menu`: doar produsele comandabile, grupate pe categorii.
+- `POST /api/participant/orders` cu `{"items":[{"menuItemId":1,"quantity":2}]}`: 1–30 poziții, cantitate 1–99; produsele repetate se cumulează. Sesiunea trebuie să fie `ACTIVE` (blocată pe durata cererii, pentru serializarea cu viitorul checkout). Numele și prețul se copiază în poziție; schimbările ulterioare de preț nu afectează comanda. Nu există cheie de idempotency: UI-ul dezactivează butonul cât timp cererea este în curs.
+- `GET /api/participant/orders`: numai comenzile proprii.
+- `PUT /api/participant/orders/{id}` (aceleași poziții ca la plasare) și `POST .../{id}/cancel` funcționează doar cât comanda este `PLACED`. Comanda altui participant întoarce 404. Anularea este permisă și în `CHECKOUT_PENDING`; editarea nu.
+
+**Staff (STAFF sau MANAGER)**
+- `GET /api/admin/orders` întoarce implicit comenzile în lucru (`PLACED`, `ACCEPTED`, `PREPARING`, `READY`), cele mai vechi primele; filtru `?status=CANCELLED&status=DELIVERED`. Mai există `GET /api/admin/orders/{id}` și `GET /api/admin/sessions/{id}/orders`.
+- `POST /api/admin/orders/{id}/process` cu `{"decisions":[{"orderItemId":3,"accepted":true},{"orderItemId":4,"accepted":false,"rejectionReason":"S-a terminat"}]}`: câte o decizie pentru **fiecare** poziție, aplicate atomic (T7). Dacă măcar o poziție este acceptată, comanda devine `ACCEPTED`; dacă toate sunt respinse, devine `CANCELLED` cu `ALL_ITEMS_REJECTED` și total 0. Un set incomplet sau duplicat întoarce 400 și nu modifică nimic.
+- `PATCH /api/admin/orders/{id}/status` cu `{"status":"PREPARING"}` mută comanda exact un pas: `ACCEPTED → PREPARING → READY → DELIVERED`; orice alt salt întoarce 409.
+- `total` din răspuns este preliminar (pozițiile respinse și comenzile anulate valorează 0). Nota finală va lua în calcul doar pozițiile `ACCEPTED` din comenzile `DELIVERED`.
+
 ## Verificarea pe PostgreSQL
 
 Migrațiile `V1–V4` au fost aplicate într-o schemă temporară. Au fost verificate: bootstrap o singură dată, rolurile 401/403, preview-ul QR/PIN, limita încercărilor PIN, cererea `REQUESTED → RESERVED → DELIVERED → RETURNED`, disponibilitatea din catalog și două rezervări simultane pentru aceeași copie (`200` și `409`). O a doua schemă temporară a verificat loginul JWT, durata de 3600 de secunde, respingerea HTTP Basic, accesul pe roluri, protecția catalogului clientului și invalidarea JWT după dezactivarea contului. Ambele scheme temporare au fost eliminate după probe.
+
+`V5` a fost verificată pe un cluster PostgreSQL 18 temporar: aplicare peste o bază aflată la `V4` cu sesiuni existente, validarea Hibernate (`contextLoads`), rolurile 200/401/403 pe setări, validările 400 pentru tarif și program, snapshot-ul tarifului la deschiderea sesiunii și păstrarea lui după schimbarea tarifului general.
+
+`V6` a fost verificată pe o bază nouă: drepturile pe roluri, meniul participantului (fără produse indisponibile sau din categorii inactive), validările 400/404/409, editarea și anularea doar în `PLACED`, procesarea parțială și respingerea totală, pașii de preparare, snapshot-ul prețului și cinci runde de editare (participant) în paralel cu procesarea (staff) pe aceeași comandă, fără stări amestecate. `FoodOrderTest` acoperă regulile de stare fără bază de date.
+
+Testul `CoreServiceApplicationTests` pornește aplicația completă și rulează numai dacă `DB_PASSWORD` este setat (împreună cu `BGC_STAFF_JWT_KEY` și `BGC_SESSION_CREDENTIAL_KEY`); URL-ul bazei poate fi schimbat cu `SPRING_DATASOURCE_URL`, de exemplu către o bază de test.
 
 Migrațiile de pe baza principală se vor aplica la următoarea pornire normală a backendului cu Flyway activ. Verificați backupul și datele existente înainte de această pornire.

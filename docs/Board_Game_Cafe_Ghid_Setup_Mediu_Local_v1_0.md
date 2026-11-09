@@ -1,4 +1,4 @@
-git # Board Game Café — Setup mediu de dezvoltare
+# Board Game Café — Setup mediu de dezvoltare
 
 **Versiune:** 1.0  
 **Data:** 11 octombrie 2026  

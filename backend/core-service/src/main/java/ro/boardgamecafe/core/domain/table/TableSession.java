@@ -1,7 +1,9 @@
 package ro.boardgamecafe.core.domain.table;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import jakarta.persistence.*;
+import ro.boardgamecafe.core.domain.day.BusinessDay;
 import ro.boardgamecafe.core.domain.staff.StaffUser;
 
 @Entity
@@ -35,17 +37,33 @@ public class TableSession {
     private Instant startedAt;
     @Column(name = "closed_at")
     private Instant closedAt;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "business_day_id", nullable = false)
+    private BusinessDay businessDay;
+    @Column(name = "access_fee_unit_price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal accessFeeUnitPrice;
+    @Column(name = "fees_locked", nullable = false)
+    private boolean feesLocked;
+    @Version
+    private long version;
 
     protected TableSession() {
     }
 
-    public TableSession(CafeTable table, StaffUser openedBy, String joinTokenDigest, String pinHash,
-            String joinTokenEncrypted, String pinEncrypted) {
+    public TableSession(CafeTable table, StaffUser openedBy, BusinessDay businessDay, BigDecimal accessFeeUnitPrice,
+            String joinTokenDigest, String pinHash, String joinTokenEncrypted, String pinEncrypted) {
         if (table == null || openedBy == null || joinTokenDigest == null || pinHash == null
                 || joinTokenEncrypted == null || pinEncrypted == null)
             throw new IllegalArgumentException("Session credentials, staff user and table are required.");
+        if (businessDay == null || !businessDay.isOpen())
+            throw new IllegalArgumentException("A session must belong to the open business day.");
+        if (accessFeeUnitPrice == null || accessFeeUnitPrice.signum() < 0)
+            throw new IllegalArgumentException("The access fee snapshot must be zero or positive.");
         this.table = table;
         this.openedBy = openedBy;
+        this.businessDay = businessDay;
+        this.accessFeeUnitPrice = accessFeeUnitPrice;
+        this.feesLocked = false;
         this.joinTokenDigest = joinTokenDigest;
         this.pinHash = pinHash;
         this.joinTokenEncrypted = joinTokenEncrypted;
@@ -84,6 +102,22 @@ public class TableSession {
 
     public Instant getStartedAt() {
         return startedAt;
+    }
+
+    public Instant getClosedAt() {
+        return closedAt;
+    }
+
+    public BusinessDay getBusinessDay() {
+        return businessDay;
+    }
+
+    public BigDecimal getAccessFeeUnitPrice() {
+        return accessFeeUnitPrice;
+    }
+
+    public boolean isFeesLocked() {
+        return feesLocked;
     }
 
     public boolean joinLocked(Instant now) {

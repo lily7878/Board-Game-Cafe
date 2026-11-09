@@ -2,7 +2,6 @@ package ro.boardgamecafe.core.service;
 
 import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.boardgamecafe.core.api.game.dto.GameRequestResponse;
@@ -31,19 +30,19 @@ public class GameRequestService {
     private final TableSessionRepository sessionRepository;
     private final SessionAccessService accessService;
     private final StaffUserRepository staffRepository;
-    private final int maxDeliveredPerSession;
+    private final CafeSettingsService settingsService;
 
     public GameRequestService(GameRequestRepository requestRepository, GameRepository gameRepository,
             GameCopyRepository copyRepository, TableSessionRepository sessionRepository,
             SessionAccessService accessService, StaffUserRepository staffRepository,
-            @Value("${app.game-requests.max-delivered-per-session:3}") int maxDeliveredPerSession) {
+            CafeSettingsService settingsService) {
         this.requestRepository = requestRepository;
         this.gameRepository = gameRepository;
         this.copyRepository = copyRepository;
         this.sessionRepository = sessionRepository;
         this.accessService = accessService;
         this.staffRepository = staffRepository;
-        this.maxDeliveredPerSession = maxDeliveredPerSession;
+        this.settingsService = settingsService;
     }
 
     @Transactional
@@ -81,7 +80,7 @@ public class GameRequestService {
         if (session.getStatus() == SessionStatus.CLOSED)
             throw new GameRequestConflictException("The session is closed.");
         if (requestRepository.countBySessionIdAndStatus(session.getId(), GameRequestStatus.DELIVERED)
-                >= maxDeliveredPerSession)
+                >= settingsService.current().getMaxDeliveredGamesPerTable())
             throw new GameRequestConflictException("The session has reached its delivered game limit.");
         GameCopy copy = copyRepository.findByIdForUpdate(request.getGameCopy().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Reserved game copy not found."));

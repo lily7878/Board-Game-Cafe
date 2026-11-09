@@ -14,7 +14,7 @@ import org.springframework.dao.OptimisticLockingFailureException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({GameRequestConflictException.class, OptimisticLockingFailureException.class})
+    @ExceptionHandler({ConflictException.class, OptimisticLockingFailureException.class})
     public ProblemDetail handleGameRequestConflict(RuntimeException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
     }
@@ -68,6 +68,12 @@ public class GlobalExceptionHandler {
                     && "game_copies_inventory_code_key".equals(constraintEx.getConstraintName())) {
                 return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
                         "A game copy with this inventory code already exists.");
+            }
+            if (cause instanceof ConstraintViolationException constraintEx
+                    && "23505".equals(constraintEx.getSQLState())
+                    && "uq_menu_category_name_lower".equals(constraintEx.getConstraintName())) {
+                return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+                        "A menu category with this name already exists.");
             }
             if (cause instanceof ConstraintViolationException constraintEx
                     && "23505".equals(constraintEx.getSQLState())

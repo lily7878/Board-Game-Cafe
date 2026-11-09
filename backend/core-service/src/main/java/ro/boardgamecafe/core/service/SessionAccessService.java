@@ -1,5 +1,6 @@
 package ro.boardgamecafe.core.service;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,6 +19,7 @@ import ro.boardgamecafe.core.api.table.dto.JoinTableSessionRequest;
 import ro.boardgamecafe.core.api.table.dto.JoinTableSessionResponse;
 import ro.boardgamecafe.core.api.table.dto.OpenTableSessionResponse;
 import ro.boardgamecafe.core.api.table.dto.SessionParticipantResponse;
+import ro.boardgamecafe.core.domain.day.BusinessDay;
 import ro.boardgamecafe.core.domain.table.CafeTable;
 import ro.boardgamecafe.core.domain.table.SessionParticipant;
 import ro.boardgamecafe.core.domain.table.SessionStatus;
@@ -38,15 +40,20 @@ public class SessionAccessService {
     private final SessionParticipantRepository participantRepository;
     private final StaffUserRepository staffRepository;
     private final SessionCredentialsCipher credentialsCipher;
+    private final BusinessDayService businessDayService;
+    private final CafeSettingsService settingsService;
 
     public SessionAccessService(CafeTableRepository tableRepository, TableSessionRepository sessionRepository,
             SessionParticipantRepository participantRepository, StaffUserRepository staffRepository,
-            SessionCredentialsCipher credentialsCipher) {
+            SessionCredentialsCipher credentialsCipher, BusinessDayService businessDayService,
+            CafeSettingsService settingsService) {
         this.tableRepository = tableRepository;
         this.sessionRepository = sessionRepository;
         this.participantRepository = participantRepository;
         this.staffRepository = staffRepository;
         this.credentialsCipher = credentialsCipher;
+        this.businessDayService = businessDayService;
+        this.settingsService = settingsService;
     }
 
     @Transactional
@@ -55,13 +62,21 @@ public class SessionAccessService {
                 .orElseThrow(() -> new EntityNotFoundException("Table not found with id: " + tableId));
         if (!table.getActive() || sessionRepository.existsByTableIdAndStatusNot(tableId, SessionStatus.CLOSED))
             throw new GameRequestConflictException("Table is inactive or already has an open session.");
+        BusinessDay day = businessDayService.lockOpenDay();
+        BigDecimal feeSnapshot = settingsService.current().getAccessFeePrice();
         String joinToken = newToken();
         String pin = "%06d".formatted(random.nextInt(1_000_000));
         StaffUser openedBy = staffRepository.findByEmailIgnoreCase(staffEmail)
                 .orElseThrow(() -> new EntityNotFoundException("Staff user not found."));
-        TableSession session = sessionRepository.save(new TableSession(table, openedBy, digest(joinToken),
-                pinEncoder.encode(pin), credentialsCipher.encrypt(joinToken), credentialsCipher.encrypt(pin)));
-        return new OpenTableSessionResponse(session.getId(), tableId, joinToken, pin, session.getStartedAt());
+        TableSession session = sessionRepository.save(new TableSession(table, openedBy, day, feeSnapshot,
+                digest(joinToken), pinEncoder.encode(pin), credentialsCipher.encrypt(joinToken),
+                credentialsCipher.encrypt(pin)));
+        return response(session, joinToken, pin);
+    }
+
+    private static OpenTableSessionResponse response(TableSession session, String joinToken, String pin) {
+        return new OpenTableSessionResponse(session.getId(), session.getTable().getId(), joinToken, pin,
+                session.getStartedAt(), session.getBusinessDay().getId(), session.getAccessFeeUnitPrice());
     }
 
     @Transactional(readOnly = true)
@@ -70,9 +85,8 @@ public class SessionAccessService {
                 .orElseThrow(() -> new EntityNotFoundException("Open session not found for table: " + tableId));
         if (session.getStatus() != SessionStatus.ACTIVE)
             throw new GameRequestConflictException("Session access is hidden during checkout.");
-        return new OpenTableSessionResponse(session.getId(), tableId,
-                credentialsCipher.decrypt(session.getJoinTokenEncrypted()),
-                credentialsCipher.decrypt(session.getPinEncrypted()), session.getStartedAt());
+        return response(session, credentialsCipher.decrypt(session.getJoinTokenEncrypted()),
+                credentialsCipher.decrypt(session.getPinEncrypted()));
     }
 
     @Transactional(noRollbackFor = ResponseStatusException.class)

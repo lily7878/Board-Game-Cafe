@@ -29,17 +29,24 @@ public class ApiSecurityConfig {
                         "/api/participant/sessions/join", "/api/admin/auth/login").permitAll()
                 .requestMatchers("/api/participant/sessions/current",
                         "/api/participant/sessions/current/leave",
-                        "/api/participant/game-requests", "/api/participant/game-requests/**").permitAll()
+                        "/api/participant/game-requests", "/api/participant/game-requests/**",
+                        "/api/participant/menu", "/api/participant/orders", "/api/participant/orders/**").permitAll()
                 .requestMatchers("/api/admin/me", "/api/admin/me/password",
                         "/api/admin/auth/me").hasAnyRole("STAFF", "MANAGER")
                 .requestMatchers("/api/admin/staff", "/api/admin/staff/**").hasRole("MANAGER")
                 .requestMatchers("/api/admin/games", "/api/admin/games/**",
                         "/api/admin/game-categories", "/api/admin/game-categories/**",
-                        "/api/admin/game-copies/**").hasRole("MANAGER")
+                        "/api/admin/game-copies/**", "/api/admin/menu-categories", "/api/admin/menu-categories/**",
+                        "/api/admin/menu-items", "/api/admin/menu-items/**").hasRole("MANAGER")
+                .requestMatchers(HttpMethod.GET, "/api/admin/settings", "/api/admin/opening-hours",
+                        "/api/admin/business-days/current").hasAnyRole("STAFF", "MANAGER")
+                .requestMatchers(HttpMethod.PUT, "/api/admin/settings", "/api/admin/opening-hours/*")
+                        .hasRole("MANAGER")
                 .requestMatchers(HttpMethod.POST, "/api/admin/tables/*/sessions").hasAnyRole("STAFF", "MANAGER")
                 .requestMatchers(HttpMethod.POST, "/api/admin/tables").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.PATCH, "/api/admin/tables/**").hasRole("MANAGER")
                 .requestMatchers("/api/admin/tables", "/api/admin/tables/**", "/api/admin/game-requests/**",
+                        "/api/admin/orders", "/api/admin/orders/**",
                         "/api/admin/sessions/**").hasAnyRole("STAFF", "MANAGER")
                 .anyRequest().denyAll())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt ->
