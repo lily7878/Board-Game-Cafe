@@ -50,7 +50,7 @@ Proiect/
 
 | Componentă | Adresă | Stare |
 | --- | --- | --- |
-| Core Service | `http://localhost:8080` | Funcțional |
+| Core Service | `http://localhost:8082` | Port curent |
 | Customer UI | `http://localhost:5173` | Funcțional |
 | Management UI | `http://localhost:5174` | Funcțional |
 | PostgreSQL | `localhost:5432` | Funcțional |
@@ -69,7 +69,7 @@ spring.datasource.username=bgc_app
 spring.datasource.password=${DB_PASSWORD}
 spring.jpa.hibernate.ddl-auto=validate
 spring.jpa.open-in-view=false
-server.port=8080
+server.port=8082
 spring.flyway.enabled=true
 spring.flyway.locations=classpath:db/migration
 ```
@@ -106,7 +106,7 @@ cd "C:\Personal\Facultate\An_4\Sem1\SCD\Proiect\backend\core-service"
 .\mvnw.cmd spring-boot:run
 ```
 
-Verificare: `http://localhost:8080/actuator/health` → JSON cu `status: UP`; grupurile `liveness` și `readiness` au apărut în rezultat. Oprire: `Ctrl+C`.
+Verificare: `http://localhost:8082/actuator/health` → JSON cu `status: UP`; grupurile `liveness` și `readiness` au apărut în rezultat. Oprire: `Ctrl+C`.
 
 **Terminal 2 — Customer UI:**
 
@@ -193,8 +193,8 @@ server: {
   port: 5173, // Customer; 5174 pentru Management
   strictPort: true,
   proxy: {
-    '/api': { target: 'http://localhost:8080', changeOrigin: true },
-    '/actuator': { target: 'http://localhost:8080', changeOrigin: true },
+    '/api': { target: 'http://localhost:8082', changeOrigin: true },
+    '/actuator': { target: 'http://localhost:8082', changeOrigin: true },
   },
 },
 ```
