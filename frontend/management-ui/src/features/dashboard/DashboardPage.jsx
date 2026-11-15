@@ -132,8 +132,8 @@ function Kpi({ label, icon: Icon, tone = 'rose', value, suffix, children }) {
 function ModuleGrid({ tables, orders, requests, withAdmin = false }) {
   const navigate = useNavigate();
   const modules = [
-    { to: '/tables', label: 'Mese', icon: Armchair, sub: `${tables.occupied} active · ${tables.free} libere` },
-    { to: '/orders', label: 'Comenzi', icon: ClipboardList, sub: `${orders.fresh.length} noi · ${orders.inProgress} în preparare` },
+    { to: '/tables', label: 'Mese', icon: Armchair, sub: `${plural(tables.occupied, 'activă', 'active')} · ${plural(tables.free, 'liberă', 'libere')}` },
+    { to: '/orders', label: 'Comenzi', icon: ClipboardList, sub: `${plural(orders.fresh.length, 'nouă', 'noi')} · ${orders.inProgress} în preparare` },
     {
       to: '/game-requests',
       label: 'Cereri jocuri',

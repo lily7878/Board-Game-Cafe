@@ -34,8 +34,10 @@ export function useDashboardData({ isManager }) {
     requests: requests.data,
     preview: preview.data,
     hours: hours.data,
-    // First load only: later refetches keep the old data on screen (no flashing skeletons).
-    loading: core.some((q) => q.loading && !q.data),
+    // Loading until every core query has data. "loading" alone is not enough: orders and
+    // requests wait for the day id, so they are briefly idle (loading=false, data=null).
+    // Later refetches keep the old data on screen, so there is no flashing skeleton.
+    loading: core.some((q) => q.data == null && !q.error),
     error: core.find((q) => q.error)?.error ?? null,
     retry: () => core.forEach((q) => q.refetch()),
   };

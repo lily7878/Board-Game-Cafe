@@ -11,19 +11,22 @@ const toMs = (iso) => new Date(iso).getTime();
 
 const IN_PROGRESS = new Set(['ACCEPTED', 'PREPARING', 'READY']);
 
-export function summarizeTables(overview = []) {
+export function summarizeTables(overview) {
+  overview ??= []; // default params cover undefined only; the API hook starts with null
   const tables = overview.filter((t) => t.active);
   const occupied = tables.filter((t) => t.session);
   const checkout = occupied.filter((t) => t.session.status === 'CHECKOUT_PENDING');
   return { total: tables.length, occupied: occupied.length, free: tables.length - occupied.length, checkout };
 }
 
-export function summarizeOrders(orders = []) {
+export function summarizeOrders(orders) {
+  orders ??= [];
   const fresh = orders.filter((o) => o.status === 'PLACED').sort((a, b) => toMs(a.placedAt) - toMs(b.placedAt));
   return { fresh, inProgress: orders.filter((o) => IN_PROGRESS.has(o.status)).length };
 }
 
-export function summarizeRequests(requests = []) {
+export function summarizeRequests(requests) {
+  requests ??= [];
   return {
     waiting: requests.filter((r) => r.status === 'REQUESTED').length,
     reserved: requests.filter((r) => r.status === 'RESERVED').length,
@@ -55,7 +58,10 @@ export function blockedCheckouts(checkoutTables) {
  * every order / game request / open session contributes one entry, dated by the timestamp
  * of its current status. Newest first.
  */
-export function recentActivity({ orders = [], requests = [], overview = [] }, limit = 7) {
+export function recentActivity({ orders, requests, overview }, limit = 7) {
+  orders ??= [];
+  requests ??= [];
+  overview ??= [];
   const entries = [];
 
   for (const order of orders) {

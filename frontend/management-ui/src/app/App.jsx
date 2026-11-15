@@ -1,7 +1,7 @@
 import { LoginPage } from '../features/auth/LoginPage';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
-import { ToastProvider } from '../shared/ui';
+import { ErrorBoundary, ToastProvider } from '../shared/ui';
 import { LiveProvider } from './live/LiveProvider';
 import { Redirect, RouterProvider, usePath } from './router';
 import { StaffAuthProvider, useStaffAuth } from './StaffAuthContext';
@@ -50,7 +50,9 @@ function Routes() {
   const Page = PAGES[route.path];
   return (
     <AppShell title={title}>
-      {Page ? <Page key={route.path} /> : <PlaceholderPage key={route.path} title={title} />}
+      <ErrorBoundary key={route.path}>
+        {Page ? <Page /> : <PlaceholderPage title={title} />}
+      </ErrorBoundary>
     </AppShell>
   );
 }
