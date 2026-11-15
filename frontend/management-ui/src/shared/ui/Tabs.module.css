@@ -1,0 +1,28 @@
+.tabs { display: inline-flex; gap: 2px; padding: 4px; border-radius: var(--radius-pill); }
+.cream { background: var(--color-cream); }
+.tinted { background: rgba(73, 56, 47, 0.06); }
+
+.tab {
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color var(--dur-fast) ease-out;
+}
+.tab:hover:not(.selected) { color: var(--text-primary); }
+
+.selected {
+  background: var(--color-white);
+  color: var(--text-primary);
+  font-weight: 800;
+  box-shadow: 0 1px 3px rgba(73, 56, 47, 0.12);
+}
+
+.count { color: var(--color-deep-rose); font-weight: 800; }

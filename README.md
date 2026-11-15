@@ -32,5 +32,7 @@ redeschidere si plata simulata idempotenta, End of Day cu rapoarte zilnice, comp
 intre zile si export PDF. Serviciul AI urmeaza dupa implementarea frontend-ului. Autentificarea STAFF/MANAGER si
 accesul participantilor sunt implementate pentru aceste API-uri.
 
+Pasii de rulare locala (backend + interfete) sunt in [Pornire locala](docs/Pornire_Locala.md).
+
 Configurarea secretelor si bootstrap-ul primului manager sunt descrise in
 [ghidul backend inainte de M6](docs/Backend_Pre_M6_Setup.md).

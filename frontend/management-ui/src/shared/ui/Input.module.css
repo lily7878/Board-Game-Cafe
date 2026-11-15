@@ -1,0 +1,51 @@
+.field { display: flex; flex-direction: column; gap: 8px; }
+
+.label { font-size: var(--fs-meta); font-weight: 700; }
+
+.control {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 0 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  transition: background-color var(--dur-fast) ease-out, box-shadow var(--dur-fast) ease-out;
+}
+.control:focus-within { background: var(--color-white); box-shadow: 0 0 0 2px var(--color-dusty-rose); }
+.control.invalid { box-shadow: 0 0 0 2px var(--field-error-ring); }
+
+.icon { flex: none; color: var(--text-muted); }
+.control:focus-within .icon { color: var(--color-deep-rose); }
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  padding-right: 12px;
+}
+.input::placeholder { color: var(--text-muted); font-weight: 500; }
+/* The focus ring is drawn on the pill (.control), not on the bare input. */
+.input:focus-visible { outline: none; }
+.secret { letter-spacing: 0.12em; }
+
+.reveal {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reveal:hover { background: var(--skeleton-1); }
+
+.error { font-size: var(--fs-small); font-weight: 700; color: var(--field-error-fg); padding-left: 20px; }

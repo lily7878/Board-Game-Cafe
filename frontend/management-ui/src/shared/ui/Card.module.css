@@ -1,0 +1,14 @@
+.card {
+  display: block;
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+  border: 0;
+  text-align: left;
+  color: inherit;
+}
+
+.sm { border-radius: var(--radius-md); padding: 20px 22px; }
+.lg { border-radius: var(--radius-xl); padding: 28px; }
+
+.interactive { cursor: pointer; transition: box-shadow var(--dur-fast) ease-out; }
+.interactive:hover { box-shadow: var(--shadow-card-hover); }

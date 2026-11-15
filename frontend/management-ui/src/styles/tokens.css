@@ -1,0 +1,74 @@
+/* Board Game Café — design tokens (Cozy Café / Dusty Rose, Light Mode only).
+   Identical in customer-ui and management-ui: src/styles/tokens.css */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand */
+  --color-cream: #F7F1E9;
+  --color-white: #FFFFFF;
+  --color-blush: #EAD6D8;
+  --color-dusty-rose: #B7848C;
+  --color-deep-rose: #925E68;
+  --color-deep-rose-hover: #7A4B55;
+  --color-espresso: #49382F;
+  --color-espresso-2: #5A463B;
+
+  /* Neutrals & text */
+  --text-primary: #49382F;
+  --text-secondary: #6B5A50;
+  --text-muted: #7A6A60;
+  --text-on-dark: #F7F1E9;
+  --text-on-dark-muted: #CDBDB1;
+  --text-on-dark-subtle: #B9A89C;
+  --rose-50: #F5EAEB;
+  --sand-100: #F2EAE0;
+  --sand-200: #EDE3D8;
+  --skeleton-1: #EFE6DC;
+  --skeleton-2: #F5EDE4;
+  --border: rgba(73, 56, 47, 0.08);
+  --border-strong: rgba(73, 56, 47, 0.16);
+
+  /* Status — always paired with label + icon */
+  --status-success-bg: #E4EEDF;  --status-success-fg: #3E5A37;  --status-success-dot: #7FA373;
+  --status-active-bg: #F3E1E3;   --status-active-fg: #7A4B55;   --status-active-dot: #B7848C;
+  --status-warning-bg: #F7E7C8;  --status-warning-fg: #7A5316;  --status-warning-dot: #D9A54A;
+  --status-reserved-bg: #E8E4F0; --status-reserved-fg: #4A3F66; --status-reserved-dot: #8C7BB0;
+  --status-neutral-bg: #EDE6DE;  --status-neutral-fg: #5C4E45;  --status-neutral-dot: #C9BBAE;
+  --status-error-bg: #F6E0DC;    --status-error-fg: #6E2B22;
+  --field-error-ring: #C9786B;   --field-error-fg: #A0453A;
+
+  /* Type */
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --fs-display: 56px; --fs-h1: 32px; --fs-h2: 24px; --fs-h3: 17px;
+  --fs-body: 14px; --fs-body-lg: 15px; --fs-meta: 13px; --fs-small: 12px; --fs-overline: 11px;
+
+  /* Radius */
+  --radius-pill: 999px;
+  --radius-sm: 20px;
+  --radius-md: 24px;
+  --radius-lg: 28px;
+  --radius-xl: 32px;
+  --radius-modal: 36px;
+
+  /* Spacing (4px grid) */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-7: 28px; --space-8: 32px; --space-9: 36px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgba(73,56,47,.06), 0 4px 14px rgba(73,56,47,.04);
+  --shadow-card-hover: 0 0 0 2px #EAD6D8, 0 8px 24px rgba(73,56,47,.08);
+  --shadow-modal: 0 24px 60px rgba(46,33,27,.28);
+  --shadow-drawer: -12px 0 40px rgba(46,33,27,.18);
+  --shadow-toast: 0 16px 40px rgba(46,33,27,.3);
+  --overlay: rgba(46,33,27,.42);
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2,.8,.2,1);
+  --dur-fast: 150ms;
+  --dur-panel: 240ms;
+}
+
+html, body { background: var(--color-cream); color: var(--text-primary); font-family: var(--font-sans); }
+a { color: var(--color-deep-rose); }
+a:hover { color: var(--color-deep-rose-hover); }
+:focus-visible { outline: 2px solid var(--color-deep-rose); outline-offset: 2px; }

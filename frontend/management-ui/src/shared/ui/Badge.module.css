@@ -1,0 +1,26 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.dot { width: 7px; height: 7px; border-radius: var(--radius-pill); background: currentColor; }
+
+.success  { background: var(--status-success-bg);  color: var(--status-success-fg); }
+.active   { background: var(--status-active-bg);   color: var(--status-active-fg); }
+.warning  { background: var(--status-warning-bg);  color: var(--status-warning-fg); }
+.reserved { background: var(--status-reserved-bg); color: var(--status-reserved-fg); }
+.neutral  { background: var(--status-neutral-bg);  color: var(--status-neutral-fg); }
+.error    { background: var(--status-error-bg);    color: var(--status-error-fg); }
+
+.success .dot  { background: var(--status-success-dot); }
+.active .dot   { background: var(--status-active-dot); }
+.warning .dot  { background: var(--status-warning-dot); }
+.reserved .dot { background: var(--status-reserved-dot); }
+.neutral .dot  { background: var(--status-neutral-dot); }

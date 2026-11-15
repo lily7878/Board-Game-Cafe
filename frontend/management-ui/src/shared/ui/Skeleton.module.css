@@ -1,0 +1,9 @@
+.skeleton {
+  display: block;
+  border-radius: var(--radius-pill);
+  background: var(--skeleton-1);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.tone2 { background: var(--skeleton-2); }
+
+@keyframes pulse { 50% { opacity: 0.6; } }
