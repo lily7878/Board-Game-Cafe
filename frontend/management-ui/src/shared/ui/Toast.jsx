@@ -6,7 +6,7 @@ const ToastContext = createContext(null);
 
 /**
  * Bottom-right toasts. success = green pill, error = espresso card.
- * Usage: const toast = useToast(); toast.success('Salvat'); toast.error('…');
+ * Usage: const toast = useToast(); toast.success('Salvat'); toast.error('…', { title: 'Timeout' });
  */
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
@@ -15,9 +15,9 @@ export function ToastProvider({ children }) {
   const dismiss = useCallback((id) => setToasts((list) => list.filter((t) => t.id !== id)), []);
 
   const push = useCallback(
-    (tone, message, { duration = tone === 'error' ? 7000 : 4000 } = {}) => {
+    (tone, message, { duration = tone === 'error' ? 7000 : 4000, title } = {}) => {
       const id = nextId.current++;
-      setToasts((list) => [...list, { id, tone, message }]);
+      setToasts((list) => [...list, { id, tone, message, title }]);
       if (duration) setTimeout(() => dismiss(id), duration);
     },
     [dismiss],
@@ -46,7 +46,10 @@ export function ToastProvider({ children }) {
             ) : (
               <CircleAlert size={18} className={styles.errorIcon} aria-hidden />
             )}
-            <span className={styles.message}>{t.message}</span>
+            <span className={styles.message}>
+              {t.title && <strong className={styles.title}>{t.title}</strong>}
+              {t.message}
+            </span>
             <button type="button" className={styles.close} onClick={() => dismiss(t.id)} aria-label="Închide">
               <X size={16} />
             </button>

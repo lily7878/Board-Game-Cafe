@@ -1,6 +1,7 @@
 import { LoginPage } from '../features/auth/LoginPage';
 import { TablesAdminPage } from '../features/admin-tables/TablesAdminPage';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
+import { OrdersPage } from '../features/orders/OrdersPage';
 import { TablesPage } from '../features/tables/TablesPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
 import { ErrorBoundary, ToastProvider } from '../shared/ui';
@@ -29,6 +30,7 @@ export function App() {
 const PAGES = {
   '/dashboard': DashboardPage,
   '/tables': TablesPage,
+  '/orders': OrdersPage,
   '/admin/tables': TablesAdminPage,
 };
 

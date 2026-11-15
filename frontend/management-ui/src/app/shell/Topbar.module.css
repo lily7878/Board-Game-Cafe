@@ -1,4 +1,9 @@
 .topbar {
+  /* Stays visible while long lists (orders, history) scroll under it. */
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-cream);
   height: 76px;
   flex: none;
   display: flex;

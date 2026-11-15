@@ -27,7 +27,8 @@
 .error   { border-radius: var(--radius-sm); background: var(--color-espresso); color: var(--color-cream); font-weight: 600; }
 .errorIcon { color: var(--color-blush); flex: none; }
 
-.message { flex: 1; }
+.message { flex: 1; line-height: 1.5; }
+.title { display: block; font-weight: 800; }
 
 .close {
   flex: none;
