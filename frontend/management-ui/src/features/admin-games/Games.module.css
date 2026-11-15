@@ -1,0 +1,151 @@
+.grow { flex: 1; min-width: 0; }
+.muted { color: var(--text-muted); font-size: var(--fs-meta); font-weight: 600; }
+.plainLink { color: inherit; text-decoration: none; }
+.plainLink:hover { color: var(--color-deep-rose); text-decoration: underline; }
+.code { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; }
+
+/* ---------- toolbar filters ---------- */
+.filter { position: relative; display: flex; align-items: center; }
+.filter select {
+  height: 40px;
+  padding: 0 42px 0 18px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  box-shadow: inset 0 0 0 1.5px var(--border);
+  font: inherit;
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--text-primary);
+  appearance: none;
+  cursor: pointer;
+}
+.filter svg { position: absolute; right: 16px; pointer-events: none; }
+.legend { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: var(--fs-small); font-weight: 600; color: var(--text-secondary); }
+.legend i { width: 9px; height: 9px; margin-left: 8px; border-radius: var(--radius-pill); }
+.legendAvailable { background: var(--status-success-dot); }
+.legendTable { background: var(--status-active-dot); }
+.legendOut { background: var(--status-neutral-dot); }
+
+/* ---------- game cards (1g) ---------- */
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1150px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card {
+  min-height: 314px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+.cardInactive { background: #FBF8F4; box-shadow: inset 0 0 0 1.5px var(--border); }
+.cardInactive .title, .cardInactive .facts, .cardInactive .icon { opacity: 0.55; }
+.cardHead { display: flex; align-items: flex-start; gap: 14px; }
+.icon {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--rose-50);
+  color: var(--color-deep-rose);
+}
+.title { font-size: 19px; font-weight: 800; }
+.titleLink { color: inherit; text-decoration: none; }
+.titleLink:hover { color: var(--color-deep-rose); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { padding: 3px 10px; border-radius: var(--radius-pill); background: var(--sand-100); font-size: var(--fs-small); font-weight: 700; color: var(--text-secondary); }
+.facts { display: flex; flex-wrap: wrap; gap: 16px; font-size: var(--fs-meta); font-weight: 600; }
+.facts span { display: inline-flex; align-items: center; gap: 6px; }
+.facts svg { color: var(--color-dusty-rose); }
+
+.copiesBox { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 20px; background: var(--color-cream); }
+.copiesHead { display: flex; justify-content: space-between; gap: 8px; font-size: var(--fs-meta); font-weight: 700; }
+.copiesHead strong { font-weight: 700; }
+.bars { display: flex; gap: 6px; }
+.bars span { flex: 1; min-width: 6px; height: 8px; border-radius: var(--radius-pill); }
+.bar_available { background: #7FA373; }
+.bar_table { background: #C08A93; }
+.bar_out { background: #DCCFC3; }
+.hiddenNote { display: flex; gap: 10px; align-items: flex-start; padding: 16px; border-radius: 20px; background: var(--sand-100); font-size: var(--fs-meta); font-weight: 600; color: var(--text-secondary); }
+.hiddenNote svg { flex: none; margin-top: 2px; }
+
+.cardFoot { margin-top: auto; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.cardFoot > :first-child { margin-right: auto; }
+.rulesTag { padding: 6px 12px; border-radius: var(--radius-pill); background: var(--sand-100); font-size: var(--fs-small); font-weight: 700; color: var(--text-secondary); }
+
+/* ---------- copies (2m) ---------- */
+.conditions { display: flex; flex-direction: column; gap: 8px; }
+.condition { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-radius: 18px; background: var(--color-cream); cursor: pointer; }
+.condition input { margin-top: 3px; accent-color: var(--color-deep-rose); }
+.condition > span { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.conditionOn { box-shadow: 0 0 0 2px var(--color-dusty-rose); background: var(--color-white); }
+
+/* ---------- detail (2n) ---------- */
+.breadcrumb { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; }
+.back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--text-primary);
+}
+.back:hover { background: var(--rose-50); }
+.detail { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 1100px) { .detail { grid-template-columns: 1fr; } }
+.detailMain { display: flex; flex-direction: column; gap: 16px; }
+.panel { display: flex; flex-direction: column; gap: 18px; padding: 26px 28px; border-radius: var(--radius-xl); }
+.panelTitle { font-size: 18px; font-weight: 800; }
+.panelTitleLg { font-size: 22px; font-weight: 800; }
+.detailHead { display: flex; align-items: flex-start; gap: 18px; }
+.bigIcon { width: 88px; height: 88px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--rose-50); color: var(--color-deep-rose); }
+.detailTitleRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.detailTitle { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; }
+.description { font-size: 15px; line-height: 1.6; font-weight: 500; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.stat { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 20px; background: var(--color-cream); }
+.stat span { font-size: var(--fs-small); font-weight: 700; color: var(--text-secondary); }
+.stat strong { font-size: 18px; font-weight: 800; }
+.rules { font-size: 14px; line-height: 1.6; font-weight: 500; white-space: pre-line; }
+.pdfRow { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 22px; background: var(--color-cream); font-size: 14px; }
+.pdfIcon { width: 38px; height: 38px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--color-white); color: var(--text-secondary); }
+.copiesTitle { display: flex; align-items: center; justify-content: space-between; }
+.copyRow { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 600; }
+.availableRow { display: flex; justify-content: space-between; padding: 14px 18px; border-radius: var(--radius-pill); background: var(--color-cream); font-size: 14px; font-weight: 600; }
+.availableRow strong { font-weight: 800; }
+
+/* ---------- form page (7c) ---------- */
+.formLayout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 1100px) { .formLayout { grid-template-columns: 1fr; } }
+.formSide { display: flex; flex-direction: column; gap: 16px; }
+.numbers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; align-items: start; }
+@media (max-width: 1280px) { .numbers { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.segmented { display: flex; max-width: 428px; padding: 4px; border-radius: var(--radius-pill); background: var(--color-cream); }
+.segment { flex: 1; height: 40px; border: 0; border-radius: var(--radius-pill); background: transparent; font-size: 14px; font-weight: 700; color: var(--text-secondary); }
+.segmentOn { background: var(--color-deep-rose); color: var(--color-white); font-weight: 800; }
+.chipsWrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.pick {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--border-strong);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.pickOn { background: var(--status-active-bg); box-shadow: none; color: var(--status-active-fg); }
+.pdfNote { display: flex; gap: 8px; font-size: var(--fs-small); line-height: 1.5; font-weight: 600; color: var(--text-secondary); }
+.pdfNote svg { flex: none; margin-top: 2px; }
+.visibility { padding: 18px 24px; }
