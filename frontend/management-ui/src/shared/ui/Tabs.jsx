@@ -5,9 +5,13 @@ import styles from './Tabs.module.css';
  *  tabs: [{ value, label, count? }]
  *  surface: cream (on white cards) | tinted (on the cream page)
  */
-export function Tabs({ tabs, value, onChange, surface = 'cream', ariaLabel }) {
+export function Tabs({ tabs, value, onChange, surface = 'cream', stretch = false, ariaLabel }) {
   return (
-    <div className={`${styles.tabs} ${styles[surface]}`} role="tablist" aria-label={ariaLabel}>
+    <div
+      className={`${styles.tabs} ${styles[surface]} ${stretch ? styles.stretch : ''}`}
+      role="tablist"
+      aria-label={ariaLabel}
+    >
       {tabs.map((tab) => {
         const selected = tab.value === value;
         return (

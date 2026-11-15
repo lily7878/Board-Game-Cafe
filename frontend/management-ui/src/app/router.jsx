@@ -2,29 +2,35 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 /**
  * Minimal internal router on the History API (spec: no react-router in v1).
- *  - usePath()      -> current pathname
- *  - useNavigate()  -> navigate(to, { replace })
- *  - <Link to="/x"> -> <a> that navigates without a page reload
+ *  - usePath()         -> current pathname
+ *  - useSearchParams() -> URLSearchParams of the query string (?table=3)
+ *  - useNavigate()     -> navigate(to, { replace })
+ *  - <Link to="/x">    -> <a> that navigates without a page reload
+ *
+ * UI state that should survive a refresh or be shareable (e.g. which table drawer is open)
+ * lives in the query string instead of component state.
  */
 const RouterContext = createContext(null);
 
+const currentLocation = () => ({ path: window.location.pathname, search: window.location.search });
+
 export function RouterProvider({ children }) {
-  const [path, setPath] = useState(() => window.location.pathname);
+  const [location, setLocation] = useState(currentLocation);
 
   useEffect(() => {
-    const onPop = () => setPath(window.location.pathname);
+    const onPop = () => setLocation(currentLocation());
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
   const navigate = useCallback((to, { replace = false } = {}) => {
-    if (to === window.location.pathname) return;
-    window.history[replace ? 'replaceState' : 'pushState'](null, '', to);
-    setPath(new URL(to, window.location.origin).pathname);
-    window.scrollTo(0, 0);
+    const url = new URL(to, window.location.origin);
+    if (url.pathname + url.search === window.location.pathname + window.location.search) return;
+    window.history[replace ? 'replaceState' : 'pushState'](null, '', url.pathname + url.search);
+    setLocation({ path: url.pathname, search: url.search });
   }, []);
 
-  const value = useMemo(() => ({ path, navigate }), [path, navigate]);
+  const value = useMemo(() => ({ ...location, navigate }), [location, navigate]);
   return <RouterContext.Provider value={value}>{children}</RouterContext.Provider>;
 }
 
@@ -36,6 +42,11 @@ function useRouter() {
 
 export const usePath = () => useRouter().path;
 export const useNavigate = () => useRouter().navigate;
+
+export function useSearchParams() {
+  const { search } = useRouter();
+  return useMemo(() => new URLSearchParams(search), [search]);
+}
 
 export function Link({ to, onClick, children, ...rest }) {
   const navigate = useNavigate();

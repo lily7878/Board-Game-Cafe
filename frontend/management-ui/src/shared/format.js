@@ -33,6 +33,12 @@ export function formatAgo(iso, now) {
   return `acum ${Math.floor(minutes / 60)} h`;
 }
 
+/** Elapsed time since an ISO instant as "hh:mm" (session timer on table cards): 72 min -> "01:12". */
+export function formatDuration(iso, now = Date.now()) {
+  const minutes = minutesSince(iso, now);
+  return `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+}
+
 /** Table number with a leading zero, as in the designs: 4 -> "04". */
 export function tableLabel(number) {
   return String(number ?? '').padStart(2, '0');
