@@ -4,9 +4,9 @@ import styles from './Input.module.css';
 
 /**
  * Pill input with label above, optional leading icon and inline error.
- * type="password" gets a show/hide toggle.
+ * type="password" gets a show/hide toggle; `suffix` is a unit shown inside (e.g. "lei").
  */
-export function Input({ label, icon: Icon, error, type = 'text', className = '', ...rest }) {
+export function Input({ label, icon: Icon, error, suffix, type = 'text', className = '', ...rest }) {
   const id = useId();
   const errorId = `${id}-error`;
   const [reveal, setReveal] = useState(false);
@@ -25,6 +25,7 @@ export function Input({ label, icon: Icon, error, type = 'text', className = '',
           aria-describedby={error ? errorId : undefined}
           {...rest}
         />
+        {suffix && <span className={styles.suffix}>{suffix}</span>}
         {isPassword && (
           <button
             type="button"

@@ -1,0 +1,40 @@
+.root { position: relative; }
+.trigger {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--text-primary);
+}
+.trigger:hover, .trigger[aria-expanded='true'] { background: var(--rose-50); color: var(--color-deep-rose); }
+
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: 18px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-modal);
+}
+.item {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  text-align: left;
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.item:hover:not(:disabled) { background: var(--color-cream); }
+.item:disabled { opacity: 0.45; cursor: default; }
+.danger { color: var(--status-error-fg); }

@@ -3,6 +3,8 @@ import { TablesAdminPage } from '../features/admin-tables/TablesAdminPage';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { OrdersPage } from '../features/orders/OrdersPage';
 import { GameRequestsPage } from '../features/game-requests/GameRequestsPage';
+import { AdminHubPage } from '../features/admin/AdminHubPage';
+import { MenuAdminPage } from '../features/admin-menu/MenuAdminPage';
 import { TablesPage } from '../features/tables/TablesPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
 import { ErrorBoundary, ToastProvider } from '../shared/ui';
@@ -33,7 +35,9 @@ const PAGES = {
   '/tables': TablesPage,
   '/orders': OrdersPage,
   '/game-requests': GameRequestsPage,
+  '/admin': AdminHubPage,
   '/admin/tables': TablesAdminPage,
+  '/admin/menu': MenuAdminPage,
 };
 
 /**

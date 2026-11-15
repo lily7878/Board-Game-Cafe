@@ -49,3 +49,5 @@
 .reveal:hover { background: var(--skeleton-1); }
 
 .error { font-size: var(--fs-small); font-weight: 700; color: var(--field-error-fg); padding-left: 20px; }
+
+.suffix { flex: none; padding: 0 12px 0 8px; font-size: 14px; font-weight: 700; color: var(--text-secondary); }
