@@ -26,6 +26,38 @@
 .pillIcon { color: var(--color-deep-rose); }
 .muted { color: var(--text-muted); }
 
+.live {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+}
+.liveOn { background: var(--status-success-bg); color: var(--status-success-fg); }
+.liveOff { padding-right: 4px; background: var(--status-neutral-bg); color: var(--status-neutral-fg); }
+.liveDot { width: 8px; height: 8px; border-radius: var(--radius-pill); background: #5F8A55; }
+.liveDotOff { background: var(--status-neutral-dot); animation: blink 1.2s ease-in-out infinite; }
+
+.retry {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--color-deep-rose);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.retry:hover { background: var(--rose-50); }
+
+@keyframes blink { 50% { opacity: 0.35; } }
+
 .bell {
   position: relative;
   width: 40px;

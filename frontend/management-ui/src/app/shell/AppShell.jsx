@@ -3,15 +3,17 @@ import { Button, Modal } from '../../shared/ui';
 import { useStaffAuth } from '../StaffAuthContext';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
+import { useStaffCounters } from './useStaffCounters';
 import styles from './AppShell.module.css';
 
 /** Authenticated layout: sidebar + (topbar, scrollable page). Hosts the 7f expiry modal. */
 export function AppShell({ title, children }) {
   const { status, logout } = useStaffAuth();
+  const counters = useStaffCounters();
 
   return (
     <div className={styles.shell}>
-      <Sidebar />
+      <Sidebar counters={counters} />
       <div className={styles.main}>
         <Topbar title={title} />
         <main className={styles.content}>{children}</main>

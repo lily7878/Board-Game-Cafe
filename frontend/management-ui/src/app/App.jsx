@@ -1,23 +1,32 @@
 import { LoginPage } from '../features/auth/LoginPage';
+import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
 import { ToastProvider } from '../shared/ui';
+import { LiveProvider } from './live/LiveProvider';
 import { Redirect, RouterProvider, usePath } from './router';
 import { StaffAuthProvider, useStaffAuth } from './StaffAuthContext';
 import { AppShell } from './shell/AppShell';
 import { findRoute } from './navigation';
 
-/** Providers wrap the whole app: router -> auth -> toasts. */
+/** Providers wrap the whole app: router -> auth -> live connection -> toasts. */
 export function App() {
   return (
     <RouterProvider>
       <StaffAuthProvider>
-        <ToastProvider>
-          <Routes />
-        </ToastProvider>
+        <LiveProvider>
+          <ToastProvider>
+            <Routes />
+          </ToastProvider>
+        </LiveProvider>
       </StaffAuthProvider>
     </RouterProvider>
   );
 }
+
+/** Screens that are already built; everything else shows the placeholder. */
+const PAGES = {
+  '/dashboard': DashboardPage,
+};
 
 /**
  * Route guard:
@@ -38,9 +47,10 @@ function Routes() {
   if (!route || (route.managerOnly && !isManager)) return <Redirect to="/dashboard" />;
 
   const title = route.title ?? route.label;
+  const Page = PAGES[route.path];
   return (
     <AppShell title={title}>
-      <PlaceholderPage key={route.path} title={title} />
+      {Page ? <Page key={route.path} /> : <PlaceholderPage key={route.path} title={title} />}
     </AppShell>
   );
 }
