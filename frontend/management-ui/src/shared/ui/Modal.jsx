@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import styles from './Modal.module.css';
 
 /**
@@ -52,14 +53,23 @@ export function Modal({
         aria-label={typeof title === 'string' ? title : undefined}
         tabIndex={-1}
       >
-        {(Icon || title) && (
+        {Icon && (
           <div className={styles.header}>
-            {Icon && (
-              <span className={`${styles.iconCircle} ${styles[iconTone]}`}>
-                <Icon size={24} aria-hidden />
-              </span>
-            )}
+            <span className={`${styles.iconCircle} ${styles[iconTone]}`}>
+              <Icon size={24} aria-hidden />
+            </span>
             {title && <h2 className={styles.title}>{title}</h2>}
+          </div>
+        )}
+        {/* Form modals (no icon): title on the left, close button on the right. */}
+        {!Icon && title && (
+          <div className={styles.titleRow}>
+            <h2 className={styles.title}>{title}</h2>
+            {!blocking && (
+              <button type="button" className={styles.close} onClick={onClose} aria-label="Închide">
+                <X size={16} />
+              </button>
+            )}
           </div>
         )}
         <div className={styles.body}>{children}</div>

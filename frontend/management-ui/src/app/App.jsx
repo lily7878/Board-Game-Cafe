@@ -1,4 +1,5 @@
 import { LoginPage } from '../features/auth/LoginPage';
+import { TablesAdminPage } from '../features/admin-tables/TablesAdminPage';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
 import { ErrorBoundary, ToastProvider } from '../shared/ui';
@@ -26,6 +27,7 @@ export function App() {
 /** Screens that are already built; everything else shows the placeholder. */
 const PAGES = {
   '/dashboard': DashboardPage,
+  '/admin/tables': TablesAdminPage,
 };
 
 /**

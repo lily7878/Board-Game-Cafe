@@ -1,0 +1,65 @@
+.toolbar { display: flex; align-items: center; gap: 16px; max-width: 900px; }
+.summary { margin-right: auto; font-size: var(--fs-body-lg); font-weight: 500; color: var(--text-secondary); }
+
+/* ---------- table ---------- */
+.tableCard { max-width: 900px; padding: 6px 24px; border-radius: var(--radius-lg); }
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--fs-body); font-weight: 600; }
+.table th {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid rgba(73, 56, 47, 0.1);
+  text-align: left;
+  font-size: var(--fs-overline);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.table td { padding: 11px 16px 11px 0; border-bottom: 1px solid rgba(73, 56, 47, 0.06); }
+.table tr:last-child td { border-bottom: 0; }
+.table th:last-child, .table td:last-child { width: 44px; padding-right: 0; }
+
+.strong { font-weight: 800; }
+.muted { color: var(--text-muted); }
+.inactive td { color: var(--text-muted); }
+
+.edit {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit:hover { background: var(--rose-50); color: var(--color-deep-rose); }
+
+.skeletonRow { display: flex; align-items: center; gap: 32px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+
+/* ---------- form modal ---------- */
+.form { display: flex; flex-direction: column; gap: 18px; color: var(--text-primary); }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.fieldLabel { font-size: var(--fs-meta); font-weight: 700; }
+
+.note {
+  display: flex;
+  gap: 8px;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--status-warning-fg);
+}
+.note svg { flex: none; margin-top: 2px; }
+
+.formError {
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--status-error-bg);
+  color: var(--status-error-fg);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+}
+
+.actions { display: flex; justify-content: flex-end; gap: 10px; }

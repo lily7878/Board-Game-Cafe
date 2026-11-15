@@ -39,6 +39,21 @@
 .warning { background: var(--status-warning-bg); color: var(--status-warning-fg); }
 .error   { background: var(--status-error-bg); color: var(--status-error-fg); }
 
+.titleRow { display: flex; align-items: center; gap: 12px; }
+.titleRow .title { flex: 1; }
+.close {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.close:hover { background: var(--skeleton-1); }
+
 .title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
 
 .body { font-size: var(--fs-body); line-height: 1.55; font-weight: 500; color: var(--text-secondary); }

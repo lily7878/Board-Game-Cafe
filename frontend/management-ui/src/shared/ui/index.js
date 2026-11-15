@@ -7,5 +7,7 @@ export { Input } from './Input';
 export { Modal } from './Modal';
 export { Skeleton } from './Skeleton';
 export { Spinner } from './Spinner';
+export { Stepper } from './Stepper';
+export { Toggle } from './Toggle';
 export { Tabs } from './Tabs';
 export { ToastProvider, useToast } from './Toast';
