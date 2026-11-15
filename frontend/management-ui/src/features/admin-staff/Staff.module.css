@@ -1,0 +1,27 @@
+.avatar {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--rose-50);
+  color: var(--color-deep-rose);
+  font-size: 13px;
+  font-weight: 800;
+}
+.avatarManager { background: var(--color-espresso); color: var(--color-blush); }
+
+.segmented { display: flex; padding: 4px; border-radius: var(--radius-pill); background: var(--color-cream); }
+.segment {
+  flex: 1;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.segmentOn { background: var(--color-deep-rose); color: var(--color-white); font-weight: 800; }

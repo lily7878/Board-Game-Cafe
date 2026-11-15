@@ -5,6 +5,8 @@ import { OrdersPage } from '../features/orders/OrdersPage';
 import { GameRequestsPage } from '../features/game-requests/GameRequestsPage';
 import { AdminHubPage } from '../features/admin/AdminHubPage';
 import { MenuAdminPage } from '../features/admin-menu/MenuAdminPage';
+import { StaffAdminPage } from '../features/admin-staff/StaffAdminPage';
+import { SettingsPage } from '../features/admin-settings/SettingsPage';
 import { TablesPage } from '../features/tables/TablesPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
 import { ErrorBoundary, ToastProvider } from '../shared/ui';
@@ -38,6 +40,8 @@ const PAGES = {
   '/admin': AdminHubPage,
   '/admin/tables': TablesAdminPage,
   '/admin/menu': MenuAdminPage,
+  '/admin/staff': StaffAdminPage,
+  '/admin/settings': SettingsPage,
 };
 
 /**
