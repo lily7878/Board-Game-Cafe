@@ -34,6 +34,17 @@ function initialState() {
   return { user: stored, expired: false };
 }
 
+/*
+ * Configured at import time, NOT in an effect: React runs child effects before parent effects, so
+ * on a page refresh the first queries of the screen would otherwise leave without the JWT
+ * (401 -> "Nu am putut încărca…" until the next reload). Every request reads the token from storage.
+ */
+let onSessionRejected = () => {};
+configureHttp({
+  getToken: () => readStored()?.accessToken ?? null,
+  onUnauthorized: () => onSessionRejected(),
+});
+
 export function StaffAuthProvider({ children }) {
   const [state, setState] = useState(initialState);
   const { user, expired } = state;
@@ -44,9 +55,10 @@ export function StaffAuthProvider({ children }) {
     setState((s) => (s.user ? { ...s, expired: true } : s));
   }, []);
 
-  // Every request reads the token from storage; any 401 expires the session.
+  // A 401 expires the session. Only the handler is set here; the token getter is configured at
+  // import time (see below), because the pages' effects run before this one.
   useEffect(() => {
-    configureHttp({ getToken: () => readStored()?.accessToken ?? null, onUnauthorized: expire });
+    onSessionRejected = expire;
   }, [expire]);
 
   // Expire exactly at expiresAt (no refresh token in v1).
