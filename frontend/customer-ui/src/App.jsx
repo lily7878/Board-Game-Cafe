@@ -1,6 +1,8 @@
 import { CartPage } from './features/cart/CartPage';
 import { DashboardPage } from './features/dashboard/DashboardPage';
 import { AccessEndedPage } from './features/ended/AccessEndedPage';
+import { GameRequestsPage } from './features/games/GameRequestsPage';
+import { GamesSection } from './features/games/GamesSection';
 import { JoinPage } from './features/join/JoinPage';
 import { MenuPage } from './features/menu/MenuPage';
 import { OrdersPage } from './features/orders/OrdersPage';
@@ -40,10 +42,10 @@ const PAGES = {
   '/menu': MenuPage,
   '/cart': CartPage,
   '/orders': OrdersPage,
+  '/games': GamesSection,
+  '/game-requests': GameRequestsPage,
 };
 const TITLES = {
-  '/games': 'Jocuri',
-  '/game-requests': 'Cererile mele',
   '/bill': 'Nota mesei',
   '/checkout': 'Checkout',
   '/payment': 'Plată',
