@@ -8,6 +8,7 @@ import { MenuAdminPage } from '../features/admin-menu/MenuAdminPage';
 import { StaffAdminPage } from '../features/admin-staff/StaffAdminPage';
 import { SettingsPage } from '../features/admin-settings/SettingsPage';
 import { GamesAdminPage } from '../features/admin-games/GamesAdminPage';
+import { ReportsPage } from '../features/admin-reports/ReportsPage';
 import { TablesPage } from '../features/tables/TablesPage';
 import { PlaceholderPage } from '../features/placeholder/PlaceholderPage';
 import { ErrorBoundary, ToastProvider } from '../shared/ui';
@@ -44,6 +45,7 @@ const PAGES = {
   '/admin/staff': StaffAdminPage,
   '/admin/settings': SettingsPage,
   '/admin/games': GamesAdminPage,
+  '/admin/reports': ReportsPage,
 };
 
 /**

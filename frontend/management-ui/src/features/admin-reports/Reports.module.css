@@ -1,0 +1,118 @@
+.grow { flex: 1; min-width: 0; }
+.top { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+@media (max-width: 1100px) { .top { grid-template-columns: 1fr; } }
+
+/* ---------- current day ---------- */
+.dayCard { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 14px; padding: 30px 28px; border-radius: var(--radius-xl); }
+.dayCardReady { background: var(--color-espresso); color: var(--color-cream); box-shadow: var(--shadow-card); }
+.dayCardReady::before {
+  content: '';
+  position: absolute;
+  top: -110px;
+  right: -40px;
+  width: 300px;
+  height: 300px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+}
+.dayCardReady > * { position: relative; }
+.overline { font-size: var(--fs-overline); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #E9DCD3; }
+.overlineRose { color: var(--color-deep-rose); }
+.dayTitle { margin-top: -6px; font-size: 34px; font-weight: 800; letter-spacing: -0.02em; }
+.daySub { margin-top: -10px; font-size: 14px; font-weight: 500; color: var(--text-on-dark-muted); }
+.daySubDark { margin-top: -10px; font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+.checks { display: flex; flex-direction: column; gap: 10px; padding: 0; list-style: none; font-size: 15px; font-weight: 700; }
+.checks li { display: flex; align-items: center; gap: 10px; }
+.checks svg { color: #7FA373; }
+.finalizeRow { margin-top: auto; padding-top: 18px; display: flex; align-items: center; gap: 16px; font-size: var(--fs-small); line-height: 1.5; font-weight: 600; color: var(--text-on-dark-muted); }
+.finalizeButton {
+  flex: none;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-blush);
+  color: var(--color-espresso);
+  font-size: 15px;
+  font-weight: 800;
+}
+.finalizeButton:hover { background: #F2E2E4; }
+
+.openList { display: flex; flex-direction: column; gap: 8px; }
+.openRow { display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border-radius: var(--radius-pill); background: var(--rose-50); font-size: 14px; font-weight: 700; }
+.openRowCheckout { background: var(--status-warning-bg); color: var(--status-warning-fg); }
+.openIcon { width: 24px; height: 24px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--color-deep-rose); color: var(--color-white); }
+.openRowCheckout .openIcon { background: var(--status-warning-dot); }
+.openButton { height: 36px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: var(--color-white); font-size: var(--fs-meta); font-weight: 700; color: var(--text-primary); }
+.openButton:hover { background: var(--color-cream); }
+
+/* ---------- side card ---------- */
+.sideCard { display: flex; flex-direction: column; gap: 16px; padding: 26px 28px; border-radius: var(--radius-xl); }
+.sideHead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.sideTitle { font-size: 18px; font-weight: 800; }
+.steps { display: flex; flex-direction: column; gap: 14px; padding: 0; list-style: none; counter-reset: step; font-size: 14px; font-weight: 500; }
+.steps li { display: flex; align-items: center; gap: 12px; counter-increment: step; }
+.steps li::before {
+  content: counter(step);
+  width: 28px;
+  height: 28px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--rose-50);
+  color: var(--color-deep-rose);
+  font-size: var(--fs-small);
+  font-weight: 800;
+}
+
+/* ---------- revenue chart ---------- */
+.chart { flex: 1; min-height: 190px; display: flex; gap: 14px; align-items: stretch; }
+.column { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; outline: none; cursor: default; }
+.plot { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+.bar { width: 100%; border-radius: 18px 18px 6px 6px; background: #EAD6D8; transition: background-color var(--dur-fast) ease-out; }
+.barActive, .column:focus-visible .bar { background: #DDBCC1; }
+.barPreliminary { background: repeating-linear-gradient(135deg, #925E68 0 6px, #B07A84 6px 12px); }
+.barPreliminary.barActive { filter: brightness(1.05); }
+.barValue { margin-bottom: 6px; font-size: var(--fs-small); font-weight: 800; color: var(--text-secondary); }
+.dayLabel { text-align: center; font-size: var(--fs-small); font-weight: 700; color: var(--text-muted); }
+.dayLabelCurrent { color: var(--text-primary); font-weight: 800; }
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--color-espresso);
+  color: var(--color-cream);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--shadow-toast);
+}
+.tooltip strong { font-weight: 800; }
+.tooltip span { color: var(--text-on-dark-muted); }
+.column:has(.tooltip) .plot { z-index: 1; }
+
+.emptyHistory { padding: 22px 0; font-size: 14px; font-weight: 600; color: var(--text-muted); }
+
+/* ---------- finalize modal ---------- */
+.modalSub { display: block; margin-top: 4px; font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+.modalBody { display: flex; flex-direction: column; gap: 16px; }
+.totals { padding: 4px 20px; border-radius: var(--radius-md); background: var(--color-cream); }
+.totals > div { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+.totals > div:last-child { border-bottom: 0; }
+.totals strong { font-weight: 800; color: var(--text-primary); }
+.totalRow span { font-weight: 800; color: var(--text-primary); }
+.totalRow strong { font-size: 24px; color: var(--color-deep-rose); }
+.hint { display: flex; align-items: center; gap: 8px; font-size: var(--fs-meta); font-weight: 600; color: var(--text-secondary); }
+.hint svg { flex: none; }
+.errorBox { padding: 12px 18px; border-radius: var(--radius-sm); background: var(--status-error-bg); color: var(--status-error-fg); font-size: var(--fs-meta); font-weight: 700; }
+.modalActions { display: flex; justify-content: flex-end; gap: 10px; }

@@ -40,14 +40,18 @@ export class ApiError extends Error {
   get isUncertain() { return this.kind === 'timeout' || (this.status ?? 0) >= 500; }
 }
 
-export async function apiRequest(path, { method = 'GET', body, signal, timeoutMs = DEFAULT_TIMEOUT_MS, auth = true } = {}) {
+/** responseType 'blob' returns the raw body (e.g. a PDF report) instead of parsed JSON. */
+export async function apiRequest(
+  path,
+  { method = 'GET', body, signal, timeoutMs = DEFAULT_TIMEOUT_MS, auth = true, responseType = 'json' } = {},
+) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort('timeout'), timeoutMs);
   // Caller abort (e.g. component unmounted) is forwarded to our controller.
   const onCallerAbort = () => controller.abort('caller');
   signal?.addEventListener('abort', onCallerAbort);
 
-  const headers = { Accept: 'application/json' };
+  const headers = { Accept: responseType === 'blob' ? '*/*' : 'application/json' };
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   const token = auth ? tokenProvider() : null;
   if (token) headers.Authorization = `Bearer ${token}`;
@@ -72,6 +76,7 @@ export async function apiRequest(path, { method = 'GET', body, signal, timeoutMs
   }
 
   if (response.status === 204) return null;
+  if (response.ok && responseType === 'blob') return response.blob();
 
   const isJson = response.headers.get('content-type')?.includes('json');
   const payload = isJson ? await response.json().catch(() => null) : null;

@@ -38,6 +38,7 @@
 .rose    { background: var(--rose-50); color: var(--color-deep-rose); }
 .warning { background: var(--status-warning-bg); color: var(--status-warning-fg); }
 .error   { background: var(--status-error-bg); color: var(--status-error-fg); }
+.espresso { background: var(--color-espresso); color: var(--color-cream); }
 
 .titleRow { display: flex; align-items: center; gap: 12px; }
 .titleRow .title { flex: 1; }
