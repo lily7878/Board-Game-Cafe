@@ -1,0 +1,19 @@
+.overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: flex-end; justify-content: center; background: var(--overlay); animation: fade var(--dur-panel) var(--ease-out); }
+.sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 12px 20px max(24px, env(safe-area-inset-bottom));
+  border-radius: 36px 36px 0 0;
+  background: var(--color-white);
+  box-shadow: var(--shadow-modal);
+  outline: none;
+  animation: rise var(--dur-panel) var(--ease-out);
+}
+.handle { align-self: center; width: 44px; height: 5px; flex: none; border-radius: var(--radius-pill); background: #E3D6CB; }
+@keyframes fade { from { opacity: 0; } }
+@keyframes rise { from { transform: translateY(40px); } }

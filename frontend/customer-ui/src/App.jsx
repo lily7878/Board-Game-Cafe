@@ -1,7 +1,11 @@
+import { CartPage } from './features/cart/CartPage';
 import { DashboardPage } from './features/dashboard/DashboardPage';
 import { AccessEndedPage } from './features/ended/AccessEndedPage';
 import { JoinPage } from './features/join/JoinPage';
+import { MenuPage } from './features/menu/MenuPage';
+import { OrdersPage } from './features/orders/OrdersPage';
 import { PlaceholderPage } from './features/placeholder/PlaceholderPage';
+import { CartProvider } from './app/CartContext';
 import { LiveProvider } from './app/live/LiveProvider';
 import { ParticipantProvider, useParticipant } from './app/ParticipantContext';
 import { Redirect, RouterProvider, usePath } from './app/router';
@@ -14,7 +18,9 @@ export default function App() {
       <ParticipantProvider>
         <LiveProvider>
           <ToastProvider>
-            <Routes />
+            <CartForParticipant>
+              <Routes />
+            </CartForParticipant>
           </ToastProvider>
         </LiveProvider>
       </ParticipantProvider>
@@ -22,14 +28,20 @@ export default function App() {
   );
 }
 
+/** A new identity (another table, or after "Ieși") always starts with an empty cart. */
+function CartForParticipant({ children }) {
+  const { participant } = useParticipant();
+  return <CartProvider key={participant?.accessToken ?? 'none'}>{children}</CartProvider>;
+}
+
 /** Screens that exist; the rest of the customer routes show a placeholder for now. */
 const PAGES = {
   '/dashboard': DashboardPage,
+  '/menu': MenuPage,
+  '/cart': CartPage,
+  '/orders': OrdersPage,
 };
 const TITLES = {
-  '/menu': 'Meniu',
-  '/cart': 'Coșul tău',
-  '/orders': 'Comenzile mele',
   '/games': 'Jocuri',
   '/game-requests': 'Cererile mele',
   '/bill': 'Nota mesei',

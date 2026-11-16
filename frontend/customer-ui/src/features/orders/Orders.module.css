@@ -1,0 +1,36 @@
+.flash { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-radius: var(--radius-pill); background: var(--status-success-bg); color: #2F4A2A; font-size: 15px; font-weight: 700; }
+.check { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 18px; border-radius: var(--radius-md); background: var(--status-warning-bg); color: var(--status-warning-fg); font-size: 14px; line-height: 1.45; font-weight: 600; }
+.check strong { font-weight: 800; }
+
+.card { display: flex; flex-direction: column; gap: 16px; padding: 20px 18px; border-radius: var(--radius-xl); background: var(--color-white); box-shadow: var(--shadow-card); }
+.cardCancelled { opacity: 0.75; }
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.head h2 { font-size: 20px; font-weight: 800; }
+.head span { font-size: var(--fs-meta); font-weight: 600; color: var(--text-secondary); }
+
+.progress { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); padding: 0; list-style: none; }
+.progress li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+/* connector to the previous step */
+.progress li + li::before { content: ''; position: absolute; top: 12px; right: 50%; width: 100%; height: 3px; background: var(--sand-100); }
+.progress li.done + li.done::before { background: #7FA373; }
+.stepDot { position: relative; z-index: 1; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--sand-100); color: var(--color-white); }
+.done .stepDot { background: #7FA373; }
+.current .stepDot { background: var(--color-deep-rose); }
+.current:last-child .stepDot { background: #5F8A55; }
+.stepLabel { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+.current .stepLabel { color: var(--color-deep-rose); }
+
+.lines { padding: 4px 16px; border-radius: 22px; background: var(--color-cream); }
+.line { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.line:last-child { border-bottom: 0; }
+.lineName { font-weight: 700; }
+.line strong { font-weight: 800; white-space: nowrap; }
+.rejected .lineName { text-decoration: line-through; color: var(--text-muted); }
+.reason { display: block; font-size: var(--fs-meta); font-weight: 600; color: var(--text-secondary); }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cancelButton { color: var(--color-deep-rose); }
+.note { margin-top: -6px; text-align: center; font-size: var(--fs-small); font-weight: 600; color: var(--text-secondary); }
+.modalText { font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.modalActions { display: flex; gap: 10px; margin-top: 18px; }
+.modalActions > * { flex: 1; }

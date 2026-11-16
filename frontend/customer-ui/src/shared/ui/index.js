@@ -1,3 +1,4 @@
+export { BottomSheet } from './BottomSheet';
 export { Badge } from './Badge';
 export { Button } from './Button';
 export { Card } from './Card';
@@ -10,3 +11,4 @@ export { Spinner } from './Spinner';
 export { Stepper } from './Stepper';
 export { Toggle } from './Toggle';
 export { ToastProvider, useToast } from './Toast';
+export { MenuIcon } from './MenuIcon';
