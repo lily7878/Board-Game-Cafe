@@ -1,0 +1,10 @@
+.spinner {
+  display: inline-block;
+  flex: none;
+  border-radius: var(--radius-pill);
+  border: 2.5px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

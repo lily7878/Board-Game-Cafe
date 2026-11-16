@@ -1,0 +1,52 @@
+.stack {
+  position: fixed;
+  /* Mobile: full width at the bottom, above the fixed cart bar. */
+  left: 16px;
+  right: 16px;
+  bottom: 96px;
+  margin: 0 auto;
+  max-width: 448px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 10px 12px 18px;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  box-shadow: var(--shadow-toast);
+  animation: rise var(--dur-panel) var(--ease-out);
+}
+
+.success { border-radius: var(--radius-pill); background: var(--status-success-bg); color: #2F4A2A; }
+.error   { border-radius: var(--radius-sm); background: var(--color-espresso); color: var(--color-cream); font-weight: 600; }
+.errorIcon { color: var(--color-blush); flex: none; }
+
+.message { flex: 1; line-height: 1.5; }
+.title { display: block; font-weight: 800; }
+
+.close {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: inherit;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.close:hover { opacity: 1; background: rgba(255, 255, 255, 0.12); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } }

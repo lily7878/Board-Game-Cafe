@@ -1,0 +1,23 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  align-self: flex-start;
+}
+
+.button {
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--dur-fast) ease-out;
+}
+.button:hover:not(:disabled) { background: var(--rose-50); }
+.button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.value { width: 48px; text-align: center; font-size: 18px; font-weight: 800; }

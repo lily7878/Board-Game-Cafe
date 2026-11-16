@@ -1,0 +1,97 @@
+/* Mobile-first: designed at 402px, fluid from 360px; on wider screens the app stays phone-sized. */
+.frame { min-height: 100%; max-width: 480px; margin: 0 auto; background: var(--color-cream); }
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px 12px;
+  background: var(--color-cream);
+}
+.round {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  box-shadow: 0 1px 2px rgba(73, 56, 47, 0.06);
+  color: var(--text-primary);
+}
+.title { text-align: center; font-size: 17px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.avatar { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: #EAD6D8; color: var(--color-deep-rose); font-weight: 800; }
+
+.liveBanner {
+  margin: 0 18px 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--status-neutral-bg);
+  color: var(--status-neutral-fg);
+  font-size: 14px;
+  font-weight: 700;
+}
+.liveBanner span { flex: 1; }
+.liveBanner button { height: 36px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: var(--color-white); font-size: var(--fs-meta); font-weight: 800; color: var(--text-primary); }
+
+.page { display: flex; flex-direction: column; gap: 16px; padding: 12px 18px 34px; }
+.pageWithFooter { padding-bottom: 120px; }
+.footer { position: fixed; left: 50%; bottom: 0; z-index: 25; width: 100%; max-width: 480px; transform: translateX(-50%); padding: 12px 18px max(18px, env(safe-area-inset-bottom)); }
+
+/* ---------- side menu (3c) ---------- */
+.menuOverlay { position: fixed; inset: 0; z-index: 60; background: var(--overlay); animation: fade var(--dur-panel) var(--ease-out); }
+.menuPanel {
+  width: min(318px, 86vw);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 62px 16px 28px;
+  border-radius: 0 36px 36px 0;
+  background: var(--color-white);
+  box-shadow: var(--shadow-drawer);
+  animation: slide var(--dur-panel) var(--ease-out);
+}
+.menuUser { display: flex; align-items: center; gap: 14px; padding: 0 8px 10px; }
+.menuUser strong { display: block; font-size: 18px; font-weight: 800; }
+.menuUser span { font-size: var(--fs-meta); font-weight: 600; color: var(--text-secondary); }
+.menuAvatar { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: #EAD6D8; color: var(--color-deep-rose); font-size: 20px; font-weight: 800; }
+.menuList { display: flex; flex-direction: column; gap: 4px; padding: 0; list-style: none; }
+.menuItem {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.menuItem svg { color: var(--color-deep-rose); }
+.menuItemOn { background: #EAD6D8; font-weight: 800; }
+.menuBottom { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border); }
+.cafeInfo { display: flex; gap: 14px; align-items: center; padding: 8px 16px; }
+.cafeInfo svg { flex: none; color: var(--color-deep-rose); }
+.cafeInfo strong { display: block; font-size: 15px; font-weight: 800; }
+.cafeInfo span { font-size: var(--fs-small); font-weight: 600; color: var(--text-secondary); }
+.leave { min-height: 48px; display: flex; align-items: center; gap: 14px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); background: transparent; font-size: 15px; font-weight: 700; color: var(--text-secondary); }
+.leave:hover { background: var(--color-cream); }
+.modalText { font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.modalActions { display: flex; gap: 10px; margin-top: 18px; }
+.modalActions > * { flex: 1; }
+
+@keyframes fade { from { opacity: 0; } }
+@keyframes slide { from { transform: translateX(-24px); opacity: 0.6; } }

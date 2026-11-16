@@ -1,0 +1,31 @@
+.page {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 62px 18px 34px;
+}
+.page::before {
+  content: '';
+  position: absolute;
+  bottom: -140px;
+  left: -140px;
+  z-index: -1;
+  width: 340px;
+  height: 340px;
+  border-radius: var(--radius-pill);
+  background: #EAD6D8;
+}
+.brand { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 800; }
+.logo { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--color-espresso); color: var(--color-blush); }
+.icon { width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--color-white); color: var(--color-deep-rose); }
+.title { font-size: 32px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; }
+.text { margin-top: 12px; font-size: 16px; line-height: 1.5; font-weight: 500; color: var(--text-secondary); }
+.help { display: flex; gap: 10px; align-items: flex-start; padding: 14px 18px; border-radius: var(--radius-md); background: var(--color-white); font-size: 14px; line-height: 1.5; font-weight: 600; }
+.help svg { flex: none; margin-top: 2px; color: var(--color-deep-rose); }
+.note { text-align: center; font-size: var(--fs-meta); font-weight: 500; color: var(--text-secondary); }

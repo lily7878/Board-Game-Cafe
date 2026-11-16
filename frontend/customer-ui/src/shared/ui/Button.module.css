@@ -1,0 +1,34 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) ease-out, color var(--dur-fast) ease-out,
+    opacity var(--dur-fast) ease-out;
+}
+
+.sm { height: 38px; padding: 0 18px; font-size: 13px; font-weight: 700; }
+.md { height: 44px; padding: 0 20px; font-size: 14px; }
+.lg { height: 54px; padding: 0 24px; font-size: 15px; }
+.full { width: 100%; }
+
+.primary { background: var(--color-deep-rose); color: var(--color-white); }
+.primary:hover:not(:disabled) { background: var(--color-deep-rose-hover); }
+
+.secondary {
+  background: transparent;
+  color: var(--color-deep-rose);
+  box-shadow: inset 0 0 0 1.5px var(--border-strong);
+}
+.secondary:hover:not(:disabled) { background: var(--rose-50); }
+
+.ghost { background: transparent; color: var(--color-deep-rose); }
+.ghost:hover:not(:disabled) { background: var(--rose-50); }
+
+.button:disabled { opacity: 0.45; cursor: not-allowed; }
+/* Submitting keeps full opacity so the spinner stays readable. */
+.button[aria-busy='true'] { opacity: 1; cursor: progress; }
