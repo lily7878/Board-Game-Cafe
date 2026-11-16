@@ -11,7 +11,7 @@ const ParticipantContext = createContext(null);
  * access token for THIS phone. It is kept in sessionStorage, so a refresh keeps the place at
  * the table but a new tab has to join again (spec: never a participant id chosen by the client).
  *
- * status:
+ * status (endedReason: 'closed' | 'left' | 'paid'):
  *  - 'none'   no identity yet  -> only /join/:token is reachable
  *  - 'active' joined           -> the app
  *  - 'ended'  Core answered 401 (table closed / participant left) or "Ieși" -> 4n, cart cleared
@@ -29,6 +29,7 @@ function clearLocal() {
   try {
     sessionStorage.removeItem(STORAGE_KEY);
     sessionStorage.removeItem(CART_KEY);
+    sessionStorage.removeItem('bgc.payment');
   } catch {
     // storage unavailable (private mode): nothing to clear
   }

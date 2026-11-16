@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Camera, Dices, DoorOpen, LogOut, QrCode, ScanLine } from 'lucide-react';
+import { Camera, Dices, DoorOpen, LogOut, PartyPopper, QrCode, ScanLine } from 'lucide-react';
 import { Button } from '../../shared/ui';
 import styles from './AccessEnded.module.css';
 
@@ -18,6 +18,11 @@ const VARIANTS = {
     icon: LogOut,
     title: 'Ai ieșit de pe acest telefon',
     text: 'Comenzile tale rămân pe nota mesei. Ca să revii, scanează din nou codul QR și introdu PIN-ul.',
+  },
+  paid: {
+    icon: PartyPopper,
+    title: 'Mulțumim! Nota a fost plătită',
+    text: 'Accesul la masă s-a încheiat pe acest telefon. Vă așteptăm cu drag data viitoare!',
   },
   none: {
     icon: QrCode,

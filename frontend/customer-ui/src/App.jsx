@@ -1,3 +1,6 @@
+import { BillPage } from './features/bill/BillPage';
+import { CheckoutPage } from './features/bill/CheckoutPage';
+import { PaymentPage } from './features/bill/PaymentPage';
 import { CartPage } from './features/cart/CartPage';
 import { DashboardPage } from './features/dashboard/DashboardPage';
 import { AccessEndedPage } from './features/ended/AccessEndedPage';
@@ -6,7 +9,6 @@ import { GamesSection } from './features/games/GamesSection';
 import { JoinPage } from './features/join/JoinPage';
 import { MenuPage } from './features/menu/MenuPage';
 import { OrdersPage } from './features/orders/OrdersPage';
-import { PlaceholderPage } from './features/placeholder/PlaceholderPage';
 import { CartProvider } from './app/CartContext';
 import { LiveProvider } from './app/live/LiveProvider';
 import { ParticipantProvider, useParticipant } from './app/ParticipantContext';
@@ -36,7 +38,7 @@ function CartForParticipant({ children }) {
   return <CartProvider key={participant?.accessToken ?? 'none'}>{children}</CartProvider>;
 }
 
-/** Screens that exist; the rest of the customer routes show a placeholder for now. */
+/** Customer screens by their first path segment. */
 const PAGES = {
   '/dashboard': DashboardPage,
   '/menu': MenuPage,
@@ -44,11 +46,9 @@ const PAGES = {
   '/orders': OrdersPage,
   '/games': GamesSection,
   '/game-requests': GameRequestsPage,
-};
-const TITLES = {
-  '/bill': 'Nota mesei',
-  '/checkout': 'Checkout',
-  '/payment': 'Plată',
+  '/bill': BillPage,
+  '/checkout': CheckoutPage,
+  '/payment': PaymentPage,
 };
 
 /**
@@ -77,6 +77,5 @@ function Routes() {
       </ErrorBoundary>
     );
   }
-  if (TITLES[base]) return <PlaceholderPage title={TITLES[base]} />;
   return <Redirect to="/dashboard" />;
 }
