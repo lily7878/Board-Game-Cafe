@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Clock, QrCode, RotateCcw, Users, X } from 'lucide-react';
+import { Clock, QrCode, RotateCcw, SearchCheck, Users, X } from 'lucide-react';
 import { apiRequest } from '../../../shared/api/http';
 import { formatDuration, formatTime, plural, tableLabel } from '../../../shared/format';
 import { useAction } from '../../../shared/hooks/useAction';
@@ -21,7 +21,7 @@ import styles from './TableDrawer.module.css';
  * During CHECKOUT_PENDING, Rezumat becomes the checkout view and QR/PIN is hidden
  * (Core refuses to reveal access while the table is paying).
  */
-export function TableDrawer({ table, tab, onTabChange, onClose }) {
+export function TableDrawer({ table, tab, onTabChange, onClose, onCheckPayment }) {
   const sessionId = table.session?.sessionId;
   const data = useSessionData(sessionId);
   const now = useNow();
@@ -87,6 +87,9 @@ export function TableDrawer({ table, tab, onTabChange, onClose }) {
   const footer = checkout ? (
     <>
       <span className={styles.footNote}>Plata se face de client, din telefon.</span>
+      <Button variant="ghost" iconLeft={SearchCheck} onClick={onCheckPayment}>
+        Verifică plata
+      </Button>
       <Button variant="secondary" iconLeft={RotateCcw} submitting={pending === 'reopen'} onClick={reopen}>
         Redeschide sesiunea
       </Button>

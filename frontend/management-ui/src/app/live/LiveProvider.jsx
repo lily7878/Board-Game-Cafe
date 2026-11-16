@@ -29,6 +29,14 @@ export function LiveProvider({ children }) {
     listeners.current.forEach((listener) => listener(event));
   }, []);
 
+  // Dev only: simulate a live event from the console, e.g.
+  //   __bgcLiveEmit({ type: 'order.placed', sessionId: 10, tableId: 1, entityId: 1047 })
+  useEffect(() => {
+    if (!import.meta.env.DEV) return undefined;
+    window.__bgcLiveEmit = (event) => emit({ at: new Date().toISOString(), ...event });
+    return () => delete window.__bgcLiveEmit;
+  }, [emit]);
+
   useEffect(() => {
     if (!token) return undefined;
 

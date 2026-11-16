@@ -9,6 +9,7 @@ import { useNow } from '../../shared/hooks/useNow';
 import { Button, Card, EmptyMessage, Skeleton } from '../../shared/ui';
 import { TableDrawer } from './drawer/TableDrawer';
 import { OpenTableModal } from './OpenTableModal';
+import { PaymentCheckModal } from './PaymentCheckModal';
 import { TableCard } from './TableCard';
 import styles from './Tables.module.css';
 
@@ -50,6 +51,9 @@ export function TablesPage() {
   const selectedId = Number(params.get('table')) || null;
   const selected = tables.find((t) => t.tableId === selectedId && t.session);
   const tab = params.get('tab') ?? 'summary';
+  // 5b: ?pay=SESSION_ID opens the payment check; it survives the session closing (table becomes free).
+  const paySession = Number(params.get('pay')) || null;
+  const tableUrl = selected ? `/tables?table=${selected.tableId}&tab=${tab}` : '/tables';
   const visible = tables.filter(FILTERS.find((f) => f.value === filter).test);
 
   const showTable = (table, nextTab = 'summary') => navigate(`/tables?table=${table.tableId}&tab=${nextTab}`);
@@ -133,8 +137,11 @@ export function TablesPage() {
           tab={tab}
           onTabChange={(next) => navigate(`/tables?table=${selected.tableId}&tab=${next}`, { replace: true })}
           onClose={() => navigate('/tables')}
+          onCheckPayment={() => navigate(`${tableUrl}&pay=${selected.session.sessionId}`)}
         />
       )}
+
+      {paySession && <PaymentCheckModal sessionId={paySession} onClose={() => navigate(tableUrl, { replace: true })} />}
     </>
   );
 }

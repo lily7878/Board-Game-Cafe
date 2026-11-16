@@ -16,6 +16,7 @@ import { LiveProvider } from './live/LiveProvider';
 import { Redirect, RouterProvider, usePath } from './router';
 import { StaffAuthProvider, useStaffAuth } from './StaffAuthContext';
 import { AppShell } from './shell/AppShell';
+import { NotificationsProvider } from './notifications/NotificationsProvider';
 import { findRoute } from './navigation';
 
 /** Providers wrap the whole app: router -> auth -> live connection -> toasts. */
@@ -57,7 +58,7 @@ const PAGES = {
  */
 function Routes() {
   const path = usePath();
-  const { status, isManager } = useStaffAuth();
+  const { status, isManager, user } = useStaffAuth();
 
   if (status === 'anonymous') {
     return path === '/login' ? <LoginPage /> : <Redirect to="/login" />;
@@ -68,11 +69,14 @@ function Routes() {
 
   const title = route.title ?? route.label;
   const Page = PAGES[route.path];
+  // key: a different account starts with an empty notification list.
   return (
-    <AppShell title={title}>
-      <ErrorBoundary key={route.path}>
-        {Page ? <Page /> : <PlaceholderPage title={title} />}
-      </ErrorBoundary>
-    </AppShell>
+    <NotificationsProvider key={user?.staffId}>
+      <AppShell title={title}>
+        <ErrorBoundary key={route.path}>
+          {Page ? <Page /> : <PlaceholderPage title={title} />}
+        </ErrorBoundary>
+      </AppShell>
+    </NotificationsProvider>
   );
 }

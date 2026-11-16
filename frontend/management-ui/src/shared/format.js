@@ -15,6 +15,13 @@ export function formatTime(iso) {
   return iso ? timeFormat.format(new Date(iso)) : '';
 }
 
+const secondsFormat = new Intl.DateTimeFormat('ro-RO', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: TIME_ZONE });
+
+/** ISO instant -> "18:58:12" (cafe time), for payment attempts. */
+export function formatTimeSeconds(iso) {
+  return iso ? secondsFormat.format(new Date(iso)) : '';
+}
+
 /** "10:00:00" (LocalTime from Core) -> "10:00" */
 export function formatLocalTime(value) {
   return value ? value.slice(0, 5) : '';

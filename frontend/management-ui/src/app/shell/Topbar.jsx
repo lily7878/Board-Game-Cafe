@@ -1,8 +1,9 @@
-import { Bell, CalendarDays, RotateCw } from 'lucide-react';
+import { CalendarDays, RotateCw } from 'lucide-react';
 import { useApiQuery } from '../../shared/hooks/useApiQuery';
 import { Skeleton } from '../../shared/ui';
 import { useLive } from '../live/LiveProvider';
 import { useLiveRefetch } from '../live/useLiveRefetch';
+import { NotificationsBell } from './NotificationsBell';
 import styles from './Topbar.module.css';
 
 /** 76px topbar: page title, current business day, live connection state, notifications bell. */
@@ -12,9 +13,7 @@ export function Topbar({ title }) {
       <h1 className={styles.title}>{title}</h1>
       <BusinessDayPill />
       <LiveIndicator />
-      <button type="button" className={styles.bell} aria-label="Notificări">
-        <Bell size={18} />
-      </button>
+      <NotificationsBell />
     </header>
   );
 }
