@@ -6,7 +6,8 @@ import { plural } from '../../shared/format';
 import { useAction } from '../../shared/hooks/useAction';
 import { Badge, Button, Card, EmptyMessage, RowMenu, Skeleton } from '../../shared/ui';
 import admin from '../admin/Admin.module.css';
-import { DIFFICULTY, copiesByGame, duration, gameIcon, players } from './gameModel';
+import { DIFFICULTY, copiesByGame, duration, players } from './gameModel';
+import { GameIcon } from './GameIcon';
 import styles from './Games.module.css';
 
 /** 1g — game cards with a bar per physical copy (green = on the shelf, rose = at a table, sand = out of use). */
@@ -86,14 +87,13 @@ export function GamesTab({ data }) {
       ) : (
         <div className={styles.grid}>
           {list.map((game) => {
-            const Icon = gameIcon(game.id);
-            const gameCopies = byGame.get(game.id) ?? [];
+                      const gameCopies = byGame.get(game.id) ?? [];
             const available = gameCopies.filter((c) => c.state.kind === 'available').length;
             return (
               <article key={game.id} className={`${styles.card} ${game.active ? '' : styles.cardInactive}`}>
                 <div className={styles.cardHead}>
                   <span className={styles.icon} aria-hidden>
-                    <Icon size={24} />
+                    <GameIcon id={game.id} size={24} />
                   </span>
                   <div className={styles.grow}>
                     <h2 className={styles.title}>

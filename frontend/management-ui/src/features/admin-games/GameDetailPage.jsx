@@ -3,7 +3,8 @@ import { ArrowLeft, FileText, Pencil, Plus, Puzzle } from 'lucide-react';
 import { Link, useNavigate } from '../../app/router';
 import { Badge, Button, Card, EmptyMessage, RowMenu, Skeleton } from '../../shared/ui';
 import { CopyFormModal, CopyStatusModal } from './CopyModals';
-import { DIFFICULTY, copiesByGame, duration, gameIcon, players } from './gameModel';
+import { DIFFICULTY, copiesByGame, duration, players } from './gameModel';
+import { GameIcon } from './GameIcon';
 import styles from './Games.module.css';
 
 /** 2n — one game: facts, short rules, and every physical copy with where it is now. */
@@ -32,7 +33,6 @@ export function GameDetailPage({ data, gameId }) {
     );
   }
 
-  const Icon = gameIcon(game.id);
   const categoryName = new Map((categories.data ?? []).map((c) => [c.id, c.name]));
   const gameCopies = copiesByGame(copies.data).get(game.id) ?? [];
   const available = gameCopies.filter((c) => c.state.kind === 'available').length;
@@ -45,7 +45,7 @@ export function GameDetailPage({ data, gameId }) {
           <Card size="lg" className={styles.panel}>
             <div className={styles.detailHead}>
               <span className={styles.bigIcon} aria-hidden>
-                <Icon size={40} />
+                <GameIcon id={game.id} size={40} />
               </span>
               <div className={styles.grow}>
                 <div className={styles.detailTitleRow}>
