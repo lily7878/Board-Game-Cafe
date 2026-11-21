@@ -107,3 +107,13 @@
 .fallbackNote strong { font-weight: 800; }
 .recoRow { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 0; border-radius: var(--radius-xl); background: var(--color-white); box-shadow: var(--shadow-card); text-align: left; color: var(--text-primary); }
 .recoRow > svg { color: var(--color-deep-rose); }
+
+/* ---------- AI recommendations (4h) ---------- */
+.recoSummary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.recoSummary span { padding: 6px 12px; border-radius: var(--radius-pill); background: var(--color-white); font-size: var(--fs-small); font-weight: 700; color: var(--text-secondary); }
+.recoSummary button { margin-left: auto; padding: 6px 4px; border: 0; background: transparent; font-size: var(--fs-small); font-weight: 800; color: var(--color-deep-rose); text-decoration: underline; }
+.recoCard { display: flex; flex-direction: column; gap: 14px; padding: 18px; border-radius: var(--radius-xl); background: var(--color-white); box-shadow: var(--shadow-card); color: var(--text-primary); }
+.recoWhy { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-md); background: var(--rose-50); font-size: 14px; line-height: 1.45; font-weight: 600; color: var(--text-primary); }
+.recoWhy svg { flex: none; margin-top: 2px; color: var(--color-deep-rose); }
+.recoFootnote { display: flex; gap: 8px; align-items: center; padding: 0 8px; font-size: var(--fs-small); line-height: 1.5; font-weight: 600; color: var(--text-secondary); }
+.recoFootnote svg { flex: none; }

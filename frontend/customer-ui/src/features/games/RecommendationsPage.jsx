@@ -1,44 +1,47 @@
-import { useState } from 'react';
-import { ArrowLeft, Brain, Check, ChevronRight, Clock, Handshake, ListFilter, PartyPopper, Swords, Timer, Users, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { AlertCircle, ArrowLeft, Brain, Check, ChevronRight, Clock, Handshake, Info, ListFilter, PartyPopper, RefreshCw, Sparkles, Swords, Timer, Users, X } from 'lucide-react';
 import { useNavigate } from '../../app/router';
 import { MobileShell } from '../../app/shell/MobileShell';
-import { useApiQuery } from '../../shared/hooks/useApiQuery';
+import { apiRequest } from '../../shared/api/http';
 import { Button, EmptyMessage, Skeleton } from '../../shared/ui';
 import { GameIcon } from './GameIcon';
-import { DIFFICULTY, catalogPath, durationLong, players } from './gameModel';
+import { DIFFICULTY, durationLong, players } from './gameModel';
 import styles from './Games.module.css';
 
 const QUESTIONS = [
   {
     key: 'people',
     title: 'Câți jucați?',
-    options: [2, 3, 4, 5, 6].map((n) => ({ value: n, label: n === 6 ? '6 sau mai mulți' : `${n} jucători`, icon: Users })),
+    options: [2, 3, 4, 5, 6].map((n) => ({ value: n, label: n === 6 ? '6 sau mai mulți' : `${n} jucători`, short: n === 6 ? '6+ jucători' : `${n} jucători`, icon: Users })),
   },
   {
     key: 'mood',
     title: 'Ce atmosferă vreți în seara asta?',
     options: [
-      { value: 'fun', label: 'Distracție și râsete', hint: 'Party, reguli scurte', icon: PartyPopper, difficulties: ['EASY'] },
-      { value: 'relaxed', label: 'Strategie relaxată', hint: 'Gândire, dar fără stres', icon: Brain, difficulties: ['EASY', 'MEDIUM'] },
-      { value: 'team', label: 'Jucăm în echipă', hint: 'Cooperativ, toți contra jocului', icon: Handshake, keyword: 'coop' },
-      { value: 'serious', label: 'Competiție serioasă', hint: 'Jocuri lungi, grele', icon: Swords, difficulties: ['MEDIUM', 'HARD'] },
+      { value: 'FUN', label: 'Distracție și râsete', hint: 'Party, reguli scurte', icon: PartyPopper },
+      { value: 'RELAXED', label: 'Strategie relaxată', hint: 'Gândire, dar fără stres', icon: Brain },
+      { value: 'TEAM', label: 'Jucăm în echipă', hint: 'Cooperativ, toți contra jocului', icon: Handshake },
+      { value: 'SERIOUS', label: 'Competiție serioasă', hint: 'Jocuri lungi, grele', icon: Swords },
     ],
   },
   {
     key: 'time',
     title: 'Cât timp aveți?',
     options: [
-      { value: 30, label: 'Cam o jumătate de oră', icon: Timer },
-      { value: 60, label: 'Cam o oră', icon: Clock },
-      { value: null, label: 'Avem toată seara', icon: Clock },
+      { value: 30, label: 'Cam o jumătate de oră', short: 'Sub 30 min', icon: Timer },
+      { value: 60, label: 'Cam o oră', short: 'Sub 60 min', icon: Clock },
+      { value: null, label: 'Avem toată seara', short: 'Toată seara', icon: Clock },
     ],
   },
 ];
 
+// Core waits at most 8 s for the AI Service, then answers with the fallback; this leaves room for that.
+const RECOMMENDATIONS_TIMEOUT_MS = 15000;
+
 /**
- * 4g / 4i — 3 questions, then recommendations. Core has no AI recommendation service, so the
- * results are always the deterministic fallback (4i): available games matching the answers,
- * alphabetical, and labelled as such. Nothing pretends to be an AI explanation.
+ * 4g / 4h / 4i — 3 questions, then recommendations from Core. Core picks the eligible games; the AI only
+ * orders and explains them (4h). When the AI is unavailable Core returns source FALLBACK and the list is
+ * labelled as such (4i), with "Încearcă din nou cu AI".
  */
 export function RecommendationsPage() {
   const navigate = useNavigate();
@@ -90,56 +93,121 @@ export function RecommendationsPage() {
   );
 }
 
+function useRecommendations(answers, attempt) {
+  const [state, setState] = useState({ data: null, loading: true, error: null });
+  const players = answers.people?.value;
+  const mood = answers.mood?.value;
+  const maxDurationMinutes = answers.time?.value ?? null;
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setState((s) => ({ ...s, loading: true, error: null }));
+    apiRequest('/api/participant/recommendations', {
+      method: 'POST',
+      body: { players, mood, maxDurationMinutes },
+      signal: controller.signal,
+      timeoutMs: RECOMMENDATIONS_TIMEOUT_MS,
+    })
+      .then((data) => setState({ data, loading: false, error: null }))
+      .catch((error) => {
+        if (!controller.signal.aborted) setState({ data: null, loading: false, error });
+      });
+    return () => controller.abort();
+  }, [players, mood, maxDurationMinutes, attempt]);
+
+  return state;
+}
+
 function Results({ answers, onRestart }) {
   const navigate = useNavigate();
-  const people = answers.people?.value;
-  const time = answers.time?.value;
-  const mood = answers.mood;
-  const catalog = useApiQuery(catalogPath({ players: people === 6 ? null : people, maxDuration: time, availableOnly: true }));
-  const categories = useApiQuery('/api/participant/game-categories');
-
-  const coopIds = new Set((categories.data ?? []).filter((c) => mood?.keyword && c.name.toLowerCase().includes(mood.keyword)).map((c) => c.id));
-  const games = (catalog.data?.content ?? [])
-    .filter((g) => Number(g.availableCopies) > 0) // a recommendation must be something you can get now
-    .filter((g) => (people === 6 ? g.maxPlayers >= 6 : true))
-    .filter((g) => !mood?.difficulties || mood.difficulties.includes(g.difficulty))
-    .filter((g) => !mood?.keyword || coopIds.size === 0 || [...(g.categoryIds ?? [])].some((id) => coopIds.has(id)))
-    .sort((a, b) => a.title.localeCompare(b.title, 'ro'));
+  const [attempt, setAttempt] = useState(0);
+  const { data, loading, error } = useRecommendations(answers, attempt);
+  const retry = () => setAttempt((n) => n + 1);
+  const items = data?.items ?? [];
+  const isAi = data?.source === 'AI';
 
   return (
     <MobileShell title="Pentru voi" back="/games">
-      <p className={styles.fallbackNote}>
-        <ListFilter size={18} aria-hidden />
-        <span>
-          <strong>Sugestiile AI nu sunt disponibile.</strong> Mai jos sunt jocurile disponibile potrivite cu răspunsurile voastre, ordonate alfabetic.
-        </span>
-      </p>
-      {catalog.loading && !catalog.data ? (
-        <Skeleton width="100%" height={80} />
-      ) : games.length === 0 ? (
+      <div className={styles.recoSummary}>
+        {[answers.people?.short, answers.mood?.label, answers.time?.short].filter(Boolean).map((label) => (
+          <span key={label}>{label}</span>
+        ))}
+        <button type="button" onClick={onRestart}>
+          Modifică
+        </button>
+      </div>
+
+      {loading ? (
+        <>
+          <p className={styles.muted} role="status">
+            Căutăm cele mai potrivite jocuri pentru voi…
+          </p>
+          <Skeleton width="100%" height={150} />
+          <Skeleton width="100%" height={150} />
+        </>
+      ) : error ? (
+        <EmptyMessage icon={AlertCircle} title="Nu am putut încărca recomandările" action={<Button variant="secondary" onClick={retry}>Încearcă din nou</Button>}>
+          {error.detail ?? 'Verificați conexiunea și încercați din nou.'}
+        </EmptyMessage>
+      ) : items.length === 0 ? (
         <EmptyMessage icon={ListFilter} title="Niciun joc liber potrivit" action={<Button variant="secondary" onClick={onRestart}>Schimbă răspunsurile</Button>}>
           Toate jocurile potrivite sunt la alte mese acum. Întrebați personalul sau încercați alte răspunsuri.
         </EmptyMessage>
+      ) : isAi ? (
+        <>
+          {items.map(({ game, explanation }) => (
+            <article key={game.id} className={styles.recoCard}>
+              <div className={styles.cardHead}>
+                <span className={styles.icon} aria-hidden>
+                  <GameIcon id={game.id} size={26} />
+                </span>
+                <span className={styles.requestText}>
+                  <strong>{game.title}</strong>
+                  <span>
+                    {players(game)} · {durationLong(game)} · {DIFFICULTY[game.difficulty]}
+                  </span>
+                </span>
+              </div>
+              <p className={styles.recoWhy}>
+                <Sparkles size={16} aria-hidden />
+                <span>{explanation}</span>
+              </p>
+              <Button variant="secondary" fullWidth onClick={() => navigate(`/games/${game.id}`)}>
+                Vezi jocul
+              </Button>
+            </article>
+          ))}
+          <p className={styles.recoFootnote}>
+            <Info size={14} aria-hidden />
+            Sunt recomandate doar jocurile disponibile acum în cafenea.
+          </p>
+        </>
       ) : (
-        games.map((g) => (
-          <button key={g.id} type="button" className={styles.recoRow} onClick={() => navigate(`/games/${g.id}`)}>
-            <span className={styles.icon} aria-hidden>
-              <GameIcon id={g.id} size={24} />
+        <>
+          <p className={styles.fallbackNote}>
+            <ListFilter size={18} aria-hidden />
+            <span>
+              <strong>Sugestiile AI nu sunt disponibile acum.</strong> Mai jos sunt jocurile disponibile potrivite cu răspunsurile voastre: întâi cele potrivite cu atmosfera aleasă, apoi restul, alfabetic.
             </span>
-            <span className={styles.requestText}>
-              <strong>{g.title}</strong>
-              <span>
-                {players(g)} · {durationLong(g)} · {DIFFICULTY[g.difficulty]}
+          </p>
+          {items.map(({ game }) => (
+            <button key={game.id} type="button" className={styles.recoRow} onClick={() => navigate(`/games/${game.id}`)}>
+              <span className={styles.icon} aria-hidden>
+                <GameIcon id={game.id} size={24} />
               </span>
-            </span>
-            <ChevronRight size={20} aria-hidden />
-          </button>
-        ))
-      )}
-      {games.length > 0 && (
-        <Button variant="secondary" size="lg" fullWidth onClick={onRestart}>
-          Schimbă răspunsurile
-        </Button>
+              <span className={styles.requestText}>
+                <strong>{game.title}</strong>
+                <span>
+                  {players(game)} · {durationLong(game)} · {DIFFICULTY[game.difficulty]}
+                </span>
+              </span>
+              <ChevronRight size={20} aria-hidden />
+            </button>
+          ))}
+          <Button variant="secondary" size="lg" fullWidth onClick={retry}>
+            <RefreshCw size={18} aria-hidden /> Încearcă din nou cu AI
+          </Button>
+        </>
       )}
     </MobileShell>
   );
