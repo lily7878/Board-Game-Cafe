@@ -1,6 +1,7 @@
 """Settings read from environment variables (or a local, git-ignored .env file)."""
 
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -18,6 +19,9 @@ class Settings(BaseSettings):
     llm_model: str = Field(default="qwen2.5:7b", alias="LLM_MODEL")
     embed_model: str = Field(default="bge-m3", alias="EMBED_MODEL")
     llm_timeout_seconds: float = Field(default=30.0, alias="LLM_TIMEOUT_SECONDS")
+
+    # SQLite index of the rule manuals (chunks + embeddings); kept outside the repository.
+    data_dir: Path = Field(default=Path.home() / ".bgc-local" / "ai-data", alias="AI_DATA_DIR")
 
 
 @lru_cache

@@ -35,8 +35,8 @@ const QUESTIONS = [
   },
 ];
 
-// Core waits at most 8 s for the AI Service, then answers with the fallback; this leaves room for that.
-const RECOMMENDATIONS_TIMEOUT_MS = 15000;
+// Core waits at most 20 s for the AI Service, then answers with the fallback; this leaves room for that.
+const RECOMMENDATIONS_TIMEOUT_MS = 30000;
 
 /**
  * 4g / 4h / 4i — 3 questions, then recommendations from Core. Core picks the eligible games; the AI only

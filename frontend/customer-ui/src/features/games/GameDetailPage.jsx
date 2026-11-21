@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BookOpen, Dices, MessageCircleOff } from 'lucide-react';
+import { BookOpen, Dices, MessageCircleOff, MessagesSquare } from 'lucide-react';
 import { useLiveRefetch } from '../../app/live/useLiveRefetch';
 import { useNavigate } from '../../app/router';
 import { MobileShell } from '../../app/shell/MobileShell';
@@ -14,8 +14,8 @@ import styles from './Games.module.css';
 
 /**
  * 4d — game details and the request confirmation sheet (availability, games at the table x/3).
- * 4f — the rules assistant needs a processed PDF manual; Core has none yet, so the screen says
- * so explicitly instead of inventing rules. The short rules written by the manager are shown.
+ * 4e / 4f — with a READY manual the page links to the rules assistant; without one it says so
+ * explicitly instead of inventing rules. The short rules written by the manager are always shown.
  */
 export function GameDetailPage({ gameId }) {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export function GameDetailPage({ gameId }) {
   const game = useApiQuery(`/api/participant/games/${gameId}`);
   const current = useApiQuery('/api/participant/sessions/current');
   const categories = useApiQuery('/api/participant/game-categories');
+  const rules = useApiQuery(`/api/participant/games/${gameId}/rules/status`);
   useLiveRefetch(game.refetch, ['games.', 'game.']);
   useLiveRefetch(current.refetch, ['game.', 'session.']);
   const [confirming, setConfirming] = useState(false);
@@ -107,10 +108,16 @@ export function GameDetailPage({ gameId }) {
           <BookOpen size={18} aria-hidden /> Reguli pe scurt
         </h3>
         {g.shortRules ? <p>{g.shortRules}</p> : <p className={styles.muted}>Nu există încă un rezumat al regulilor.</p>}
-        <div className={styles.assistantOff}>
-          <MessageCircleOff size={18} aria-hidden />
-          <span>Asistentul de reguli nu este disponibil pentru acest joc: manualul nu a fost încărcat. Personalul vă poate explica regulile.</span>
-        </div>
+        {rules.data?.available ? (
+          <Button variant="secondary" fullWidth onClick={() => navigate(`/games/${gameId}/reguli`)}>
+            <MessagesSquare size={18} aria-hidden /> Întreabă despre reguli
+          </Button>
+        ) : (
+          <div className={styles.assistantOff}>
+            <MessageCircleOff size={18} aria-hidden />
+            <span>Asistentul de reguli nu este disponibil pentru acest joc: manualul nu a fost încărcat. Personalul vă poate explica regulile.</span>
+          </div>
+        )}
       </section>
 
       <Button size="lg" fullWidth disabled={checkout || g.availableCopies === 0} onClick={() => setConfirming(true)}>

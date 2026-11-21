@@ -52,7 +52,9 @@ export async function apiRequest(
   signal?.addEventListener('abort', onCallerAbort);
 
   const headers = { Accept: responseType === 'blob' ? '*/*' : 'application/json' };
-  if (body !== undefined) headers['Content-Type'] = 'application/json';
+  // FormData (file upload): the browser sets the multipart Content-Type with its boundary.
+  const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
+  if (body !== undefined && !isForm) headers['Content-Type'] = 'application/json';
   const token = auth ? tokenProvider() : null;
   if (token) headers.Authorization = `Bearer ${token}`;
 
@@ -61,7 +63,7 @@ export async function apiRequest(
     response = await fetch(path, {
       method,
       headers,
-      body: body !== undefined ? JSON.stringify(body) : undefined,
+      body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
       signal: controller.signal,
     });
   } catch (err) {

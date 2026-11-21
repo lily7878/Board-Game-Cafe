@@ -41,6 +41,11 @@ public class GlobalExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, detail);
     }
 
+    @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+    public ProblemDetail handleUploadTooLarge(org.springframework.web.multipart.MaxUploadSizeExceededException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONTENT_TOO_LARGE, "PDF-ul poate avea cel mult 20 MB.");
+    }
+
     @ExceptionHandler(org.springframework.dao.DuplicateKeyException.class)
     public ProblemDetail handleDuplicateKey(org.springframework.dao.DuplicateKeyException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());

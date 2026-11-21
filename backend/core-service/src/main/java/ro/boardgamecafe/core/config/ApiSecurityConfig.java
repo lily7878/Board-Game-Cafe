@@ -34,7 +34,8 @@ public class ApiSecurityConfig {
                         "/api/participant/sessions/current/**",
                         "/api/participant/game-requests", "/api/participant/game-requests/**",
                         "/api/participant/menu", "/api/participant/orders", "/api/participant/orders/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/participant/recommendations").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/participant/recommendations",
+                        "/api/participant/games/*/rules/ask").permitAll()
                 .requestMatchers("/api/admin/me", "/api/admin/me/password",
                         "/api/admin/auth/me").hasAnyRole("STAFF", "MANAGER")
                 .requestMatchers("/api/admin/staff", "/api/admin/staff/**").hasRole("MANAGER")

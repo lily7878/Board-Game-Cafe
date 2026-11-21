@@ -25,6 +25,7 @@ class AiServiceClientTest {
             List.of(new Candidate(1, "Pandemic", List.of("Cooperativ"), 2, 4, 45, null, "MEDIUM", "desc")));
 
     private HttpServer server;
+    private final AtomicReference<String> upgradeSeen = new AtomicReference<>();
 
     @AfterEach
     void stop() {
@@ -35,6 +36,7 @@ class AiServiceClientTest {
         server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
         server.createContext("/internal/recommendations", (HttpExchange exchange) -> {
             tokenSeen.set(exchange.getRequestHeaders().getFirst("X-Internal-Token"));
+            upgradeSeen.set(exchange.getRequestHeaders().getFirst("Upgrade"));
             exchange.getRequestBody().readAllBytes();
             try { Thread.sleep(delayMillis); } catch (InterruptedException ignored) { Thread.currentThread().interrupt(); }
             byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
@@ -48,7 +50,7 @@ class AiServiceClientTest {
     }
 
     private static AiServiceClient client(String baseUrl, String token, Duration timeout) {
-        return new AiServiceClient(new AiProperties(baseUrl, token, Duration.ofSeconds(1), timeout));
+        return new AiServiceClient(new AiProperties(baseUrl, token, Duration.ofSeconds(1), timeout, timeout));
     }
 
     @Test
@@ -59,6 +61,8 @@ class AiServiceClientTest {
         var result = client(url, "secret-token-123456", Duration.ofSeconds(2)).recommend(REQUEST);
 
         assertThat(token.get()).isEqualTo("secret-token-123456");
+        // uvicorn drops the body of an h2c upgrade request, so the client must stay on plain HTTP/1.1.
+        assertThat(upgradeSeen.get()).isNull();
         assertThat(result).contains(List.of(new AiRecommendation(1L, "Jucați împreună.")));
     }
 

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { ArrowLeft, FileText, Pencil, Plus, Puzzle } from 'lucide-react';
+import { ArrowLeft, Pencil, Plus, Puzzle } from 'lucide-react';
 import { Link, useNavigate } from '../../app/router';
 import { Badge, Button, Card, EmptyMessage, RowMenu, Skeleton } from '../../shared/ui';
 import { CopyFormModal, CopyStatusModal } from './CopyModals';
 import { DIFFICULTY, copiesByGame, duration, players } from './gameModel';
 import { GameIcon } from './GameIcon';
+import { RulesPdfPanel } from './RulesPdfPanel';
 import styles from './Games.module.css';
 
 /** 2n — one game: facts, short rules, and every physical copy with where it is now. */
@@ -80,16 +81,7 @@ export function GameDetailPage({ data, gameId }) {
             ) : (
               <p className={styles.muted}>Nu există încă reguli pe scurt. Le poți adăuga din „Editează”.</p>
             )}
-            <div className={styles.pdfRow}>
-              <span className={styles.pdfIcon} aria-hidden>
-                <FileText size={18} />
-              </span>
-              <div className={styles.grow}>
-                <strong>Reguli PDF</strong>
-                <div className={styles.muted}>Încărcarea manualelor PDF nu e disponibilă încă: serviciul de documente nu există în backend.</div>
-              </div>
-              <Badge tone="neutral">În curând</Badge>
-            </div>
+            <RulesPdfPanel gameId={game.id} />
           </Card>
         </div>
 

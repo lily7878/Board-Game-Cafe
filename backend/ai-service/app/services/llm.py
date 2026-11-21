@@ -37,6 +37,8 @@ class LlmClient:
         body = {
             "model": self._settings.llm_model,
             "temperature": 0.2,
+            # 5 one-sentence explanations fit easily; the cap stops a rambling answer from eating the timeout.
+            "max_tokens": 600,
             "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": system},

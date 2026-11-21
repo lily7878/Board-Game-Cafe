@@ -116,6 +116,9 @@
 .rules { font-size: 14px; line-height: 1.6; font-weight: 500; white-space: pre-line; }
 .pdfRow { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 22px; background: var(--color-cream); font-size: 14px; }
 .pdfIcon { width: 38px; height: 38px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--color-white); color: var(--text-secondary); }
+.pdfPanel { display: flex; flex-direction: column; gap: 10px; }
+.pdfActions { display: flex; flex-wrap: wrap; gap: 8px; }
+.pdfError { padding: 10px 16px; border-radius: var(--radius-sm); background: var(--status-error-bg); color: var(--status-error-fg); font-size: var(--fs-meta); font-weight: 700; }
 .copiesTitle { display: flex; align-items: center; justify-content: space-between; }
 .copyRow { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 600; }
 .availableRow { display: flex; justify-content: space-between; padding: 14px 18px; border-radius: var(--radius-pill); background: var(--color-cream); font-size: 14px; font-weight: 600; }

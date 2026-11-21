@@ -36,9 +36,10 @@ import ro.boardgamecafe.core.integration.ai.AiServiceClient.AiRecommendation;
 @Service
 public class RecommendationService {
     static final int MAX_AI_ITEMS = 5;
-    static final int MAX_CANDIDATES = 40;
+    // Kept small on purpose: prompt size drives the local model's answer time. Mood matches come first.
+    static final int MAX_CANDIDATES = 15;
     static final int MAX_EXPLANATION_CHARS = 300;
-    private static final int MAX_DESCRIPTION_CHARS = 600;
+    private static final int MAX_DESCRIPTION_CHARS = 200;
 
     private final SessionAccessService accessService;
     private final GameCatalogService catalogService;

@@ -43,7 +43,7 @@ Stări afișate în management (din README): **Gata** (`READY`) · **În procesa
 2. **Core** construiește lista eligibilă: jocuri active, cu exemplar liber, care se potrivesc ca număr de jucători și durată. Aceasta e și lista fallback, ordonată alfabetic.
 3. Core trimite la AI răspunsurile și candidații (id, titlu, categorii, jucători, durată, dificultate, descriere scurtă). AI-ul întoarce **ordinea și câte o explicație** pentru maximum 5 jocuri.
 4. Core **validează** răspunsul AI. Elimină orice id care nu e în lista candidaților și orice duplicat; dacă nu rămâne nimic valid, folosește fallback-ul.
-5. Răspunsul către UI spune sursa: `AI` (carduri cu explicație, 4h) sau `FALLBACK` (4i, etichetat). Timeout-ul Core→AI e de **8 s**; după el se folosește fallback-ul.
+5. Răspunsul către UI spune sursa: `AI` (carduri cu explicație, 4h) sau `FALLBACK` (4i, etichetat). Timeout-ul Core→AI e de **20 s** (modelul local de 7B are nevoie de 3–10 s pentru 15 jocuri); după el se folosește fallback-ul.
 
 ## 4. Contracte Frontend → Core (*propus*)
 
@@ -93,7 +93,7 @@ Stări afișate în management (din README): **Gata** (`READY`) · **În procesa
 
 Întrebările și răspunsurile **nu se salvează** în v1. Se loghează doar contoare (număr de întrebări, `found`, durata), fără textul întrebării.
 
-**Serviciul AI:** fragmentele manualelor, cu pagina și vectorul lor, stau în **schema separată `ai`** din aceeași instanță PostgreSQL, cu extensia `pgvector` și un utilizator propriu. Core nu are acces la schema `ai`, iar AI-ul nu are acces la tabelele Core.
+**Serviciul AI (implementat):** fragmentele manualelor, cu pagina și vectorul lor (`bge-m3`), stau într-un fișier **SQLite** al serviciului AI (`%USERPROFILE%\.bgc-local\ai-data\rules.db`, configurabil prin `AI_DATA_DIR`). Căutarea e o scanare cosinus în Python, suficientă pentru câteva sute de fragmente per manual. S-a renunțat la `pgvector` pentru că extensia nu e instalată în PostgreSQL 18 local, iar pe Windows se instalează greu. Separarea rămâne: Core nu citește indexul, iar AI-ul nu are acces la tabelele Core.
 
 ## 7. Structura backend
 

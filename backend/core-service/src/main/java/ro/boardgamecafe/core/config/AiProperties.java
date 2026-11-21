@@ -6,16 +6,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Connection to the internal AI Service. An empty internal token disables AI: recommendations then always use
- * the deterministic fallback, so Core works without the AI Service running.
+ * the deterministic fallback and the rules assistant is unavailable, so Core works without the AI Service.
  */
 @ConfigurationProperties("bgc.ai")
 public record AiProperties(String baseUrl, String internalToken, Duration connectTimeout,
-        Duration recommendationsTimeout) {
+        Duration recommendationsTimeout, Duration rulesTimeout) {
 
     public AiProperties {
         if (baseUrl == null || baseUrl.isBlank()) baseUrl = "http://127.0.0.1:8081";
         if (connectTimeout == null) connectTimeout = Duration.ofSeconds(2);
-        if (recommendationsTimeout == null) recommendationsTimeout = Duration.ofSeconds(8);
+        if (recommendationsTimeout == null) recommendationsTimeout = Duration.ofSeconds(20);
+        if (rulesTimeout == null) rulesTimeout = Duration.ofSeconds(45);
     }
 
     public boolean enabled() {

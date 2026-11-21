@@ -1,0 +1,143 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 823 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(CATAN - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(Overview) Tj T*
+(Players are settlers on an island. They collect resources, build roads,) Tj T*
+(settlements and cities, and race to 10 victory points.) Tj T*
+() Tj T*
+(Components) Tj T*
+(19 terrain hexes, 6 sea frames, 18 number tokens, 95 resource cards) Tj T*
+(\(brick, lumber, wool, grain, ore\), 25 development cards and 1 robber.) Tj T*
+(Each player has 5 settlements, 4 cities and 15 roads of one color.) Tj T*
+() Tj T*
+(Setup) Tj T*
+(Build the island with the terrain hexes and place a number token on each,) Tj T*
+(except the desert. The robber starts on the desert.) Tj T*
+(Each player places 2 settlements and 2 roads. The second settlement) Tj T*
+(immediately gives one resource for every terrain hex next to it.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1001 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(Turn Overview) Tj T*
+() Tj T*
+(On your turn you do three things in this order:) Tj T*
+(1. Roll both dice. Every hex with that number produces resources for all) Tj T*
+(   players with a settlement \(1 card\) or a city \(2 cards\) on its corners.) Tj T*
+(2. Trade with other players or with the bank.) Tj T*
+(3. Build roads, settlements, cities or buy development cards.) Tj T*
+() Tj T*
+(Trading) Tj T*
+(You may trade resources with other players only during your own turn.) Tj T*
+(With the bank you can always trade 4 identical resources for 1 of your choice.) Tj T*
+(A settlement on a harbor improves this rate to 3:1, or 2:1 for one resource.) Tj T*
+() Tj T*
+(Building costs) Tj T*
+(Road: 1 brick + 1 lumber.) Tj T*
+(Settlement: 1 brick + 1 lumber + 1 wool + 1 grain.) Tj T*
+(City \(upgrade of a settlement\): 3 ore + 2 grain.) Tj T*
+(Development card: 1 ore + 1 wool + 1 grain.) Tj T*
+(Settlements must be at least two corners away from any other settlement.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 822 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(Rolling a 7 and the Robber) Tj T*
+() Tj T*
+(When a 7 is rolled, no hex produces resources.) Tj T*
+(Every player holding more than 7 resource cards must discard half of them,) Tj T*
+(rounded down.) Tj T*
+(Then the player who rolled moves the robber to any other hex and steals) Tj T*
+(1 random resource card from a player with a settlement or city on that hex.) Tj T*
+(A hex with the robber does not produce resources until the robber leaves.) Tj T*
+() Tj T*
+(Development cards) Tj T*
+(Knight: move the robber and steal 1 card.) Tj T*
+(Progress cards: Road Building, Year of Plenty and Monopoly.) Tj T*
+(Victory Point cards stay hidden until you win.) Tj T*
+(You may play only one development card per turn, and not on the turn you) Tj T*
+(bought it \(Victory Point cards excepted\).) Tj T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 595 842] /Contents 6 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 498 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(Winning the Game) Tj T*
+() Tj T*
+(The first player who has 10 or more victory points on their own turn wins.) Tj T*
+() Tj T*
+(Victory points) Tj T*
+(Settlement: 1 point. City: 2 points.) Tj T*
+(Longest Road \(at least 5 connected roads\): 2 points.) Tj T*
+(Largest Army \(at least 3 Knights played\): 2 points.) Tj T*
+(Each Victory Point development card: 1 point.) Tj T*
+() Tj T*
+(Game length) Tj T*
+(A game takes about 60 to 90 minutes with 3 or 4 players.) Tj T*
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 595 842] /Contents 8 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+10 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>
+endobj
+11 0 obj
+<< /Type /Catalog /Pages 10 0 R >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000000980 00000 n 
+0000001107 00000 n 
+0000002160 00000 n 
+0000002287 00000 n 
+0000003160 00000 n 
+0000003287 00000 n 
+0000003836 00000 n 
+0000003963 00000 n 
+0000004039 00000 n 
+trailer
+<< /Size 12 /Root 11 0 R >>
+startxref
+4090
+%%EOF

@@ -8,8 +8,9 @@ TOKEN = "test-internal-token-123456"
 
 
 @pytest.fixture
-def client(monkeypatch):
+def client(monkeypatch, tmp_path):
     monkeypatch.setenv("BGC_AI_INTERNAL_TOKEN", TOKEN)
+    monkeypatch.setenv("AI_DATA_DIR", str(tmp_path))
     from app.config import get_settings
 
     get_settings.cache_clear()

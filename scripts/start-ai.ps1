@@ -40,7 +40,8 @@ if (-not (Test-Ollama)) {
     Write-Host "Pornesc Ollama pe $ollamaUrl..." -ForegroundColor Cyan
     $env:OLLAMA_HOST = "127.0.0.1:$ollamaPort"
     $env:OLLAMA_FLASH_ATTENTION = '0'
-    $env:OLLAMA_KEEP_ALIVE = '30m'
+    # Modelul ramane incarcat cat timp ruleaza serviciul (instanta se opreste la Ctrl+C), deci nu se reincarca dupa pauze.
+    $env:OLLAMA_KEEP_ALIVE = '-1'
     $startedOllama = Start-Process -PassThru -WindowStyle Hidden $ollama 'serve'
     foreach ($i in 1..30) { if (Test-Ollama) { break }; Start-Sleep -Milliseconds 500 }
     if (-not (Test-Ollama)) { throw "Ollama nu a pornit pe $ollamaUrl." }
