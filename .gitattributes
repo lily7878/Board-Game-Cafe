@@ -1,0 +1,4 @@
+# Never convert line endings in binary files (core.autocrlf would corrupt a text-looking PDF's offsets).
+*.pdf binary
+*.png binary
+*.jpg binary
