@@ -10,8 +10,8 @@ import styles from './Games.module.css';
 
 const MAX_QUESTION = 300;
 const HISTORY_TURNS = 4;
-// Core waits up to 45 s for the AI Service (search + answer from the manual on a local model).
-const ASK_TIMEOUT_MS = 50000;
+// Core waits up to 70 s for the AI Service (search + answer from the manual on a local model).
+const ASK_TIMEOUT_MS = 80000;
 const SUGGESTIONS = ['Cum se pregătește jocul?', 'Cum se câștigă?', 'Ce pot face într-o tură?'];
 
 function pagesLabel(citations) {

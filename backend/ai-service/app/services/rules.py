@@ -58,7 +58,8 @@ async def answer(store: DocumentStore, llm: LlmClient, request: AnswerRequest) -
     history = [{"rol": t.role, "text": t.content} for t in request.history]
     user = json.dumps({"fragmente": excerpts, "conversatie_anterioara": history, "intrebare": request.question},
                       ensure_ascii=False)
-    raw = await llm.chat_json(_PROMPT, user)
+    # Low temperature: rules answers should be literal; 1000 tokens fit 4 Romanian sentences plus the JSON.
+    raw = await llm.chat_json(_PROMPT, user, temperature=0.1, max_tokens=1000)
 
     text = str(raw.get("answer") or "").strip()[:MAX_ANSWER_CHARS]
     raw_pages = raw.get("pages")

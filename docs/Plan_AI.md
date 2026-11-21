@@ -43,7 +43,7 @@ Stări afișate în management (din README): **Gata** (`READY`) · **În procesa
 2. **Core** construiește lista eligibilă: jocuri active, cu exemplar liber, care se potrivesc ca număr de jucători și durată. Aceasta e și lista fallback, ordonată alfabetic.
 3. Core trimite la AI răspunsurile și candidații (id, titlu, categorii, jucători, durată, dificultate, descriere scurtă). AI-ul întoarce **ordinea și câte o explicație** pentru maximum 5 jocuri.
 4. Core **validează** răspunsul AI. Elimină orice id care nu e în lista candidaților și orice duplicat; dacă nu rămâne nimic valid, folosește fallback-ul.
-5. Răspunsul către UI spune sursa: `AI` (carduri cu explicație, 4h) sau `FALLBACK` (4i, etichetat). Timeout-ul Core→AI e de **20 s** (modelul local de 7B are nevoie de 3–10 s pentru 15 jocuri); după el se folosește fallback-ul.
+5. Răspunsul către UI spune sursa: `AI` (carduri cu explicație, 4h) sau `FALLBACK` (4i, etichetat). Timeout-ul Core→AI e de **45 s** (`gemma2:9b` local are nevoie de 15–30 s pentru 15 jocuri); după el se folosește fallback-ul.
 
 ## 4. Contracte Frontend → Core (*propus*)
 
@@ -182,7 +182,7 @@ ai-service/
    - UI: verificare manuală cu AI pornit și oprit.
 
 ## 11. De decis înainte de implementare
-1. ~~**Furnizorul modelului**~~ **Decis:** model local, gratuit, prin **Ollama**: `qwen2.5:7b` pentru răspunsuri și `bge-m3` pentru embeddings (multilingv). Serviciul AI folosește API-ul compatibil OpenAI, deci un furnizor extern se poate configura din `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL`, fără modificări de cod. `scripts/start-ai.ps1` pornește o instanță Ollama proprie pe `127.0.0.1:11435`, cu `OLLAMA_FLASH_ATTENTION=0`, pentru că pe Vulkan + AMD RX 6800S flash attention dă răspunsuri goale.
+1. ~~**Furnizorul modelului**~~ **Decis:** model local, gratuit, prin **Ollama**: `gemma2:9b` pentru răspunsuri și `bge-m3` pentru embeddings (multilingv). `qwen2.5:7b` a fost încercat primul: e de 3–5 ori mai rapid, dar scrie o română stângace („Ceață cu șapte”, „voi trădă cu banul”); `gemma2:9b` scrie natural, cu prețul a 10–30 s pe răspuns pe RX 6800S. Timeout-urile sunt ridicate corespunzător (recomandări 45 s, reguli 70 s). Serviciul AI folosește API-ul compatibil OpenAI, deci un furnizor extern se poate configura din `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL`, fără modificări de cod. `scripts/start-ai.ps1` pornește o instanță Ollama proprie pe `127.0.0.1:11435`, cu `OLLAMA_FLASH_ATTENTION=0`, pentru că pe Vulkan + AMD RX 6800S flash attention dă răspunsuri goale.
 2. ~~**Limbajul serviciului AI**~~ **Decis:** Python + FastAPI (`backend/ai-service`).
 3. **Unde stau fișierele PDF:** folder local configurabil (propus) sau în baza de date.
 4. **Limba răspunsurilor:** manualele pot fi în engleză, iar răspunsurile ar trebui să fie în română. Citarea rămâne pagina din manualul original.

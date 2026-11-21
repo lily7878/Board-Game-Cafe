@@ -23,7 +23,7 @@ def client(monkeypatch, tmp_path):
         if state["fail"]:
             return httpx.Response(500)
         if request.url.path.endswith("/models"):
-            return httpx.Response(200, json={"data": [{"id": "qwen2.5:7b"}, {"id": "bge-m3:latest"}]})
+            return httpx.Response(200, json={"data": [{"id": get_settings().llm_model}, {"id": "bge-m3:latest"}]})
         content = json.dumps(state["answer"])
         return httpx.Response(200, json={"choices": [{"message": {"content": content}}]})
 

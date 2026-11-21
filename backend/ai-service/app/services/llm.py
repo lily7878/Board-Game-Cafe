@@ -32,13 +32,16 @@ class LlmClient:
     async def close(self) -> None:
         await self._http.aclose()
 
-    async def chat_json(self, system: str, user: str) -> dict:
-        """Sends one chat turn and returns the model's answer parsed as a JSON object."""
+    async def chat_json(self, system: str, user: str, *, temperature: float = 0.2, max_tokens: int = 600) -> dict:
+        """Sends one chat turn and returns the model's answer parsed as a JSON object.
+
+        max_tokens stops a rambling answer from eating the timeout; it must leave room for the whole JSON
+        (Romanian with diacritics costs more tokens than English), or the object arrives cut and unparsable.
+        """
         body = {
             "model": self._settings.llm_model,
-            "temperature": 0.2,
-            # 5 one-sentence explanations fit easily; the cap stops a rambling answer from eating the timeout.
-            "max_tokens": 600,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
             "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": system},

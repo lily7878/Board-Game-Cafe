@@ -37,9 +37,10 @@ import ro.boardgamecafe.core.integration.ai.AiServiceClient.AiRecommendation;
 public class RecommendationService {
     static final int MAX_AI_ITEMS = 5;
     // Kept small on purpose: prompt size drives the local model's answer time. Mood matches come first.
-    static final int MAX_CANDIDATES = 15;
+    // gemma2:9b: 10 games x 120 chars answer in ~20-28 s on the laptop GPU, inside the 45 s timeout.
+    static final int MAX_CANDIDATES = 10;
     static final int MAX_EXPLANATION_CHARS = 300;
-    private static final int MAX_DESCRIPTION_CHARS = 200;
+    private static final int MAX_DESCRIPTION_CHARS = 120;
 
     private final SessionAccessService accessService;
     private final GameCatalogService catalogService;

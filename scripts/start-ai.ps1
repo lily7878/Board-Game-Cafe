@@ -2,16 +2,16 @@
 #
 # Necesita:
 #   - Ollama instalat si pornit (gratuit, local):  winget install Ollama.Ollama
-#   - modelele descarcate o data:                   ollama pull qwen2.5:7b ; ollama pull bge-m3
+#   - modelele descarcate o data:                   ollama pull gemma2:9b ; ollama pull bge-m3
 #
 # Prima rulare creeaza mediul Python (.venv) si instaleaza dependintele din requirements.txt.
 # Secretul comun cu Core (BGC_AI_INTERNAL_TOKEN) vine din acelasi fisier criptat ca la start-backend.ps1.
 #
 # Utilizare (din radacina proiectului):
 #   powershell -ExecutionPolicy Bypass -File .\scripts\start-ai.ps1
-#   powershell -ExecutionPolicy Bypass -File .\scripts\start-ai.ps1 -Model qwen2.5:3b   # model mai mic
+#   powershell -ExecutionPolicy Bypass -File .\scripts\start-ai.ps1 -Model qwen2.5:7b   # mai rapid, romana mai slaba
 
-param([string]$Model = 'qwen2.5:7b')
+param([string]$Model = 'gemma2:9b')
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'bgc-keys.ps1')
@@ -45,6 +45,14 @@ if (-not (Test-Ollama)) {
     $startedOllama = Start-Process -PassThru -WindowStyle Hidden $ollama 'serve'
     foreach ($i in 1..30) { if (Test-Ollama) { break }; Start-Sleep -Milliseconds 500 }
     if (-not (Test-Ollama)) { throw "Ollama nu a pornit pe $ollamaUrl." }
+}
+
+# Modelele trebuie descarcate o data (ollama pull); fara ele serviciul porneste, dar nu poate raspunde.
+$installed = (Invoke-RestMethod -TimeoutSec 5 "$ollamaUrl/api/tags").models.name
+foreach ($needed in @($Model, 'bge-m3')) {
+    if (-not ($installed -contains $needed -or $installed -contains "${needed}:latest")) {
+        Write-Host "Lipseste modelul $needed. Descarca-l o data cu:  ollama pull $needed" -ForegroundColor Yellow
+    }
 }
 
 if (-not (Test-Path $venvPython)) {

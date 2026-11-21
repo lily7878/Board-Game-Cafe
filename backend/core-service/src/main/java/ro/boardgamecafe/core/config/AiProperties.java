@@ -15,8 +15,8 @@ public record AiProperties(String baseUrl, String internalToken, Duration connec
     public AiProperties {
         if (baseUrl == null || baseUrl.isBlank()) baseUrl = "http://127.0.0.1:8081";
         if (connectTimeout == null) connectTimeout = Duration.ofSeconds(2);
-        if (recommendationsTimeout == null) recommendationsTimeout = Duration.ofSeconds(20);
-        if (rulesTimeout == null) rulesTimeout = Duration.ofSeconds(45);
+        if (recommendationsTimeout == null) recommendationsTimeout = Duration.ofSeconds(45);
+        if (rulesTimeout == null) rulesTimeout = Duration.ofSeconds(70);
     }
 
     public boolean enabled() {

@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     # Any OpenAI-compatible server. Default: Ollama running locally (free, no API key).
     llm_base_url: str = Field(default="http://127.0.0.1:11434/v1", alias="LLM_BASE_URL")
     llm_api_key: str = Field(default="", alias="LLM_API_KEY")
-    llm_model: str = Field(default="qwen2.5:7b", alias="LLM_MODEL")
+    llm_model: str = Field(default="gemma2:9b", alias="LLM_MODEL")
     embed_model: str = Field(default="bge-m3", alias="EMBED_MODEL")
-    llm_timeout_seconds: float = Field(default=30.0, alias="LLM_TIMEOUT_SECONDS")
+    llm_timeout_seconds: float = Field(default=60.0, alias="LLM_TIMEOUT_SECONDS")
 
     # SQLite index of the rule manuals (chunks + embeddings); kept outside the repository.
     data_dir: Path = Field(default=Path.home() / ".bgc-local" / "ai-data", alias="AI_DATA_DIR")
