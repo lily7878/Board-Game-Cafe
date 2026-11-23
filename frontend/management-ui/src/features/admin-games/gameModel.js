@@ -33,6 +33,24 @@ export const CONDITIONS = [
   { value: 'UNAVAILABLE', label: 'Indisponibil', hint: 'Scos din circulație.' },
 ];
 
+/**
+ * Inventory codes for "add several copies": PREFIX-NN, continuing after the highest number in use.
+ * Mirrors the Core rule (InventoryCodes); used only to preview the codes — the server assigns the real ones.
+ */
+export function defaultCodePrefix(title) {
+  const ascii = (title ?? '').normalize('NFD').replace(/\p{M}/gu, '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  return ascii ? ascii.slice(0, 3) : 'JOC';
+}
+
+export function previewCodes(prefix, existingCodes, count) {
+  const numbered = new RegExp(`^${prefix.replace(/[^A-Z0-9]/g, '')}-(\\d{1,9})$`);
+  const highest = (existingCodes ?? []).reduce((max, code) => {
+    const match = numbered.exec((code ?? '').toUpperCase());
+    return match ? Math.max(max, Number(match[1])) : max;
+  }, 0);
+  return Array.from({ length: count }, (_, i) => `${prefix}-${String(highest + i + 1).padStart(2, '0')}`);
+}
+
 export const players = (g) => (g.minPlayers === g.maxPlayers ? `${g.minPlayers}` : `${g.minPlayers}–${g.maxPlayers}`);
 export const duration = (g) =>
   g.maxDurationMinutes && g.maxDurationMinutes !== g.durationMinutes ? `${g.durationMinutes}–${g.maxDurationMinutes} min` : `${g.durationMinutes} min`;
