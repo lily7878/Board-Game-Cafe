@@ -1,0 +1,84 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1010 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(DOBBLE - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Dobble has 55 round cards with 8 symbols on each. Any two cards always share exactly) Tj T*
+(one symbol. Be the fastest to spot it and say its name. Several mini-games use the) Tj T*
+(same cards.) Tj T*
+() Tj T*
+(THE TOWER) Tj T*
+(Deal one card face down to each player and put the rest face up in a pile in the) Tj T*
+(center. On "go", players turn their card over. Find the symbol shared by your card and) Tj T*
+(the center card, name it and take the center card onto your pile. Your top card) Tj T*
+(changes each time. When the center pile is empty, the player with the most cards wins.) Tj T*
+() Tj T*
+(THE WELL) Tj T*
+(Deal all cards except one, which goes face up in the center. Players turn their pile) Tj T*
+(face up. Be the first to find the symbol shared by your top card and the center card,) Tj T*
+(name it and put your card on the center. The first player with no cards left wins.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 997 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(THE HOT POTATO) Tj T*
+(Played in several rounds. Each player holds one card face down. On "go", players) Tj T*
+(reveal their card in an open hand. Find a symbol shared by your card and another) Tj T*
+(player's card, name it and put your card on theirs. That player now holds all those) Tj T*
+(cards. The last player holding cards loses the round and keeps them. After 5 rounds,) Tj T*
+(the player with the fewest cards wins.) Tj T*
+() Tj T*
+(THE POISONED GIFT) Tj T*
+(Each player gets one card face down and the rest go face up in the center. Find the) Tj T*
+(symbol shared between the center card and another player's card, name it and give the) Tj T*
+(center card to that player. When the pile is empty, the player with the fewest cards) Tj T*
+(wins.) Tj T*
+() Tj T*
+(RULES FOR ALL MINI-GAMES) Tj T*
+(If two players name a symbol at the same time, the first one to place the card wins.) Tj T*
+(The size and color of a symbol do not matter: only its shape.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001168 00000 n 
+0000001294 00000 n 
+0000002342 00000 n 
+0000002468 00000 n 
+0000002531 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2580
+%%EOF

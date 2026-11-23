@@ -1,0 +1,83 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 761 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(KING OF TOKYO - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Giant monsters fight for Tokyo. Win by reaching 20 victory points or by being the last) Tj T*
+(monster standing. Each monster starts with 10 life points and 0 victory points.) Tj T*
+() Tj T*
+(ROLLING DICE) Tj T*
+(Roll 6 dice. You may reroll any of them up to 2 more times \(3 rolls in total\). Then) Tj T*
+(resolve the final faces:) Tj T*
+(- Numbers: three of a kind scores that many points \(three 2s = 2 points\). Each extra) Tj T*
+(   die of the) Tj T*
+(same number adds 1 point.) Tj T*
+(- Heart: heal 1 life point \(not while you are in Tokyo\). The maximum is 10.) Tj T*
+(- Energy: take 1 energy cube.) Tj T*
+(- Claw: deal 1 damage.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 898 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(TOKYO) Tj T*
+(- If you are in Tokyo, your claws damage every monster outside Tokyo.) Tj T*
+(- If you are outside, your claws damage the monster in Tokyo. That monster may yield) Tj T*
+(   Tokyo; then) Tj T*
+(you must take its place.) Tj T*
+(- If Tokyo is empty, the active monster must enter it.) Tj T*
+(- Entering Tokyo gives 1 victory point. Starting your turn in Tokyo gives 2 victory) Tj T*
+(   points.) Tj T*
+(With 5 or 6 players, Tokyo Bay is also used as a second place in Tokyo.) Tj T*
+() Tj T*
+(BUYING CARDS) Tj T*
+(After resolving the dice you may buy face-up power cards with energy. You may pay 2) Tj T*
+(energy to discard the 3 face-up cards and reveal new ones. Keep cards stay in front of) Tj T*
+(you; Discard cards work once.) Tj T*
+() Tj T*
+(WINNING) Tj T*
+(The first monster to reach 20 victory points wins, or the last monster still alive.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000000918 00000 n 
+0000001044 00000 n 
+0000001993 00000 n 
+0000002119 00000 n 
+0000002182 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2231
+%%EOF

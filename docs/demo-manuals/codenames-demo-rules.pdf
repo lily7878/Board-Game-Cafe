@@ -1,0 +1,87 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1073 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(CODENAMES - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Two teams, red and blue, compete to find their secret agents first. Each team has a) Tj T*
+(spymaster who knows which words belong to which team and gives one-word clues.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Lay out 25 word cards in a 5 x 5 grid. The spymasters sit on the same side and draw a) Tj T*
+(key card that shows the secret identity of each word: 9 agents for the starting team,) Tj T*
+(8 for the other team, 7 innocent bystanders and 1 assassin. The light on the key card) Tj T*
+(shows which team starts.) Tj T*
+() Tj T*
+(GIVING A CLUE) Tj T*
+(The spymaster says one word and one number, for example "Fruit: 3". The word is a hint) Tj T*
+(about the meaning of the agents; the number says how many agents are related to it.) Tj T*
+(- The clue must be about meaning, not about letters or position on the table.) Tj T*
+(- You may not say a word that is visible on the table, or part of one.) Tj T*
+(- Spymasters keep a straight face and do not gesture.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 900 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(GUESSING) Tj T*
+(The team discusses and touches one card. The spymaster covers it with the matching) Tj T*
+(card:) Tj T*
+(- Own agent: the team may guess again.) Tj T*
+(- Bystander: the turn ends.) Tj T*
+(- Other team's agent: the turn ends and that agent counts for the other team.) Tj T*
+(- Assassin: the team loses the game immediately.) Tj T*
+() Tj T*
+(The team may make as many guesses as the number in the clue plus one extra guess. A) Tj T*
+(team may always stop guessing after its first correct guess.) Tj T*
+() Tj T*
+(CLUE OF ZERO) Tj T*
+(A spymaster may say "zero" or "unlimited" as the number. With zero, the team may guess) Tj T*
+(as many times as it wants and the clue tells them which words to avoid.) Tj T*
+() Tj T*
+(WINNING) Tj T*
+(The first team to cover all of its agents wins. A team also wins if the other team) Tj T*
+(touches the assassin.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001231 00000 n 
+0000001357 00000 n 
+0000002308 00000 n 
+0000002434 00000 n 
+0000002497 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2546
+%%EOF

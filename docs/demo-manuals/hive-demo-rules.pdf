@@ -1,0 +1,89 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1115 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(HIVE - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(An abstract strategy game for 2 players with no board. The pieces form the hive.) Tj T*
+(Surround your opponent's Queen Bee on all six sides to win.) Tj T*
+() Tj T*
+(PIECES) Tj T*
+(Each player has 11 pieces: 1 Queen Bee, 2 Spiders, 2 Beetles, 3 Grasshoppers and 3) Tj T*
+(Soldier Ants.) Tj T*
+() Tj T*
+(PLACING A PIECE) Tj T*
+(On your turn either place a new piece or move a placed piece. A new piece must touch) Tj T*
+(at least one of your own pieces and none of your opponent's \(the second piece of the) Tj T*
+(game is the exception\). Your Queen Bee must be placed by your fourth turn. You can not) Tj T*
+(move pieces until your Queen is placed.) Tj T*
+() Tj T*
+(ONE HIVE RULE) Tj T*
+(The pieces must stay connected at all times, also during a move. A piece whose removal) Tj T*
+(would split the hive can not move.) Tj T*
+() Tj T*
+(FREEDOM TO MOVE) Tj T*
+(Pieces slide around the hive. A piece can not squeeze through a gap too narrow for it,) Tj T*
+(except the Grasshopper and a Beetle climbing.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 784 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(MOVEMENT) Tj T*
+(- Queen Bee: moves one space.) Tj T*
+(- Beetle: moves one space, and may climb on top of the hive. A piece under a Beetle) Tj T*
+(   can not move.) Tj T*
+(- Grasshopper: jumps in a straight line over one or more pieces to the first empty) Tj T*
+(   space.) Tj T*
+(- Spider: moves exactly three spaces around the hive, without going back.) Tj T*
+(- Soldier Ant: moves any number of spaces around the hive.) Tj T*
+() Tj T*
+(PASSING) Tj T*
+(If you can not place or move any piece, you pass. Otherwise you must play.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(You win when your opponent's Queen Bee is surrounded on all six sides, by pieces of) Tj T*
+(any color. If both Queens become surrounded at the same time, the game is a draw.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001273 00000 n 
+0000001399 00000 n 
+0000002234 00000 n 
+0000002360 00000 n 
+0000002423 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2472
+%%EOF

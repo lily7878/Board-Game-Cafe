@@ -1,0 +1,83 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 859 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(JUST ONE - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(A cooperative party game. Players help one player guess a mystery word by each writing) Tj T*
+(a one-word clue. Identical clues cancel out, so be original. The team tries to guess) Tj T*
+(as many of 13 cards as possible.) Tj T*
+() Tj T*
+(A ROUND) Tj T*
+(1. The active player draws a card without looking at it and puts it on their easel,) Tj T*
+(   facing the) Tj T*
+(   others. They say a number from 1 to 5; that word is the mystery word.) Tj T*
+(2. Every other player secretly writes one clue on their easel.) Tj T*
+(3. Clue comparison: the active player closes their eyes. The others reveal their clues) Tj T*
+(   and remove) Tj T*
+(   identical or invalid clues.) Tj T*
+(4. The active player sees the remaining clues and has one guess.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 802 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(VALID CLUES) Tj T*
+(A clue is a single word. Not allowed: the mystery word in another language, an) Tj T*
+(invented word, a word of the same family as the mystery word \(Prince for Princess\), or) Tj T*
+(a word that sounds the same. Numbers, acronyms and symbols count as words.) Tj T*
+() Tj T*
+(RESULT OF A GUESS) Tj T*
+(- Correct: put the card face up in the success pile.) Tj T*
+(- Wrong: discard the card and also the top card of the deck.) Tj T*
+(- Skip: if unsure, the active player may skip; only that card is discarded.) Tj T*
+() Tj T*
+(SCORING) Tj T*
+(After the 13 cards are used, count the cards in the success pile: 13 is a perfect) Tj T*
+(score.) Tj T*
+() Tj T*
+(WITH 3 PLAYERS) Tj T*
+(Each non-active player writes two different clues on two easels.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001016 00000 n 
+0000001142 00000 n 
+0000001995 00000 n 
+0000002121 00000 n 
+0000002184 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2233
+%%EOF

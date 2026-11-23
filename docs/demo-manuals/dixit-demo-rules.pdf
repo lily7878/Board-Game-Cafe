@@ -1,0 +1,89 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1109 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(DIXIT - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Dixit is a storytelling game with 84 illustrated cards. One player is the storyteller) Tj T*
+(each round. The goal is to give clues that are neither too obvious nor too obscure.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Each player takes a voting set and a rabbit on the score track. Deal 6 cards to each) Tj T*
+(player. With 3 players, deal 7 cards each.) Tj T*
+() Tj T*
+(A ROUND) Tj T*
+(1. The storyteller secretly picks a card from their hand and says a clue: a word, a) Tj T*
+(   sentence,) Tj T*
+(   a sound or a song. They place the card face down.) Tj T*
+(2. Every other player picks the card from their hand that best fits the clue and gives) Tj T*
+(   it to the) Tj T*
+(   storyteller face down. With 3 players, each other player gives 2 cards.) Tj T*
+(3. The storyteller shuffles the cards and lays them face up in a row.) Tj T*
+(4. The other players secretly vote for the card they think belongs to the storyteller.) Tj T*
+(   You may not vote for your own card. The storyteller does not vote.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 869 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(SCORING) Tj T*
+(- If all players, or no player, found the storyteller's card: the storyteller scores 0) Tj T*
+(   and every) Tj T*
+(other player scores 2 points.) Tj T*
+(- Otherwise: the storyteller and each player who found the card score 3 points.) Tj T*
+(- Every player except the storyteller scores 1 point for each vote their own card) Tj T*
+(   received.) Tj T*
+() Tj T*
+(END OF THE ROUND) Tj T*
+(Everyone draws back up to 6 cards. The next player clockwise becomes the storyteller.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(The game ends when the draw pile is empty, or when a player reaches 30 points. The) Tj T*
+(player with the most points wins.) Tj T*
+() Tj T*
+(TIP) Tj T*
+(A good clue is found by some players, not by all of them. Vague clues let other) Tj T*
+(players bluff with their own cards and earn bonus points.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001267 00000 n 
+0000001393 00000 n 
+0000002313 00000 n 
+0000002439 00000 n 
+0000002502 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2551
+%%EOF

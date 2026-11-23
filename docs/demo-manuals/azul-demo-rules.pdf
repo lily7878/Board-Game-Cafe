@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1211 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(AZUL - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Players draft colored tiles and use them to decorate the wall of a palace. Points come) Tj T*
+(from placing tiles next to each other and from completing rows, columns and colors.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Use 5 factory displays with 2 players, 7 with 3 players and 9 with 4 players. Fill) Tj T*
+(each display with 4 random tiles from the bag. The first player marker goes in the) Tj T*
+(center of the table.) Tj T*
+() Tj T*
+(PHASE 1: FACTORY OFFER) Tj T*
+(On your turn, either:) Tj T*
+(- take all tiles of one color from one factory display and push the rest to the) Tj T*
+(   center, or) Tj T*
+(- take all tiles of one color from the center. The first player to take from the) Tj T*
+(   center also) Tj T*
+(takes the first player marker and puts it on their floor line. Then place the tiles on) Tj T*
+(one of your 5 pattern lines \(they hold 1 to 5 tiles\). A pattern line may hold only one) Tj T*
+(color, and not a color already placed in the matching row of your wall. Tiles that do) Tj T*
+(not fit go to your floor line. The phase ends when all displays and the center are) Tj T*
+(empty.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1098 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(PHASE 2: WALL TILING) Tj T*
+(For each complete pattern line, move one tile to the matching color space of the same) Tj T*
+(wall row and score it immediately; the other tiles of that line go to the box lid.) Tj T*
+(- A tile with no neighbours scores 1 point.) Tj T*
+(- Otherwise count the tiles connected horizontally \(including itself\) and the tiles) Tj T*
+(   connected) Tj T*
+(vertically \(including itself\) and add both numbers. Incomplete pattern lines stay for) Tj T*
+(the next round.) Tj T*
+() Tj T*
+(FLOOR LINE) Tj T*
+(Each tile on the floor line loses points: -1, -1, -2, -2, -2, -3, -3. Your score can) Tj T*
+(not drop below 0. The player with the first player marker starts the next round.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(The game ends after the round in which at least one player completes a horizontal row) Tj T*
+(of 5 tiles. End bonuses: 2 points per complete row, 7 points per complete column and) Tj T*
+(10 points for each color that has all 5 tiles on the wall. The most points wins; on a) Tj T*
+(tie, the most complete rows wins.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001369 00000 n 
+0000001495 00000 n 
+0000002645 00000 n 
+0000002771 00000 n 
+0000002834 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2883
+%%EOF

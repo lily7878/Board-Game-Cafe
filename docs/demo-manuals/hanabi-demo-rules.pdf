@@ -1,0 +1,84 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 690 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(HANABI - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(A cooperative card game. Players launch a fireworks show by playing cards of five) Tj T*
+(colors in ascending order from 1 to 5. The twist: you hold your cards facing away from) Tj T*
+(you, so you see everyone's cards except your own.) Tj T*
+() Tj T*
+(CARDS) Tj T*
+(50 cards in 5 colors. Each color has three 1s, two 2s, two 3s, two 4s and one 5.) Tj T*
+(There are 8 blue information tokens and 3 red fuse tokens.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(With 2 or 3 players each player gets 5 cards; with 4 or 5 players, 4 cards. Hold them) Tj T*
+(so the other players can see them.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1039 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(YOUR TURN) Tj T*
+(Do exactly one action:) Tj T*
+(1. Give information: spend a blue token and tell one player either all cards of one) Tj T*
+(   color in their) Tj T*
+(   hand or all cards of one number in their hand. You must point to all matching) Tj T*
+(   cards.) Tj T*
+(2. Discard a card: put it in the discard pile, draw a new card and regain one blue) Tj T*
+(   token.) Tj T*
+(3. Play a card: if it continues a firework of its color \(for example a red 3 after the) Tj T*
+(   red 2\),) Tj T*
+(   place it. Otherwise discard it and lose one red fuse token. Draw a new card.) Tj T*
+() Tj T*
+(Completing a firework with its 5 gives back one blue token.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(- If the third red fuse token is lost, the game ends at once and the team loses.) Tj T*
+(- If all five fireworks are complete, the team scores the maximum of 25 points.) Tj T*
+(- When the deck runs out, each player plays one last turn.) Tj T*
+(The score is the sum of the highest card of each firework.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000000847 00000 n 
+0000000973 00000 n 
+0000002064 00000 n 
+0000002190 00000 n 
+0000002253 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2302
+%%EOF

@@ -1,0 +1,113 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1862 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(PANDEMIC - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Pandemic is a cooperative game. The players are a team of disease-control specialists.) Tj T*
+(Four diseases \(blue, yellow, black and red\) spread across 48 cities. The team wins) Tj T*
+(together by discovering the cure for all four diseases, or loses together.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Place a research station in Atlanta and all pawns in Atlanta. Draw 3 infection cards) Tj T*
+(and put 3 cubes on each city, then 3 cards with 2 cubes, then 3 cards with 1 cube.) Tj T*
+(Cubes always match the color of the city. Deal player cards: 4 cards each with 2) Tj T*
+(players, 3 cards each with 3 players, 2 cards each with 4 players. Then shuffle 4) Tj T*
+(\(introductory\), 5 \(standard\) or 6 \(heroic\) Epidemic cards evenly into the player deck.) Tj T*
+() Tj T*
+(YOUR TURN) Tj T*
+(On your turn you do three steps in this order:) Tj T*
+(1. Take 4 actions.) Tj T*
+(2. Draw 2 player cards.) Tj T*
+(3. Infect cities: draw as many infection cards as the current infection rate.) Tj T*
+() Tj T*
+(ACTIONS) Tj T*
+(- Drive / Ferry: move to a city connected by a line.) Tj T*
+(- Direct Flight: discard a city card to move to that city.) Tj T*
+(- Charter Flight: discard the card of the city you are in to move to any city.) Tj T*
+(- Shuttle Flight: move from a research station to another research station.) Tj T*
+(- Build a Research Station: discard the card of the city you are in.) Tj T*
+(- Treat Disease: remove 1 cube from your city. If that disease is cured, remove all) Tj T*
+(   its cubes.) Tj T*
+(- Share Knowledge: give or take the card of the city where both players stand.) Tj T*
+(- Discover a Cure: at a research station, discard 5 city cards of the same color.) Tj T*
+(You may do the same action several times. Unused actions are lost.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1724 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(EPIDEMICS) Tj T*
+(When you draw an Epidemic card: increase the infection rate by one step, draw the) Tj T*
+(bottom card of the infection deck and put 3 cubes on that city, then shuffle the) Tj T*
+(infection discard pile and put it on top of the infection deck.) Tj T*
+() Tj T*
+(OUTBREAKS) Tj T*
+(If a city would get a 4th cube of one color, there is an outbreak instead: put 1 cube) Tj T*
+(of that color on every connected city and move the outbreak marker. Outbreaks can) Tj T*
+(chain, but each city has at most one outbreak per chain.) Tj T*
+() Tj T*
+(HAND LIMIT) Tj T*
+(Each player may hold at most 7 cards. Discard or play event cards immediately if you) Tj T*
+(have more. Event cards can be played at any time and do not cost an action.) Tj T*
+() Tj T*
+(ERADICATION) Tj T*
+(A disease is eradicated when it is cured and no cube of that color is left on the) Tj T*
+(board. Cities of that color are no longer infected.) Tj T*
+() Tj T*
+(ROLES) Tj T*
+(- Medic: removes all cubes of one color when treating; cured diseases vanish where the) Tj T*
+(   Medic is.) Tj T*
+(- Scientist: needs only 4 cards of the same color to discover a cure.) Tj T*
+(- Researcher: may give any city card when sharing knowledge.) Tj T*
+(- Operations Expert: builds a research station without discarding a card.) Tj T*
+(- Dispatcher: may move other players' pawns.) Tj T*
+(- Quarantine Specialist: prevents cube placement in its city and the connected cities.) Tj T*
+() Tj T*
+(WINNING AND LOSING) Tj T*
+(The team wins immediately when all 4 cures are discovered. The team loses if there are) Tj T*
+(8 outbreaks, if a disease runs out of cubes, or if the player deck runs out when a) Tj T*
+(player must draw.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000002020 00000 n 
+0000002146 00000 n 
+0000003922 00000 n 
+0000004048 00000 n 
+0000004111 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+4160
+%%EOF

@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1128 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(LOVE LETTER - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Players try to deliver a love letter to the princess. Each player holds one card; the) Tj T*
+(card with the highest value at the end of a round, or being the last player in the) Tj T*
+(round, wins a token.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Shuffle the deck and remove the top card face down. With 2 players, also remove 3) Tj T*
+(cards face up. Deal 1 card to each player.) Tj T*
+() Tj T*
+(YOUR TURN) Tj T*
+(Draw a card, then play one of your 2 cards face up and apply its effect.) Tj T*
+() Tj T*
+(CARDS \(VALUE, COUNT\)) Tj T*
+(- Spy \(0, 2\): no effect when played. At the end of the round, if you are the only) Tj T*
+(   player who played) Tj T*
+(or discarded a Spy, you gain a token.) Tj T*
+(- Guard \(1, 6\): name a card other than Guard; if the chosen player has it, they are) Tj T*
+(   out.) Tj T*
+(- Priest \(2, 2\): look at another player's hand.) Tj T*
+(- Baron \(3, 2\): compare hands with another player; the lower value is out.) Tj T*
+(- Handmaid \(4, 2\): you are protected until your next turn.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 916 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(CARDS \(CONTINUED\)) Tj T*
+(- Prince \(5, 2\): choose any player, yourself included, to discard their card and draw) Tj T*
+(   a new one.) Tj T*
+(- Chancellor \(6, 2\): draw 2 cards, keep 1 of your 3 cards and put 2 at the bottom of) Tj T*
+(   the deck.) Tj T*
+(- King \(7, 1\): trade hands with another player.) Tj T*
+(- Countess \(8, 1\): if you also hold the King or a Prince, you must play the Countess.) Tj T*
+(- Princess \(9, 1\): if you play or discard it, you are out of the round.) Tj T*
+() Tj T*
+(END OF A ROUND) Tj T*
+(The round ends when only one player is left, or when the deck is empty: then the) Tj T*
+(remaining players reveal their cards and the highest value wins the round. The winner) Tj T*
+(gains a token.) Tj T*
+() Tj T*
+(WINNING THE GAME) Tj T*
+(Tokens needed to win: 6 with 2 players, 5 with 3 players, 4 with 4 players, 3 with 5) Tj T*
+(or 6 players.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001286 00000 n 
+0000001412 00000 n 
+0000002379 00000 n 
+0000002505 00000 n 
+0000002568 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2617
+%%EOF

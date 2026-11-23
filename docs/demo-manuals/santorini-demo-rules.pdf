@@ -1,0 +1,84 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 898 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(SANTORINI - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(An abstract building game for 2 to 4 players on a 5 x 5 board. Each player has 2) Tj T*
+(workers. Move a worker up onto the third level of a building to win.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Starting with the youngest player, each player places their 2 workers on any free) Tj T*
+(spaces.) Tj T*
+() Tj T*
+(YOUR TURN) Tj T*
+(Choose one of your workers. It must move and then build.) Tj T*
+(1. Move to one of the 8 neighbouring spaces. A worker may move up at most one level,) Tj T*
+(   and may move) Tj T*
+(   down any number of levels. It may not move onto a space with a worker or a dome.) Tj T*
+(2. Build next to the worker that moved: a block on a free space, or a dome on top of a) Tj T*
+(   level 3) Tj T*
+(   building. A space with a dome is complete and can not be entered.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 766 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(WINNING) Tj T*
+(You win immediately when one of your workers moves up onto the third level. Being) Tj T*
+(forced to stay on level 3 or building it does not count; only moving up onto it wins.) Tj T*
+() Tj T*
+(LOSING) Tj T*
+(If you can not move any worker and then build, you lose.) Tj T*
+() Tj T*
+(GOD POWERS) Tj T*
+(In the full game each player has a God Power card that changes one rule, for example) Tj T*
+(Apollo may swap places with an opponent's worker and Atlas may build a dome at any) Tj T*
+(level. Beginners play without them.) Tj T*
+() Tj T*
+(3 AND 4 PLAYERS) Tj T*
+(With 3 players, everybody plays alone. With 4 players, play in two teams of two:) Tj T*
+(teammates share their 4 workers and take turns alternately.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001055 00000 n 
+0000001181 00000 n 
+0000001998 00000 n 
+0000002124 00000 n 
+0000002187 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2236
+%%EOF

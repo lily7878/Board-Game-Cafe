@@ -1,0 +1,95 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1118 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(GLOOMHAVEN: JAWS OF THE LION - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(A cooperative campaign of tactical battles. Each player controls a hero with a) Tj T*
+(personal deck of ability cards. Scenarios have an objective; failing it means you) Tj T*
+(replay the scenario.) Tj T*
+() Tj T*
+(A ROUND) Tj T*
+(1. Card selection: each player secretly chooses 2 ability cards. One of them is the) Tj T*
+(   leading card:) Tj T*
+(   its initiative number decides when you act. You may instead declare a long rest.) Tj T*
+(2. Monster ability cards are revealed for each monster type.) Tj T*
+(3. Everyone acts in initiative order, lowest first.) Tj T*
+(4. End of round: element infusions wane and players may take a short rest.) Tj T*
+() Tj T*
+(YOUR TURN) Tj T*
+(Perform the top action of one card and the bottom action of the other card. Cards with) Tj T*
+(a loss symbol go to the lost pile when you use that action; other cards go to the) Tj T*
+(discard pile. Instead of an action you may always do a basic attack 2 \(top\) or a basic) Tj T*
+(move 2 \(bottom\).) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1216 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(RESTING) Tj T*
+(- Long rest \(initiative 99, takes the whole turn\): heal 2, refresh spent items and) Tj T*
+(   return your) Tj T*
+(discard pile to your hand, losing one discarded card of your choice.) Tj T*
+(- Short rest \(end of round\): return your discard pile to your hand, losing one random) Tj T*
+(   card.) Tj T*
+() Tj T*
+(EXHAUSTION) Tj T*
+(A hero is exhausted when their hit points reach 0 or when they cannot play 2 cards or) Tj T*
+(rest.) Tj T*
+() Tj T*
+(ATTACK MODIFIERS) Tj T*
+(Each attack draws one modifier card: +0, +1, -1, +2, -2, x2 \(double\) or null \(miss\).) Tj T*
+(If x2 or null was drawn, shuffle the modifier deck at the end of the round.) Tj T*
+() Tj T*
+(CONDITIONS) Tj T*
+(Poison \(+1 damage taken\), Wound \(1 damage at the start of each turn\), Immobilize \(no) Tj T*
+(move\), Disarm \(no attack\), Stun \(no actions\), Muddle \(disadvantage\), Strengthen) Tj T*
+(\(advantage\), Invisible \(cannot be targeted\).) Tj T*
+() Tj T*
+(ELEMENTS) Tj T*
+(Fire, ice, air, earth, light and dark can be infused. A new infusion is strong; it) Tj T*
+(becomes waning at the end of the round and then inert. Consuming an element improves) Tj T*
+(some abilities.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001276 00000 n 
+0000001402 00000 n 
+0000002670 00000 n 
+0000002796 00000 n 
+0000002859 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2908
+%%EOF

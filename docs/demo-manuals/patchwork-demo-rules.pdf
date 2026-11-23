@@ -1,0 +1,95 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1182 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(PATCHWORK - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(A two-player puzzle game. Each player sews a quilt on a 9 x 9 board using patches.) Tj T*
+(Patches cost buttons \(the currency\) and time. The game ends when both players reach) Tj T*
+(the center of the time board.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Each player gets a quilt board and 5 buttons. Put the 33 patches in a circle around) Tj T*
+(the time board and the neutral token after the smallest patch.) Tj T*
+() Tj T*
+(WHOSE TURN) Tj T*
+(The player whose time token is further behind takes the turn. That player may play) Tj T*
+(several turns in a row. If both tokens are on the same space, the token on top plays) Tj T*
+(first.) Tj T*
+() Tj T*
+(YOUR TURN) Tj T*
+(Choose one action:) Tj T*
+(- Advance: move your time token to the space directly in front of your opponent and) Tj T*
+(   take 1 button) Tj T*
+(for each space moved.) Tj T*
+(- Buy a patch: choose one of the 3 patches in front of the neutral token, pay its) Tj T*
+(   button cost, place) Tj T*
+(it on your quilt and move your time token by its time cost. The neutral token moves to) Tj T*
+(that spot.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 918 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(PLACING PATCHES) Tj T*
+(Patches may be rotated and flipped but must not overlap other patches.) Tj T*
+() Tj T*
+(BUTTON INCOME) Tj T*
+(When your time token passes a button symbol on the time board, earn as many buttons as) Tj T*
+(there are button symbols on the patches of your quilt.) Tj T*
+() Tj T*
+(LEATHER PATCHES) Tj T*
+(The first player who passes a leather patch on the time board takes it and places it) Tj T*
+(on their quilt immediately. Leather patches are single squares.) Tj T*
+() Tj T*
+(BONUS TILE) Tj T*
+(The first player to fill a 7 x 7 square on their quilt takes the bonus tile worth 7) Tj T*
+(points.) Tj T*
+() Tj T*
+(SCORING) Tj T*
+(At the end, each player counts their buttons and loses 2 points for each empty square) Tj T*
+(of their quilt. The bonus tile adds 7 points. The highest score wins; on a tie, the) Tj T*
+(player who arrived first at the end wins.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001340 00000 n 
+0000001466 00000 n 
+0000002435 00000 n 
+0000002561 00000 n 
+0000002624 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2673
+%%EOF

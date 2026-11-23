@@ -1,0 +1,93 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1051 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(THE CREW - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(The Crew is a cooperative trick-taking game played as a campaign of missions. The crew) Tj T*
+(wins or loses each mission together. Talking about the cards in your hand is not) Tj T*
+(allowed.) Tj T*
+() Tj T*
+(CARDS) Tj T*
+(40 cards in 4 colors \(1 to 9\) and 4 rocket cards \(1 to 4\). Rockets are trumps.) Tj T*
+() Tj T*
+(SETUP OF A MISSION) Tj T*
+(Deal all cards. The player holding the rocket 4 is the commander. The logbook shows) Tj T*
+(how many task cards the mission uses. Reveal them; starting with the commander,) Tj T*
+(players take one task at a time until all are taken.) Tj T*
+() Tj T*
+(PLAYING A TRICK) Tj T*
+(The commander leads the first trick. Players must follow the color that was led if) Tj T*
+(they can. If they cannot, they may play any card, including a rocket. The highest card) Tj T*
+(of the led color wins, unless a rocket was played: then the highest rocket wins. The) Tj T*
+(winner leads the next trick.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1087 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(TASKS) Tj T*
+(A task is completed when the player who took it wins the trick that contains the task) Tj T*
+(card. If a task card is won by another player, the mission fails immediately and is) Tj T*
+(restarted.) Tj T*
+() Tj T*
+(COMMUNICATION) Tj T*
+(Once per mission each player may place one card face up in front of them and mark it) Tj T*
+(with their communication token:) Tj T*
+(- on top if it is their highest card of that color,) Tj T*
+(- at the bottom if it is their lowest card of that color,) Tj T*
+(- in the middle if it is their only card of that color.) Tj T*
+(Rocket cards can never be communicated. A communicated card is still played normally) Tj T*
+(later.) Tj T*
+() Tj T*
+(DISTRESS SIGNAL) Tj T*
+(Before the first trick, the crew may use the distress signal: every player passes one) Tj T*
+(card to the neighbour. Rockets can not be passed. The mission then counts as one extra) Tj T*
+(attempt.) Tj T*
+() Tj T*
+(WINNING) Tj T*
+(A mission succeeds when all tasks are completed. The campaign continues with the next) Tj T*
+(mission.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001209 00000 n 
+0000001335 00000 n 
+0000002474 00000 n 
+0000002600 00000 n 
+0000002663 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2712
+%%EOF
