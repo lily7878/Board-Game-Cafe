@@ -49,6 +49,25 @@ npm install
 
 ## Pornire zilnică
 
+### Varianta rapidă — toate serviciile dintr-o comandă
+
+```powershell
+cd "C:\Personal\Facultate\An_4\Sem1\SCD\Proiect"
+.\scripts\start-all.ps1
+```
+
+[start-all.ps1](../scripts/start-all.ps1) deschide câte o fereastră PowerShell pentru backend, serviciul AI, Management UI și Customer UI. Interfețele pornesc după ce backend-ul raportează `UP`; dacă lipsește `node_modules`, rulează întâi `npm install`. Serviciile care ascultă deja pe portul lor sunt sărite. Opțiuni: `-NoAi`, `-NoCustomerUi`, `-NoManagementUi`, `-AiModel qwen2.5:7b`. Fiecare serviciu se oprește cu `Ctrl+C` în fereastra lui.
+
+Pentru a opri totul dintr-o comandă:
+
+```powershell
+.\scripts\stop-all.ps1
+```
+
+[stop-all.ps1](../scripts/stop-all.ps1) închide ferestrele „BGC …” și orice proces rămas pe porturile 8082, 8081, 5174, 5173 și 11435 (inclusiv Ollama-ul proiectului, care rămâne pornit dacă fereastra AI e închisă din X). Ollama din tray (11434) nu este oprit.
+
+Pașii de mai jos pornesc serviciile manual, câte unul.
+
 ### Terminal 1 — Backend
 
 ```powershell
