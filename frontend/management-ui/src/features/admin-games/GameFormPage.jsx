@@ -206,9 +206,9 @@ function GameForm({ data, game }) {
               value={form.shortRules}
               onChange={set('shortRules')}
             />
-            <p className={styles.pdfNote}>
+            {/* <p className={styles.pdfNote}>
               <FileText size={16} aria-hidden /> Manualul PDF și asistentul de reguli nu sunt încă disponibile în backend; până atunci clienții văd aceste reguli pe scurt.
-            </p>
+            </p> */}
           </Card>
           <Card size="lg" className={`${styles.panel} ${styles.visibility}`}>
             <Toggle label="Vizibil în catalogul clienților" checked={form.active} onChange={set('active')} />
