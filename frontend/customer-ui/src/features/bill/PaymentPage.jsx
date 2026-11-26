@@ -202,7 +202,7 @@ export function PaymentPage() {
         </div>
       )}
 
-      <h2 className={styles.cardTitle}>Metodă (simulare)</h2>
+      {/* <h2 className={styles.cardTitle}>Metodă (simulare)</h2>
       <div className={styles.method} aria-checked="true" role="radio">
         <span aria-hidden>
           <CreditCard size={20} />
@@ -210,12 +210,12 @@ export function PaymentPage() {
         <strong>Card</strong>
         <Check size={20} aria-hidden />
       </div>
-      <Toggle label="Simulează o plată refuzată (demo)" checked={simulateFailure} onChange={setSimulateFailure} />
+      <Toggle label="Simulează o plată refuzată (demo)" checked={simulateFailure} onChange={setSimulateFailure} /> */}
 
       <Button size="lg" fullWidth locked={!b.paymentAllowed} submitting={busy} onClick={() => send(newKey(), Number(b.total))}>
         {b.paymentAllowed ? `Plătește ${formatMoney(b.total)}` : 'Plata e blocată'}
       </Button>
-      <p className={styles.centerNote}>Nu închideți pagina până primiți rezultatul.</p>
+      {/* <p className={styles.centerNote}>Nu închideți pagina până primiți rezultatul.</p> */}
     </MobileShell>
   );
 }

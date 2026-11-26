@@ -51,16 +51,16 @@ export function LoginPage() {
           </span>
           <span className={styles.brandText}>
             <span className={styles.brandName}>Board Game Café</span>
-            <span className={styles.brandSub}>Management</span>
+            {/* <span className={styles.brandSub}>Management</span> */}
           </span>
         </div>
-        <div className={styles.heroCopy}>
+        {/* <div className={styles.heroCopy}>
           <div className={styles.overline}>Pentru personalul cafenelei</div>
           <h1 className={styles.display}>Mesele, comenzile și jocurile, într-un singur loc.</h1>
           <p className={styles.lead}>
             Staff-ul urmărește sala în timp real. Managerul are în plus administrarea și rapoartele zilei.
           </p>
-        </div>
+        </div> */}
       </section>
 
       <div className={styles.cardWrap}>
@@ -100,10 +100,10 @@ export function LoginPage() {
             Intră în aplicație
           </Button>
 
-          <div className={styles.note}>
+          {/* <div className={styles.note}>
             <ShieldCheck size={18} className={styles.noteIcon} aria-hidden />
             <span>Rolul (Staff sau Manager) este stabilit de contul tău. Sesiunea expiră după 60 de minute.</span>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

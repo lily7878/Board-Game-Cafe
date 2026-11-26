@@ -55,7 +55,7 @@ export function AdminHubPage() {
 
   return (
     <>
-      <p className={admin.lead}>Configurarea cafenelei. Datele cu istoric se dezactivează, nu se șterg.</p>
+      {/* <p className={admin.lead}>Configurarea cafenelei. Datele cu istoric se dezactivează, nu se șterg.</p> */}
       <div className={styles.grid}>
         {modules.map((item) => {
           const Icon = item.icon;

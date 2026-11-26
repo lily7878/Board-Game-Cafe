@@ -91,12 +91,12 @@ export function TablesPage() {
             </button>
           ))}
         </div>
-        {liveStatus === 'live' && (
+        {/* {liveStatus === 'live' && (
           <span className={styles.liveHint}>
             <RefreshCw size={14} aria-hidden />
             Actualizat live
           </span>
-        )}
+        )} */}
       </div>
 
       {visible.length === 0 ? (

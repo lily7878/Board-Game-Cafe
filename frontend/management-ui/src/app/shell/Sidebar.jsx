@@ -26,7 +26,7 @@ export function Sidebar({ counters = {} }) {
         </span>
         <span className={styles.brandText}>
           <span className={styles.brandName}>Board Game Café</span>
-          <span className={styles.brandSub}>Management</span>
+          {/* <span className={styles.brandSub}>Management</span> */}
         </span>
       </div>
 
