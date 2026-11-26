@@ -20,4 +20,4 @@ Proiect universitar SCD: aplicație distribuită pentru o cafenea cu jocuri de s
 .\scripts\stop-all.ps1      # oprește tot
 ```
 
-Instalarea, configurarea, datele demo, API-ul complet, WebSocket-ul, AI-ul, baza de date și testarea sunt descrise în **[docs/Ghid_Proiect.md](docs/Ghid_Proiect.md)**.
+
