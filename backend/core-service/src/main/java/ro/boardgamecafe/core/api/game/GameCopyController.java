@@ -34,6 +34,14 @@ public class GameCopyController {
         return service.create(gameId, request);
     }
 
+    /** Adds 1-20 copies with generated inventory codes (PREFIX-NN). */
+    @PostMapping("/games/{gameId}/copies/batch")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<GameCopyResponse> createMany(@PathVariable Long gameId,
+            @Valid @RequestBody ro.boardgamecafe.core.api.game.dto.CreateGameCopiesRequest request) {
+        return service.createMany(gameId, request);
+    }
+
     @GetMapping("/games/{gameId}/copies")
     public List<GameCopyResponse> findByGame(@PathVariable Long gameId) {
         return service.findByGame(gameId);

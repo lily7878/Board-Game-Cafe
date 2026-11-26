@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1030 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(WINGSPAN - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Players are bird enthusiasts who attract birds to their wildlife preserve. The game) Tj T*
+(lasts 4 rounds. Each bird card adds a power to one of three habitats: forest,) Tj T*
+(grassland or wetland.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Each player gets 5 bird cards, 2 bonus cards and 5 food tokens \(one of each type\).) Tj T*
+(Keep up to 5 birds; for each bird kept, discard 1 food token. Keep 1 bonus card. Roll) Tj T*
+(the 5 dice into the birdfeeder.) Tj T*
+() Tj T*
+(ACTIONS) Tj T*
+(In round 1 you have 8 action cubes, then 7, 6 and 5. Each turn you use one cube for) Tj T*
+(one action:) Tj T*
+(- Play a bird: pay its food cost and an egg cost depending on the column \(0, 1, 1, 2,) Tj T*
+(   2 eggs\).) Tj T*
+(- Gain food: take dice from the birdfeeder \(forest row\).) Tj T*
+(- Lay eggs: put eggs on birds that have room \(grassland row\).) Tj T*
+(- Draw bird cards: from the tray or the deck \(wetland row\).) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1009 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(ACTIVATING A HABITAT) Tj T*
+(When you use the forest, grassland or wetland action, put your cube in the leftmost) Tj T*
+(empty space of that row and take the base reward. Then activate the brown powers of) Tj T*
+(the birds in that row, from right to left. Each power is optional.) Tj T*
+() Tj T*
+(OTHER POWERS) Tj T*
+(- White powers act once, when the bird is played.) Tj T*
+(- Pink powers act once between your turns, when the condition happens.) Tj T*
+() Tj T*
+(BIRDFEEDER) Tj T*
+(If the birdfeeder is empty, or all remaining dice show the same face, you may reroll) Tj T*
+(all dice before taking food.) Tj T*
+() Tj T*
+(END OF A ROUND) Tj T*
+(Score the round goal, then remove one action cube for the next round.) Tj T*
+() Tj T*
+(FINAL SCORING) Tj T*
+(Points on bird cards, bonus cards, round goals, 1 point per egg, 1 point per food) Tj T*
+(cached on a bird and 1 point per card tucked under a bird. The most points wins; on a) Tj T*
+(tie, the most unused food wins.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001188 00000 n 
+0000001314 00000 n 
+0000002375 00000 n 
+0000002501 00000 n 
+0000002564 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2613
+%%EOF

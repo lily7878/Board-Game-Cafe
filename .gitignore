@@ -28,3 +28,6 @@ application.properties
 # Operating systems
 .DS_Store
 Thumbs.db
+
+# Local credentials notes (never published)
+docs/Date_Login.md

@@ -27,7 +27,7 @@ export function AccessTab({ table }) {
                   </span>
                 ))}
           </div>
-          <p className={styles.personMeta}>Clientul scanează codul, introduce PIN-ul și un nume pentru a intra la masă.</p>
+          {/* <p className={styles.personMeta}>Clientul scanează codul, introduce PIN-ul și un nume pentru a intra la masă.</p> */}
           {url && (
             <a className={styles.joinLink} href={url} target="_blank" rel="noreferrer">
               {url.replace(/\/join\/.+$/, '/join/…')}
@@ -35,10 +35,10 @@ export function AccessTab({ table }) {
           )}
         </div>
       </div>
-      <p className={styles.infoNote}>
+      {/* <p className={styles.infoNote}>
         <ShieldCheck size={18} aria-hidden />
         Vizibil doar pentru personal autentificat. Codul este valabil cât sesiunea este activă și se invalidează la închidere.
-      </p>
+      </p> */}
     </>
   );
 }

@@ -54,9 +54,9 @@ export function DashboardPage() {
               <span className={styles.dot} aria-hidden /> Masa {tableLabel(s.tableNumber)} · {s.status === 'ACTIVE' ? 'activă' : 'checkout'}
             </span>
             <h2 className={styles.hello}>Bună, {s.displayName}!</h2>
-            <p className={styles.people}>
+            {/* <p className={styles.people}>
               <Users size={16} aria-hidden /> {plural(s.participants.length, 'participant conectat', 'participanți conectați')}
-            </p>
+            </p> */}
 
             <div className={styles.details}>
               <button type="button" className={styles.detailsHead} aria-expanded={expanded} onClick={() => setExpanded((e) => !e)}>
@@ -88,7 +88,7 @@ export function DashboardPage() {
             </div>
           </section>
 
-          <h2 className={styles.sectionTitle}>Ce vrei să faci?</h2>
+          {/* <h2 className={styles.sectionTitle}>Ce vrei să faci?</h2> */}
           <div className={styles.tiles}>
             <Tile icon={Coffee} title="Meniu" text="Băuturi și gustări" onClick={() => navigate('/menu')} />
             <Tile icon={Dices} title="Jocuri" text="Catalog și recomandări" onClick={() => navigate('/games')} />

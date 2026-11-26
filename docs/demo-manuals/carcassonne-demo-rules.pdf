@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1228 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(CARCASSONNE - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Players build a medieval landscape tile by tile and place followers \(meeples\) on) Tj T*
+(roads, cities, monasteries and fields to score points.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Put the start tile in the middle and shuffle the remaining 71 tiles face down. Each) Tj T*
+(player takes 8 followers of one color and puts one on the score track, keeping 7 in) Tj T*
+(supply.) Tj T*
+() Tj T*
+(YOUR TURN) Tj T*
+(1. Draw a tile and place it touching at least one tile already in play. All touching) Tj T*
+(   edges must) Tj T*
+(   match: roads to roads, cities to cities, fields to fields. If a tile cannot be) Tj T*
+(   placed anywhere,) Tj T*
+(   discard it and draw another.) Tj T*
+(2. You may place one follower from your supply on the tile you just placed: on a road) Tj T*
+(   \(thief\),) Tj T*
+(   in a city \(knight\), on a monastery \(monk\) or on a field \(farmer\). You may not place) Tj T*
+(   a follower) Tj T*
+(   on a feature that already has a follower, even far away.) Tj T*
+(3. Score every feature completed by your tile. Followers on scored features go back to) Tj T*
+(   their) Tj T*
+(   owners.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 891 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(SCORING DURING THE GAME) Tj T*
+(- Completed road: 1 point per tile.) Tj T*
+(- Completed city: 2 points per tile and 2 points per pennant \(shield\).) Tj T*
+(- Completed monastery \(surrounded by 8 tiles\): 9 points.) Tj T*
+(If several players have followers on the same completed feature, the player with the) Tj T*
+(most followers scores all the points. On a tie, all tied players score the full) Tj T*
+(points.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(The game ends after the last tile is placed. Then incomplete features score:) Tj T*
+(- Incomplete road: 1 point per tile.) Tj T*
+(- Incomplete city: 1 point per tile and 1 point per pennant.) Tj T*
+(- Incomplete monastery: 1 point plus 1 point per tile around it.) Tj T*
+(- Fields: each farmer field scores 3 points for each completed city it touches.) Tj T*
+(The player with the most points wins.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001386 00000 n 
+0000001512 00000 n 
+0000002454 00000 n 
+0000002580 00000 n 
+0000002643 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2692
+%%EOF

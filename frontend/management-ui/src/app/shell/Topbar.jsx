@@ -12,8 +12,8 @@ export function Topbar({ title }) {
     <header className={styles.topbar}>
       <h1 className={styles.title}>{title}</h1>
       <BusinessDayPill />
-      <LiveIndicator />
-      <NotificationsBell />
+      {/* <LiveIndicator /> */}
+      {/* <NotificationsBell /> */}
     </header>
   );
 }

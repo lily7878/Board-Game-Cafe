@@ -1,38 +1,23 @@
+# Board Game Café
 
-# Board Game Cafe
+Proiect universitar SCD: aplicație distribuită pentru o cafenea cu jocuri de societate.
 
-Proiect universitar SCD - aplicatie distribuita
-pentru administrarea unei cafenele cu jocuri
-de societate.
+- **Clienții** intră la masă cu QR + PIN, fără cont. Comandă din meniu, cer jocuri, primesc recomandări AI, întreabă despre reguli și plătesc împreună nota.
+- **Personalul** procesează comenzile și împrumuturile de jocuri.
+- **Managerul** administrează cafeneaua și închide zilele simulate (End of Day) cu rapoarte și export PDF.
 
-## Tehnologii
+| Componentă | Tehnologie | Port |
+|---|---|---|
+| `backend/core-service` | Java 25, Spring Boot 4, PostgreSQL 18, Flyway, WebSocket | 8082 |
+| `backend/ai-service` | Python, FastAPI, Ollama (`gemma2:9b`, `bge-m3`) | 8081 |
+| `frontend/management-ui` | React + Vite (staff și manager) | 5174 |
+| `frontend/customer-ui` | React + Vite (clienți, mobil) | 5173 |
 
-- Java 25
-- Spring Boot 4.0.8
-- Maven
-- PostgreSQL 18
-- React (planificat)
-- REST API si WebSocket
+## Pornire rapidă
 
-## Structura
+```powershell
+.\scripts\start-all.ps1     # pornește tot
+.\scripts\stop-all.ps1      # oprește tot
+```
 
-- backend/core-service - backend principal
-- backend/ai-service - serviciu AI (viitor)
-- frontend/customer-ui - interfata clienti
-- frontend/management-ui - interfata staff
-- infrastructure - configurari infrastructura
-- docs - documentatie
-
-## Stadiu
-
-Core Service include administrarea meselor, jocurilor si meniului, setarile cafenelei
-si programul informativ, ziua de business simulata, catalogul pentru clienti, sesiuni,
-cereri pentru jocuri, comenzi cu acceptare pe pozitii, nota comuna, checkout cu
-redeschidere si plata simulata idempotenta, End of Day cu rapoarte zilnice, comparatie
-intre zile si export PDF. Serviciul AI urmeaza dupa implementarea frontend-ului. Autentificarea STAFF/MANAGER si
-accesul participantilor sunt implementate pentru aceste API-uri.
-
-Pasii de rulare locala (backend + interfete) sunt in [Pornire locala](docs/Pornire_Locala.md).
-
-Configurarea secretelor si bootstrap-ul primului manager sunt descrise in
-[ghidul backend inainte de M6](docs/Backend_Pre_M6_Setup.md).
+Instalarea, configurarea, datele demo, API-ul complet, WebSocket-ul, AI-ul, baza de date și testarea sunt descrise în **[docs/Ghid_Proiect.md](docs/Ghid_Proiect.md)**.

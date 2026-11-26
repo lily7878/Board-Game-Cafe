@@ -1,0 +1,95 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1215 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(SPIRIT ISLAND - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(A cooperative strategy game. The players are spirits of an island defending it from) Tj T*
+(Invaders \(explorers, towns and cities\) who spread blight. The native Dahan can help) Tj T*
+(you.) Tj T*
+() Tj T*
+(A ROUND) Tj T*
+(1. Spirit phase: each spirit chooses one growth option \(gain presence, power cards or) Tj T*
+(   energy\), gains) Tj T*
+(   energy from its presence track and plays power cards up to its card play limit by) Tj T*
+(   paying energy.) Tj T*
+(2. Fast powers resolve.) Tj T*
+(3. Invader phase: blighted island effects, fear cards, then Ravage, Build and Explore,) Tj T*
+(   and finally) Tj T*
+(   the invader cards move one step along the track.) Tj T*
+(4. Slow powers resolve.) Tj T*
+(5. Time passes: damage on pieces heals, played cards are discarded.) Tj T*
+() Tj T*
+(INVADER ACTIONS) Tj T*
+(- Explore: lands shown on the card get an explorer if they touch a town, a city or the) Tj T*
+(   ocean.) Tj T*
+(- Build: lands shown on the card that have invaders get a new town or city.) Tj T*
+(- Ravage: invaders in the shown lands deal damage: explorer 1, town 2, city 3.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1031 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(DAMAGE AND BLIGHT) Tj T*
+(If a ravage deals 2 or more damage to a land, add 1 blight there. Damage is also dealt) Tj T*
+(to the Dahan \(2 health each\). Surviving Dahan fight back and deal 2 damage each.) Tj T*
+(Invader health: explorer 1, town 2, city 3.) Tj T*
+() Tj T*
+(FEAR) Tj T*
+(Destroying a town gives 1 fear and destroying a city 2 fear. When enough fear is) Tj T*
+(gathered, the spirits earn fear cards and the terror level rises.) Tj T*
+() Tj T*
+(WINNING) Tj T*
+(The spirits win immediately when the victory condition of the current terror level is) Tj T*
+(met:) Tj T*
+(- Terror level 1: no invaders on the island.) Tj T*
+(- Terror level 2: no towns or cities on the island.) Tj T*
+(- Terror level 3: no cities on the island.) Tj T*
+(They also win if the fear card deck is emptied.) Tj T*
+() Tj T*
+(LOSING) Tj T*
+(The spirits lose if the blight card runs out of blight, if a spirit has no presence) Tj T*
+(left on the island, or if the invader deck runs out when it must be drawn.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001373 00000 n 
+0000001499 00000 n 
+0000002582 00000 n 
+0000002708 00000 n 
+0000002771 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2820
+%%EOF

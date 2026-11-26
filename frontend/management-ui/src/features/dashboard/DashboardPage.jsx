@@ -236,10 +236,10 @@ function CurrentDayCard({ day, preview, hours }) {
         <div>
           <div className={styles.dayOverline}>Ziua curentă</div>
           <div className={styles.dayTitle}>Ziua #{preview.dayNumber}</div>
-          <div className={styles.daySub}>
+          {/* <div className={styles.daySub}>
             {origin}
             {schedule}
-          </div>
+          </div> */}
         </div>
         <button type="button" className={styles.dayLink} onClick={() => navigate('/admin/reports')}>
           <TrendingUp size={16} aria-hidden />
@@ -256,7 +256,7 @@ function CurrentDayCard({ day, preview, hours }) {
       <div className={styles.eod}>
         <span className={styles.eodIcon}>{preview.canFinalize ? <LockOpen size={18} /> : <Lock size={18} />}</span>
         <div className={styles.eodText}>
-          <div className={styles.eodTitle}>{preview.canFinalize ? 'End of Day disponibil' : 'End of Day indisponibil'}</div>
+          <div className={styles.eodTitle}>{preview.canFinalize ? 'Finalizează ziua disponibil' : 'Finalizează ziua indisponibil'}</div>
           <div className={styles.eodSub}>
             {preview.canFinalize
               ? `Toate sesiunile sunt închise. Ziua #${preview.dayNumber + 1} se deschide automat.`

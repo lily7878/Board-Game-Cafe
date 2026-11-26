@@ -117,7 +117,7 @@ export function GameDetailPage({ data, gameId }) {
         </Card>
       </div>
 
-      {adding && <CopyFormModal games={games.data} gameId={game.id} onClose={() => setAdding(false)} onSaved={data.refetchAll} />}
+      {adding && <CopyFormModal games={games.data} gameId={game.id} copies={copies.data} onClose={() => setAdding(false)} onSaved={data.refetchAll} />}
       {editing && <CopyStatusModal copy={editing} onClose={() => setEditing(null)} onSaved={data.refetchAll} />}
     </>
   );

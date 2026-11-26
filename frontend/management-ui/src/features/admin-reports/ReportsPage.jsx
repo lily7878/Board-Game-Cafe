@@ -81,10 +81,10 @@ export function ReportsPage() {
           </Card>
         ) : (
           <Card size="lg" className={styles.sideCard}>
-            <h2 className={styles.sideTitle}>Ce face End of Day</h2>
+            <h2 className={styles.sideTitle}>Ce face Butonul Finalizează Ziua</h2>
             <ol className={styles.steps}>
               <li>Salvează raportul complet al zilei, cu produsele și jocurile.</li>
-              <li>Marchează ziua ca finalizată. Se face o singură dată.</li>
+              <li>Marchează ziua ca finalizată.</li>
               <li>Deschide automat Ziua #{day.dayNumber + 1}.</li>
             </ol>
           </Card>

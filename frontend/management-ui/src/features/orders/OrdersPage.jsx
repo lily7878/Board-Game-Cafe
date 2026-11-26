@@ -175,7 +175,7 @@ export function OrdersPage() {
       ) : orders.length === 0 ? (
         <Card size="lg">
           <EmptyMessage icon={ClipboardList} title="Nicio comandă în lucru">
-            Comenzile trimise de clienți apar aici automat.
+            {/* Comenzile trimise de clienți apar aici automat. */}
           </EmptyMessage>
         </Card>
       ) : visible.length === 0 ? (

@@ -1,0 +1,86 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1116 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(DOMINION - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Dominion is a deck-building game. Each player starts with a small deck and buys cards) Tj T*
+(from the supply to improve it. Victory cards give points at the end but do nothing) Tj T*
+(during the game.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(The supply has Copper, Silver and Gold, Estates, Duchies and Provinces, Curses and 10) Tj T*
+(piles of Kingdom cards. Use 8 of each Victory card with 2 players and 12 with 3 or 4) Tj T*
+(players. Each player starts with 7 Coppers and 3 Estates, shuffles them and draws 5) Tj T*
+(cards.) Tj T*
+() Tj T*
+(YOUR TURN \(A-B-C\)) Tj T*
+(- A, Action phase: you may play 1 Action card. "+Actions" on cards let you play more.) Tj T*
+(- B, Buy phase: play Treasures from your hand and buy 1 card with a cost up to their) Tj T*
+(   total.) Tj T*
+("+Buy" on cards lets you buy more.) Tj T*
+(- C, Clean-up: discard all played cards and your hand, then draw 5 new cards.) Tj T*
+(When you need to draw and your deck is empty, shuffle your discard pile to form a new) Tj T*
+(deck.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 834 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(COSTS AND VALUES) Tj T*
+(- Copper: costs 0, gives 1 coin. Silver: costs 3, gives 2. Gold: costs 6, gives 3.) Tj T*
+(- Estate: costs 2, worth 1 point. Duchy: costs 5, worth 3. Province: costs 8, worth 6.) Tj T*
+(- Curse: worth -1 point; usually given to you by an opponent's attack.) Tj T*
+() Tj T*
+(READING KINGDOM CARDS) Tj T*
+("+1 Card" draws a card. "+1 Action" lets you play another Action. "+1 Buy" gives one) Tj T*
+(more buy. "+1 coin" adds money for the Buy phase. Attack cards affect the other) Tj T*
+(players.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(The game ends at the end of a turn when the Province pile is empty or when any 3) Tj T*
+(supply piles are empty. Count the victory points in your whole deck. The most points) Tj T*
+(wins; on a tie, the player who had fewer turns wins.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001274 00000 n 
+0000001400 00000 n 
+0000002285 00000 n 
+0000002411 00000 n 
+0000002474 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2523
+%%EOF

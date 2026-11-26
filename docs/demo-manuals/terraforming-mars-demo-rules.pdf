@@ -1,0 +1,99 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 1467 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(TERRAFORMING MARS - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Players lead corporations that make Mars habitable. Three global parameters must be) Tj T*
+(raised: temperature \(from -30 to +8 degrees\), oxygen \(from 0 to 14 percent\) and oceans) Tj T*
+(\(9 ocean tiles\). Each step you raise increases your Terraform Rating \(TR\) by 1. TR is) Tj T*
+(both income and points.) Tj T*
+() Tj T*
+(A GENERATION) Tj T*
+(1. Player order: the first player marker passes left.) Tj T*
+(2. Research: each player looks at 4 cards and buys any of them for 3 MegaCredits \(MC\)) Tj T*
+(   each.) Tj T*
+(3. Action phase: in turn order, each player takes 1 or 2 actions, then the next) Tj T*
+(   player. A player) Tj T*
+(   who passes is out until the next generation.) Tj T*
+(4. Production: energy turns into heat, then every player gains resources from their) Tj T*
+(   production.) Tj T*
+(   MC income equals TR plus MC production.) Tj T*
+() Tj T*
+(ACTIONS) Tj T*
+(- Play a card from your hand \(pay its cost and meet its requirements\).) Tj T*
+(- Use a standard project.) Tj T*
+(- Claim a milestone \(8 MC; at most 3 milestones are claimed per game\).) Tj T*
+(- Fund an award \(8, 14 and then 20 MC; at most 3 awards\).) Tj T*
+(- Use the action of a blue card \(once per generation\).) Tj T*
+(- Convert 8 plants into a greenery tile \(raises oxygen\).) Tj T*
+(- Convert 8 heat to raise the temperature by one step.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1050 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(STANDARD PROJECTS) Tj T*
+(- Sell patents: discard cards for 1 MC each.) Tj T*
+(- Power plant: 11 MC for +1 energy production.) Tj T*
+(- Asteroid: 14 MC to raise the temperature.) Tj T*
+(- Aquifer: 18 MC to place an ocean tile.) Tj T*
+(- Greenery: 23 MC to place a greenery tile.) Tj T*
+(- City: 25 MC to place a city and gain +1 MC production.) Tj T*
+() Tj T*
+(TILE PLACEMENT) Tj T*
+(Placing a tile next to an ocean gives 2 MC per adjacent ocean. Greenery must be placed) Tj T*
+(next to one of your tiles when possible. Cities may not be placed next to another) Tj T*
+(city.) Tj T*
+() Tj T*
+(END OF THE GAME) Tj T*
+(The game ends after the generation in which all three parameters reach their maximum.) Tj T*
+(Players may then convert plants into greenery one last time.) Tj T*
+() Tj T*
+(FINAL SCORING) Tj T*
+(TR + awards \(5 points first, 2 points second\) + milestones \(5 points each\) + 1 point) Tj T*
+(per greenery tile + 1 point per greenery next to each of your cities + victory points) Tj T*
+(on cards.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001625 00000 n 
+0000001751 00000 n 
+0000002853 00000 n 
+0000002979 00000 n 
+0000003042 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+3091
+%%EOF

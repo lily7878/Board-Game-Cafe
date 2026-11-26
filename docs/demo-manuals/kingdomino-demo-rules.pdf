@@ -1,0 +1,86 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Length 960 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(KINGDOMINO - Demo Rulebook \(Board Game Cafe\)) Tj T*
+() Tj T*
+(OVERVIEW) Tj T*
+(Players build a 5 x 5 kingdom from dominoes. Each domino has two terrain squares.) Tj T*
+(Crowns on the squares multiply the value of your territories.) Tj T*
+() Tj T*
+(SETUP) Tj T*
+(Each player takes a castle tile and a king. With 2 players each player uses 2 kings) Tj T*
+(and 24 dominoes are used; with 3 players use 36 dominoes; with 4 players use all 48.) Tj T*
+() Tj T*
+(A TURN) Tj T*
+(Dominoes are numbered on the back; low numbers are less valuable. Lay out a line of) Tj T*
+(new dominoes \(as many as kings\) sorted by number. In the order of the kings on the) Tj T*
+(current line, each player:) Tj T*
+(1. adds the domino under their king to their kingdom, then) Tj T*
+(2. places their king on a domino of the new line.) Tj T*
+(The position on the new line decides the order of the next turn: a lower number plays) Tj T*
+(earlier.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 2 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 887 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+56 780 Td
+(CONNECTION RULES) Tj T*
+(A domino must touch your castle \(any terrain\) or a domino with at least one matching) Tj T*
+(terrain. The kingdom must fit in a 5 x 5 grid, castle included. If you can not place a) Tj T*
+(domino legally, you discard it.) Tj T*
+() Tj T*
+(SCORING) Tj T*
+(A territory is a group of connected squares of the same terrain. Each territory scores) Tj T*
+(its number of squares multiplied by the number of crowns in it. A territory without) Tj T*
+(crowns scores 0.) Tj T*
+() Tj T*
+(OPTIONAL BONUSES) Tj T*
+(- Middle Kingdom: 10 points if your castle is in the center of your 5 x 5 kingdom.) Tj T*
+(- Harmony: 5 points if your kingdom is complete and no domino was discarded.) Tj T*
+() Tj T*
+(WINNER) Tj T*
+(The most points wins. On a tie, the player with the largest territory wins, then the) Tj T*
+(player with the most crowns.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 1 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000106 00000 n 
+0000001117 00000 n 
+0000001243 00000 n 
+0000002181 00000 n 
+0000002307 00000 n 
+0000002370 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+2419
+%%EOF

@@ -15,7 +15,9 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.boardgamecafe.core.api.game.dto.ChangeGameCopyStatusRequest;
+import ro.boardgamecafe.core.api.game.dto.CreateGameCopiesRequest;
 import ro.boardgamecafe.core.api.game.dto.CreateGameCopyRequest;
+import ro.boardgamecafe.core.domain.game.InventoryCodes;
 import ro.boardgamecafe.core.api.game.dto.GameCopyResponse;
 import ro.boardgamecafe.core.api.game.dto.GameCopySummaryResponse;
 import ro.boardgamecafe.core.domain.game.CopyCondition;
@@ -58,6 +60,27 @@ public class GameCopyService {
         }
         GameCopy copy = new GameCopy(game, inventoryCode, request.conditionStatus(), request.notes());
         return withLocations(List.of(copyRepository.saveAndFlush(copy))).get(0);
+    }
+
+    /**
+     * Adds several copies at once with generated codes (PREFIX-NN). The game row is locked so two batches
+     * for the same game cannot produce the same numbers; a clash with another game's codes is a 409.
+     */
+    @Transactional
+    public List<GameCopyResponse> createMany(Long gameId, CreateGameCopiesRequest request) {
+        Game game = gameRepository.findByIdForUpdate(gameId)
+                .orElseThrow(() -> new EntityNotFoundException("Game not found with id: " + gameId));
+        String prefix = request.codePrefix() == null || request.codePrefix().isBlank()
+                ? InventoryCodes.defaultPrefix(game.getTitle())
+                : request.codePrefix().strip().toUpperCase(java.util.Locale.ROOT);
+        List<String> codes = InventoryCodes.next(prefix, copyRepository.findCodesStartingWith(prefix + "-%"),
+                request.quantity());
+        CopyCondition condition = request.conditionStatus() == null ? CopyCondition.USABLE : request.conditionStatus();
+        String notes = request.notes() == null || request.notes().isBlank() ? null : request.notes().strip();
+        List<GameCopy> saved = copyRepository.saveAllAndFlush(
+                codes.stream().map(code -> new GameCopy(game, code, condition, notes)).toList());
+        events.catalog("games.availability-changed", gameId);
+        return withLocations(saved);
     }
 
     public List<GameCopyResponse> findByGame(Long gameId) {

@@ -28,6 +28,10 @@ public interface GameCopyRepository extends JpaRepository<GameCopy, Long> {
 
     List<GameCopy> findByGameIdOrderByIdAsc(Long gameId);
 
+    /** Inventory codes starting with the given text (case-insensitive), used to continue a numbering. */
+    @Query("select copy.inventoryCode from GameCopy copy where upper(copy.inventoryCode) like :prefix")
+    List<String> findCodesStartingWith(@Param("prefix") String upperPrefixWithWildcard);
+
     /** Inventory list across all games, filtered by code or title (case-insensitive) and condition. */
     @Query("""
             select copy from GameCopy copy join fetch copy.game game
